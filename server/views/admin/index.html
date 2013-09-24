@@ -4,11 +4,11 @@
 		<title>Adukala Admin Page</title>
 		<meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="admin/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="admin/css/bootstrap-glyphicons.css" />
-		<link rel="stylesheet" href="admin/css/fullcalendar.css" />	
-		<link rel="stylesheet" href="admin/css/unicorn.main.css" />
-		<link rel="stylesheet" href="admin/css/unicorn.grey.css" class="skin-color" />
+		<link rel="stylesheet" href="/admin/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/admin/css/bootstrap-glyphicons.css" />
+		<link rel="stylesheet" href="/admin/css/fullcalendar.css" />	
+		<link rel="stylesheet" href="/admin/css/unicorn.main.css" />
+		<link rel="stylesheet" href="/admin/css/unicorn.grey.css" class="skin-color" />
 	</head>
 	<body>
 		<div id="header">
@@ -42,12 +42,17 @@
 				<li class="submenu">
 					<a href="#"><i class="glyphicon glyphicon-th-list"></i> <span>Create</span> <span class="label">3</span></a>
 					<ul>
-						<li><a href="#">Meal</a></li>
-						<li><a href="#">Users</a></li>
-						<li><a href="#">Events</a></li>
+						<li><a href="/admin/create/meal">Meal</a></li>
+						<li><a href="/admin/create/users">Users</a></li>
+						<li><a href="/admin/create/event">Events</a></li>
 					</ul>
 				</li>
-				<li><a href="#"><i class="glyphicon glyphicon-tint"></i> <span>Edit</span></a></li>
+				<li><a href="#"><i class="glyphicon glyphicon-tint"></i> <span>Edit</span></a>
+                <ul>
+						<li><a href="/admin/edit/meal">Meal</a></li>
+						<li><a href="/admin/edit/users">Users</a></li>
+						<li><a href="/admin/edit/event">Events</a></li>
+				</ul></li>
 				<li><a href="#"><i class="glyphicon glyphicon-pencil"></i> <span>Update</span></a></li>
 				<li><a href="#"><i class="glyphicon glyphicon-th"></i> <span>View all</span></a></li>
             </ul>
@@ -116,7 +121,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="alert alert-info">
-							Welcome in the <strong>Adukala Admin Theme</strong>.!
+							Welcome in the <strong>Adukala Admin</strong>.!
 							<a href="#" data-dismiss="alert" class="close">×</a>
 						</div>
 						<div class="widget-box">
