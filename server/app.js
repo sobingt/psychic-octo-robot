@@ -32,6 +32,8 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/admin', admin.index);
+app.get('/admin/meals', admin.meal);
+app.get('/admin/users', admin.user);
 app.get('/admin/create/user', admin.createuser);
 app.get('/admin/create/meal', admin.createmeal);
 app.get('/users', user.list);
