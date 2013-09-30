@@ -28,7 +28,53 @@ exports.list = function(req, res, next) {
             }
             if (results.length > 0) {
                 res.contentType('application/json');
-                req.meals = JSON.stringify(results);
+                res.send(JSON.stringify(results));
+                res.end();
+                next();
+            }
+        });
+    }
+};
+
+
+/*
+ * GET the Meals of a particular city
+ */
+exports.getCityMeal = function(req, res, next) {
+    if (connection) {
+        var city = req.params.city;
+        var queryString = "SELECT m.name, m.description, m.picture, m.cost, m.max_allowed, GROUP_CONCAT(DISTINCT d.name) as menu, GROUP_CONCAT(DISTINCT t.name) as tags, m.advance_lead_time, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM meal m LEFT JOIN location l ON m.location_id = l.id LEFT JOIN city c ON l.city = c.id LEFT JOIN menu mn ON m.menu_id = mn.menu_id LEFT JOIN dish d ON mn.dish_id = d.id LEFT JOIN meal_tags mt ON m.id =  mt.mid LEFT JOIN tags t ON mt.tid = t.tid WHERE c.name = ? GROUP BY m.id ";
+        connection.query(queryString, city, function(errors, results, fields) {
+            if (errors) {
+                throw errors;
+            }
+            if (results.length > 0) {
+                res.contentType('application/json');
+                res.send(JSON.stringify(results));
+                res.end();
+                next();
+            }
+        });
+    }
+};
+
+
+
+/*
+ * GET the dineouts(meal_events) of a particular city
+ */
+exports.getCityDineout = function(req, res, next) {
+    if (connection) {
+        var city = req.params.city;
+        var queryString = "SELECT m.name, m.description, m.picture, m.cost, dn.date, m.max_allowed, GROUP_CONCAT(DISTINCT d.name) as menu, GROUP_CONCAT(DISTINCT t.name) as tags, m.advance_lead_time, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM dineout dn LEFT JOIN meal m ON dn.meal_id = m.id LEFT JOIN location l ON m.location_id = l.id LEFT JOIN city c ON l.city = c.id LEFT JOIN menu mn ON m.menu_id = mn.menu_id LEFT JOIN dish d ON mn.dish_id = d.id LEFT JOIN meal_tags mt ON m.id =  mt.mid LEFT JOIN tags t ON mt.tid = t.tid WHERE c.name = ? GROUP BY m.id";
+        connection.query(queryString, city, function(errors, results, fields) {
+            if (errors) {
+                throw errors;
+            }
+            if (results.length > 0) {
+                res.contentType('application/json');
+                res.send(JSON.stringify(results));
+                res.end();
                 next();
             }
         });
@@ -48,7 +94,8 @@ exports.getMeal = function(req, res, next) {
             }
             if (results.length > 0) {
                 res.contentType('application/json');
-                req.meal = JSON.stringify(results);
+                res.send(JSON.stringify(results));
+                res.end();
                 next();
             }
         });

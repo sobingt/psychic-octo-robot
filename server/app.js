@@ -66,8 +66,15 @@ app.get('/user/:id/disable', user.disable);
 app.get('/user/:id/delete', user.disable);
 app.get('/meal/:id/edit', meal.getMeal);
 
-
-
+//get routes
+app.get('/get/meal/:city', meal.getCityMeal);
+app.get('/get/dineout/:city', meal.getCityDineout);
+app.get('/get/chef/:city', user.getChefbyCity);
+app.get('/get/chef/:id', user.getChefbyId);
+app.get('/get/chef/:id/meal', user.getChefMealbyId);
+app.get('/get/chef/:id', user.getChefbyId);
+app.get('/get/chef/:id/dineout', user.getChefDineoutbyId);
+    
 app.post('update/user', user.updateUser);
 app.post('create/user', user.createUser);
 app.post('create/meal', meal.createMeal);

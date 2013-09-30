@@ -38,13 +38,94 @@ exports.getUser = function(req, res, next) {
             if (errors) throw errors;
             if (results.length > 0) {
                 res.contentType('application/json');
-                req.userInfo = JSON.stringify(results);
+                res.send(JSON.stringify(results));
+                res.end();
                 next();
             }
         });
     }
 };
 
+
+
+/*
+ * GET The homechefs by city
+ */
+exports.getChefbyCity = function(req, res, next) {
+    if (connection) {
+        var city = req.params.city;
+        var queryString = "SELECT u.fname, u.lname, u.email, u.password, u.bio, u.phone, u.picture, GROUP_CONCAT(t.name) as tags, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM homechef h LEFT JOIN user u ON h.uid = u.id LEFT JOIN location l ON l.id = u.location_id LEFT JOIN city c ON c.id = l.city LEFT JOIN user_tags ut ON u.id = ut.uid LEFT JOIN tags t ON ut.tid = t.tid WHERE c.city=?";
+        connection.query(queryString, city, function(errors, results, fields) {
+            if (errors) throw errors;
+            if (results.length > 0) {
+                res.contentType('application/json');
+                res.send(JSON.stringify(results));
+                res.end();
+                next();
+            }
+        });
+    }
+};
+
+
+/*
+ * GET The homechef by ID.
+ */
+exports.getChefbyId = function(req, res, next) {
+    if (connection) {
+        var id = req.params.id;
+        var queryString = "SELECT u.fname, u.lname, u.email, u.password, u.bio, u.phone, u.picture, GROUP_CONCAT(t.name) as tags, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM homechef h LEFT JOIN user u ON h.uid = u.id LEFT JOIN location l ON l.id = u.location_id LEFT JOIN city c ON c.id = l.city LEFT JOIN user_tags ut ON u.id = ut.uid LEFT JOIN tags t ON ut.tid = t.tid WHERE h.uid=?";
+        connection.query(queryString, id, function(errors, results, fields) {
+            if (errors) throw errors;
+            if (results.length > 0) {
+                res.contentType('application/json');
+                res.send(JSON.stringify(results));
+                res.end();
+                next();
+            }
+        });
+    }
+};
+
+
+/*
+ * GET The meals of homechef by ID.
+ */
+exports.getChefMealbyId = function(req, res, next) {
+    if (connection) {
+        var id = req.params.id;
+        var queryString = "SELECT m.name, m.description, m.picture, m.cost, m.max_allowed, GROUP_CONCAT(DISTINCT d.name) as menu, GROUP_CONCAT(DISTINCT t.name) as tags, m.advance_lead_time, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM meal m LEFT JOIN location l ON m.location_id = l.id LEFT JOIN city c ON l.city = c.id LEFT JOIN menu mn ON m.menu_id = mn.menu_id LEFT JOIN dish d ON mn.dish_id = d.id LEFT JOIN meal_tags mt ON m.id =  mt.mid LEFT JOIN tags t ON mt.tid = t.tid WHERE m.uid = ? GROUP BY m.id ";
+        connection.query(queryString, id, function(errors, results, fields) {
+            if (errors) throw errors;
+            if (results.length > 0) {
+                res.contentType('application/json');
+                res.send(JSON.stringify(results));
+                res.end();
+                next();
+            }
+        });
+    }
+};
+
+
+/*
+ * GET The Dineouts of homechef by ID.
+ */
+exports.getChefDineoutbyId = function(req, res, next) {
+    if (connection) {
+        var id = req.params.id;
+        var queryString = "SELECT m.name, m.description, m.picture, m.cost, m.max_allowed, GROUP_CONCAT(DISTINCT d.name) as menu, GROUP_CONCAT(DISTINCT t.name) as tags, do.date, m.advance_lead_time, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM dineout do LEFT JOIN meal m ON do.meal_id = m.id LEFT JOIN location l ON m.location_id = l.id LEFT JOIN city c ON l.city = c.id LEFT JOIN menu mn ON m.menu_id = mn.menu_id LEFT JOIN dish d ON mn.dish_id = d.id LEFT JOIN meal_tags mt ON m.id =  mt.mid LEFT JOIN tags t ON mt.tid = t.tid WHERE m.uid = ? GROUP BY m.id ";
+        connection.query(queryString, id, function(errors, results, fields) {
+            if (errors) throw errors;
+            if (results.length > 0) {
+                res.contentType('application/json');
+                res.send(JSON.stringify(results));
+                res.end();
+                next();
+            }
+        });
+    }
+};
 
 /*
  * UPDATE the user
@@ -54,8 +135,8 @@ exports.updateUser = function(req, res) {
     //  HASH THE PASSWORDS AND COVERT THE LANGUAGE< HOBBY TO JSON, CONVERT THE URL OF THE PICTURE.
     //
     if (connection) {
-        var queryString = "UPDATE adukala.user SET fname =?, lname =?, email =?, password =?, bio =?, phone =?, picture =?, language =?, hobby =? WHERE id = ?";
-        connection.query(queryString, [req.body.fname, req.body.lname, req.body.email, req.body.password, req.body.bio, req.body.picture, req.body.language, req.body.hobby], function(errors, rows) {
+        var queryString = "UPDATE adukala.user SET fname =?, lname =?, email =?, password =?, bio =?, phone =?, picture =? WHERE id = ?";
+        connection.query(queryString, [req.body.fname, req.body.lname, req.body.email, req.body.password, req.body.bio, req.body.picture], function(errors, rows) {
             if (errors)
                 res.send("The User cannot be saved");
         });
@@ -108,3 +189,4 @@ exports.getToken = function(req, res, next) {
         });
     }
 }
+    
