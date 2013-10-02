@@ -74,7 +74,9 @@ app.get('/get/chef/:id', user.getChefbyId);
 app.get('/get/chef/:id/meal', user.getChefMealbyId);
 app.get('/get/chef/:id', user.getChefbyId);
 app.get('/get/chef/:id/dineout', user.getChefDineoutbyId);
-    
+app.get('/get/:city/cuisines', meal.getCityCuisines);
+app.get('/get/meal/:id/menu', meal.getMealMenu);
+
 app.post('update/user', user.updateUser);
 app.post('create/user', user.createUser);
 app.post('create/meal', meal.createMeal);
