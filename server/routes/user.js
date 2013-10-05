@@ -1,9 +1,10 @@
 
-var mysql = require('mysql');
-var connection = mysql.createConnection({ host: 'localhost',
-                                        user: 'root',
-                                        password: '',
-                                        database: 'adukala'
+var mysql = require('mysql')
+, config = require('../config');
+var connection = mysql.createConnection({ host: config.database.host,
+                                        user: config.database.user,
+                                        password: config.database.password,
+                                        database: config.database.database
                                         });
 
 /*
@@ -174,10 +175,14 @@ exports.disable = function(req, res) {
     }
 };
 
+/*
+ * Get the saved token for a particular user
+ */
+
 exports.getToken = function(req, res, next) {
     if (connection) {
-        var querString = "SELECT token FROM token WHERE uid = ?";
-        connection.query(querString, req.session.uid, function(errors, results, fields) {
+        var querString = "SELECT t.token FROM token t LEFT JOIN user u ON t.uid = u.id WHERE u.email = ?";
+        connection.query(querString, req.session.username, function(errors, results, fields) {
             if (errors) {
                 throw errors;   
             }
@@ -190,3 +195,132 @@ exports.getToken = function(req, res, next) {
     }
 }
     
+/*
+ *  Function to authenticate a user 
+ */
+exports.auth = function(req, res, next){
+    var username = req.body.username;
+    var password = req.body.password;
+    var pwd = crypto.createHash('md5').update(password).digest("hex");
+    var response = '';
+    var body = '';
+    request.post('http://localhost:3000/auth',
+    { form: { username: username, password: pwd } },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            response = JSON.parse(body);
+            if(typeof response.error !== "undefined")
+            {
+                res.render('login', {error:"Wrong combination username and password"});
+            }else
+            {
+                req.uid = response[0].uid;
+                next();
+            }
+            
+        }
+        else
+        {
+            res.render('login', {error: error});
+        }
+    } 
+);
+};
+
+exports.hasAuthToken = function(req,res,next){
+    if (connection) {
+        var queryString = 'SELECT token FROM token where uid = ?';
+        connection.query(queryString, [req.uid], function(err, rows, fields) {
+            if (err) throw err;
+            if(rows.length <= 0)
+            {
+                next();
+            }
+            else
+            {
+                if(req.session.auth_token==rows[0].auth_token)
+                {
+                    res.writeHead(301,{Location: '/user/'+req.uid});
+                    res.end();
+                }
+                else
+                {
+                    auth_token = rows[0].auth_token;
+                    req.session.auth_token = auth_token;
+                    res.writeHead(301,{Location: '/user/'+req.uid});
+                    res.end();                
+                }
+
+            }
+        });
+    }
+
+};
+//app.post('/login', user.auth, user.hasAuthToken, user.requestForAuthToken);
+exports.requestForAuthToken = function(req,res){
+    var auth_token = crypto.randomBytes(48).toString('hex');
+    if (connection) {
+    
+        var queryString = 'INSERT INTO token (id, uid, token, time) VALUES (NULL, ?, ?,5259480)'
+        connection.query(queryString, [req.uid,auth_token], function(err, rows, fields) {
+            if (err) throw err;
+            else
+            {
+                req.session.auth_token = auth_token;
+                res.writeHead(301,{Location: '/user/'+req.uid});
+                res.end();
+            }
+        });
+    }
+};
+
+exports.isAuthTokenValid = function(req,res,next)
+{
+    console.log(req.url);
+    if (connection) {
+        var queryString = 'SELECT uid FROM token where token = ?';
+        connection.query(queryString, [req.session.auth_token], function(err, rows, fields) {
+            if (err) throw err;
+            if(rows.length <= 0)
+            {
+                next();
+            }
+            else
+            {
+                res.writeHead(301,{Location: '/user/'+rows[0].uid});
+                res.end();
+            }
+        });
+        }
+};
+
+exports.isAuthed = function(req,res,next)
+{
+    console.log(req.url);
+    if(typeof req.session.auth_token !== "undefined")
+    {
+        if (connection) 
+        {
+            var queryString = 'SELECT uid FROM token where auth_token = ?';
+            connection.query(queryString, [req.session.auth_token], function(err, rows, fields) {
+                if (err) throw err;
+                if(rows.length <= 0)
+                {
+                    console.log("not Token "+req.session.auth_token);
+                    //res.writeHead(301,{Location: '/login'});
+                    res.end();
+                }
+                else
+                {
+                     next();
+                }
+            });
+        }
+    }
+    else
+    {
+        console.log("not Token dude "+req.session.auth_token);
+        //res.writeHead(301,{Location: '/login'});
+        res.end();
+    }
+};

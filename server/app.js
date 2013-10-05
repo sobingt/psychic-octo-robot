@@ -39,8 +39,7 @@ app.use(express.session({
   }));
 
 app.use(function(req, res, next){
-    var uid = req.session.uid;
-    console.log("The Test");
+    var username = req.session.email;
     var user_token = user.getToken;
     if (req.session.auth_token = user_token)
         next();
