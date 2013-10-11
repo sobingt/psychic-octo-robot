@@ -1,4 +1,12 @@
 var database = require('../database');
+var mysql = require('mysql')
+, config = require('../config');
+var connection = mysql.createConnection({ host: config.database.host,
+                                        user: config.database.user,
+                                        password: config.database.password,
+                                        database: config.database.database
+                                        });
+
 /*
  * Create A New Meal
  */
@@ -109,6 +117,34 @@ exports.getCityCuisines = function(request, response) {
         });
     }
 };
+
+
+/*
+ * GET the Meal details for a particular cuisine
+ */
+exports.getMealCityCuisine = function(req, res, next) {
+  if (connection) {
+        var city = req.params.city;
+        var cuisine = req.params.cuisine;
+        if (city !== '' && cuisine !== '' ) {
+            var queryString = "SELECT  m.id, m.uid, m.name, m.description, m.picture, m.cost FROM meal m LEFT JOIN location l ON m.location_id = l.id LEFT JOIN city c ON l.city = c.id LEFT JOIN meal_tags mt ON m.id =  mt.mid LEFT JOIN tags t ON mt.tid = t.tid LEFT JOIN vocabulary v ON v.vid = t.vid WHERE c.city = ? AND v.name = 'cuisine' AND t.name=?";
+            connection.query(queryString, [city, cuisine], function(errors, results, fields) {
+                if (errors) {
+                    throw errors;
+                }
+                if (results.length > 0) {
+                    res.contentType('application/json');
+                    res.send(JSON.stringify(results));
+                    res.end();
+                    next();
+                }
+            });
+       }
+       else {
+            console.log('Error');
+       }
+   }
+}
 
 /*
  * GET the Meal details for admin edit
