@@ -119,6 +119,14 @@ exports.getCityCuisines = function(request, response) {
 };
 
 
+putImagePath = function(results) {
+    var path = results[0].picture;
+    if (results[0].id !== '') {
+        var absolutePath = config.host.url+config.host.port+'/'+path;
+        results[0].picture = absolutePath;
+    }
+}
+
 /*
  * GET the Meal details for a particular cuisine
  */
@@ -134,6 +142,7 @@ exports.getMealCityCuisine = function(req, res, next) {
                 }
                 if (results.length > 0) {
                     res.contentType('application/json');
+                    putImagePath(results);
                     res.send(JSON.stringify(results));
                     res.end();
                     next();
@@ -145,6 +154,7 @@ exports.getMealCityCuisine = function(req, res, next) {
        }
    }
 }
+
 
 /*
  * GET the Meal details for admin edit
