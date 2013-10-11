@@ -38,13 +38,13 @@ app.use(express.session({
     , expires: new Date(Date.now() + (30 * 86400 * 1000))
   }));
 
-app.use(function(req, res, next){
-    var username = req.session.email;
+app.use(function(request, response, next){
+    var username = request.session.email;
     var user_token = user.getToken;
-    if (req.session.auth_token = user_token)
+    if (request.session.auth_token = user_token)
         next();
     else
-        res.send([{'error': 404}]);
+        response.send([{'error': 404}]);
 });
 
 // development only
@@ -68,11 +68,10 @@ app.get('/meal/:id/edit', meal.getMeal);
 //get routes
 app.get('/get/meal/:city', meal.getCityMeal);
 app.get('/get/dineout/:city', meal.getCityDineout);
-app.get('/get/chef/:city', user.getChefbyCity);
 app.get('/get/chef/:id', user.getChefbyId);
 app.get('/get/chef/:id/meal', user.getChefMealbyId);
-app.get('/get/chef/:id', user.getChefbyId);
 app.get('/get/chef/:id/dineout', user.getChefDineoutbyId);
+app.get('/get/:city/chef', user.getChefbyCity);
 app.get('/get/:city/cuisines', meal.getCityCuisines);
 app.get('/get/meal/:id/menu', meal.getMealMenu);
 

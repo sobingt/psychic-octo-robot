@@ -1,26 +1,19 @@
 
-var mysql = require('mysql')
-, config = require('../config');
-var connection = mysql.createConnection({ host: config.database.host,
-                                        user: config.database.user,
-                                        password: config.database.password,
-                                        database: config.database.database
-                                        });
-
+var database = require('../database');
 /*
  * GET users listing.
  */
-exports.list = function(req, res, next){
-  if(connection) {
+exports.list = function(request, response){
+  if(database.connection) {
    var queryString = "SELECT id, fname, lname, email, role FROM user WHERE is_active = 1";
-   connection.query(queryString, function(errors, results, fields){
+   database.connection.query(queryString, function(errors, results, fields){
     if (errors) {
         throw errors;
     }
     if (results.length > 0) {  
-        res.contentType('application/json');
-        res.send(JSON.stringify(results));
-        res.end();
+        response.contentType('application/json');
+        response.send(JSON.stringify(results));
+        response.end();
         next();
     }
    });      
@@ -32,16 +25,15 @@ exports.list = function(req, res, next){
 /*
  * GET The data for the user edit form.
  */
-exports.getUser = function(req, res, next) {
-    if (connection) {
+exports.getUser = function(request, response) {
+    if (database.connection) {
         var queryString = "SELECT u.fname, u.lname, u.email, u.password, u.bio, u.phone, u.picture, GROUP_CONCAT(t.name) as tags FROM user u LEFT JOIN user_tags ut ON u.id = ut.uid LEFT JOIN tags t ON ut.tid = t.tid WHERE id=?";
-        connection.query(queryString, req.params.id, function(errors, results, fields) {
+        database.connection.query(queryString, request.params.id, function(errors, results, fields) {
             if (errors) throw errors;
             if (results.length > 0) {
-                res.contentType('application/json');
-                res.send(JSON.stringify(results));
-                res.end();
-                next();
+                response.contentType('application/json');
+                response.send(JSON.stringify(results));
+                response.end();
             }
         });
     }
@@ -52,17 +44,16 @@ exports.getUser = function(req, res, next) {
 /*
  * GET The homechefs by city
  */
-exports.getChefbyCity = function(req, res, next) {
-    if (connection) {
-        var city = req.params.city;
+exports.getChefbyCity = function(request, response) {
+    if (database.connection) {
+        var city = request.params.city;
         var queryString = "SELECT u.fname, u.lname, u.email, u.password, u.bio, u.phone, u.picture, GROUP_CONCAT(t.name) as tags, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM homechef h LEFT JOIN user u ON h.uid = u.id LEFT JOIN location l ON l.id = u.location_id LEFT JOIN city c ON c.id = l.city LEFT JOIN user_tags ut ON u.id = ut.uid LEFT JOIN tags t ON ut.tid = t.tid WHERE c.city=?";
-        connection.query(queryString, city, function(errors, results, fields) {
+        database.connection.query(queryString, city, function(errors, results, fields) {
             if (errors) throw errors;
             if (results.length > 0) {
-                res.contentType('application/json');
-                res.send(JSON.stringify(results));
-                res.end();
-                next();
+                response.contentType('application/json');
+                response.send(JSON.stringify(results));
+                response.end();
             }
         });
     }
@@ -72,17 +63,21 @@ exports.getChefbyCity = function(req, res, next) {
 /*
  * GET The homechef by ID.
  */
-exports.getChefbyId = function(req, res, next) {
-    if (connection) {
-        var id = req.params.id;
+exports.getChefbyId = function(request, response) {
+    if (database.connection) {
+        var id = request.params.id;
         var queryString = "SELECT u.fname, u.lname, u.email, u.password, u.bio, u.phone, u.picture, GROUP_CONCAT(t.name) as tags, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM homechef h LEFT JOIN user u ON h.uid = u.id LEFT JOIN location l ON l.id = u.location_id LEFT JOIN city c ON c.id = l.city LEFT JOIN user_tags ut ON u.id = ut.uid LEFT JOIN tags t ON ut.tid = t.tid WHERE h.uid=?";
-        connection.query(queryString, id, function(errors, results, fields) {
+        database.connection.query(queryString, id, function(errors, results, fields) {
             if (errors) throw errors;
             if (results.length > 0) {
-                res.contentType('application/json');
-                res.send(JSON.stringify(results));
-                res.end();
-                next();
+                response.contentType('application/json');
+                response.send(JSON.stringify(results));
+                console.log("The Error "+results.length );
+                response.end();
+            }
+            else
+            {
+             console.log("The Error")
             }
         });
     }
@@ -92,17 +87,16 @@ exports.getChefbyId = function(req, res, next) {
 /*
  * GET The meals of homechef by ID.
  */
-exports.getChefMealbyId = function(req, res, next) {
-    if (connection) {
-        var id = req.params.id;
+exports.getChefMealbyId = function(request, response) {
+    if (database.connection) {
+        var id = request.params.id;
         var queryString = "SELECT m.name, m.description, m.picture, m.cost, m.max_allowed, GROUP_CONCAT(DISTINCT d.name) as menu, GROUP_CONCAT(DISTINCT t.name) as tags, m.advance_lead_time, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM meal m LEFT JOIN location l ON m.location_id = l.id LEFT JOIN city c ON l.city = c.id LEFT JOIN menu mn ON m.menu_id = mn.menu_id LEFT JOIN dish d ON mn.dish_id = d.id LEFT JOIN meal_tags mt ON m.id =  mt.mid LEFT JOIN tags t ON mt.tid = t.tid WHERE m.uid = ? GROUP BY m.id ";
-        connection.query(queryString, id, function(errors, results, fields) {
+        database.connection.query(queryString, id, function(errors, results, fields) {
             if (errors) throw errors;
             if (results.length > 0) {
-                res.contentType('application/json');
-                res.send(JSON.stringify(results));
-                res.end();
-                next();
+                response.contentType('application/json');
+                response.send(JSON.stringify(results));
+                response.end();
             }
         });
     }
@@ -112,17 +106,16 @@ exports.getChefMealbyId = function(req, res, next) {
 /*
  * GET The Dineouts of homechef by ID.
  */
-exports.getChefDineoutbyId = function(req, res, next) {
-    if (connection) {
-        var id = req.params.id;
+exports.getChefDineoutbyId = function(request, response) {
+    if (database.connection) {
+        var id = request.params.id;
         var queryString = "SELECT m.name, m.description, m.picture, m.cost, m.max_allowed, GROUP_CONCAT(DISTINCT d.name) as menu, GROUP_CONCAT(DISTINCT t.name) as tags, do.date, m.advance_lead_time, l.street_address, l.area, c.city, l.state, l.country, l.pincode FROM dineout do LEFT JOIN meal m ON do.meal_id = m.id LEFT JOIN location l ON m.location_id = l.id LEFT JOIN city c ON l.city = c.id LEFT JOIN menu mn ON m.menu_id = mn.menu_id LEFT JOIN dish d ON mn.dish_id = d.id LEFT JOIN meal_tags mt ON m.id =  mt.mid LEFT JOIN tags t ON mt.tid = t.tid WHERE m.uid = ? GROUP BY m.id ";
-        connection.query(queryString, id, function(errors, results, fields) {
+        database.connection.query(queryString, id, function(errors, results, fields) {
             if (errors) throw errors;
             if (results.length > 0) {
-                res.contentType('application/json');
-                res.send(JSON.stringify(results));
-                res.end();
-                next();
+                response.contentType('application/json');
+                response.send(JSON.stringify(results));
+                response.end();
             }
         });
     }
@@ -131,15 +124,16 @@ exports.getChefDineoutbyId = function(req, res, next) {
 /*
  * UPDATE the user
  */
-exports.updateUser = function(req, res) {
+exports.updateUser = function(request, response) {
     //FIX ME
     //  HASH THE PASSWORDS AND COVERT THE LANGUAGE< HOBBY TO JSON, CONVERT THE URL OF THE PICTURE.
     //
-    if (connection) {
+    if (database.connection) {
         var queryString = "UPDATE adukala.user SET fname =?, lname =?, email =?, password =?, bio =?, phone =?, picture =? WHERE id = ?";
-        connection.query(queryString, [req.body.fname, req.body.lname, req.body.email, req.body.password, req.body.bio, req.body.picture], function(errors, rows) {
+        database.connection.query(queryString, [request.body.fname, request.body.lname, request.body.email, request.body.password, request.body.bio, request.body.picture], function(errors, rows) {
             if (errors)
-                res.send("The User cannot be saved");
+                response.send("The User cannot be saved");
+                response.end();
         });
     }
 };
@@ -148,16 +142,20 @@ exports.updateUser = function(req, res) {
 /*
  * INSERT a new user
  */
-exports.createUser = function(req, res) {
+exports.createUser = function(request, response) {
     
     // FIX ME
     // HASH THE PASSWORD
     // COVERT LANGUAGE AND HOBBY TO JSON
     // GET THE PICTURE UPLOAD URL
     // SET THE PROPER ROLE AND IS_ACTIVE    
-    if (connection) {
+    if (database.connection) {
         var queryString = "INSERT INTO adukala.user (fname, lname, email, password, bio, phone, picture, language, hobby, role, is_active) VALUES ('?', '?', '?', ?, '?', ?, ?, '?', '?', '?', ?)";
-        connection.query(queryString, [req.body.fname, req.body.lname, req.body.email, req.body.password, req.body.bio, req.body.phone, req.body.picture, req.body.language, req.body.hobby, req.body.role, req.body.is_active]);
+        database.connection.query(queryString, [request.body.fname, request.body.lname, request.body.email, request.body.password, request.body.bio, request.body.phone, request.body.picture, request.body.language, request.body.hobby, request.body.role, request.body.is_active], function(errors, rows) {
+            if (errors)
+                response.send("The user cannot be created because of"+errors);
+                response.end();
+        });
     }
 };
 
@@ -165,12 +163,12 @@ exports.createUser = function(req, res) {
 /*
  * DISABLE a user
  */
-exports.disable = function(req, res) {
-    if (connection) {
+exports.disable = function(request, response) {
+    if (database.connection) {
         var queryString = "UPDATE adukala.user SET is_active = 0 WHERE id = ?";
-        connection.query(queryString, req.params.id, function(errors, rows) {
+        database.connection.query(queryString, request.params.id, function(errors, rows) {
             if (errors)
-                res.send('The User cannot be disabled');
+                response.send('The user cannot be disabled beacause of'+ errors);
         });
     }
 };
@@ -179,16 +177,16 @@ exports.disable = function(req, res) {
  * Get the saved token for a particular user
  */
 
-exports.getToken = function(req, res, next) {
-    if (connection) {
+exports.getToken = function(request, response, next) {
+    if (database.connection) {
         var querString = "SELECT t.token FROM token t LEFT JOIN user u ON t.uid = u.id WHERE u.email = ?";
-        connection.query(querString, req.session.username, function(errors, results, fields) {
+        database.connection.query(querString, request.session.username, function(errors, results, fields) {
             if (errors) {
                 throw errors;   
             }
             if (results.length > 0) {
-                res.contentType('application/json');
-                req.token = JSON.stringify(results);
+                response.contentType('application/json');
+                request.token = JSON.stringify(results);
                 next();
             }
         });
@@ -198,39 +196,39 @@ exports.getToken = function(req, res, next) {
 /*
  *  Function to authenticate a user 
  */
-exports.auth = function(req, res, next){
-    var username = req.body.username;
-    var password = req.body.password;
+exports.auth = function(request, response, next){
+    var username = request.body.username;
+    var password = request.body.password;
     var pwd = crypto.createHash('md5').update(password).digest("hex");
-    var response = '';
+    var responseponse = '';
     var body = '';
-    request.post('http://localhost:3000/auth',
+    requestuest.post('/auth',
     { form: { username: username, password: pwd } },
-    function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            response = JSON.parse(body);
-            if(typeof response.error !== "undefined")
+    function (error, responseponse, body) {
+        if (!error && responseponse.statusCode == 200) {
+            responseponse = JSON.parse(body);
+            if(typeof responseponse.error !== "undefined")
             {
-                res.render('login', {error:"Wrong combination username and password"});
+                response.render('login', {error:"Wrong combination username and password"});
             }else
             {
-                req.uid = response[0].uid;
+                request.uid = responseponse[0].uid;
                 next();
             }
             
         }
         else
         {
-            res.render('login', {error: error});
+            response.render('login', {error: error});
         }
     } 
 );
 };
 
-exports.hasAuthToken = function(req,res,next){
-    if (connection) {
+exports.hasAuthToken = function(request,response,next){
+    if (database.connection) {
         var queryString = 'SELECT token FROM token where uid = ?';
-        connection.query(queryString, [req.uid], function(err, rows, fields) {
+        database.connection.query(queryString, [request.uid], function(err, rows, fields) {
             if (err) throw err;
             if(rows.length <= 0)
             {
@@ -238,17 +236,17 @@ exports.hasAuthToken = function(req,res,next){
             }
             else
             {
-                if(req.session.auth_token==rows[0].auth_token)
+                if(request.session.auth_token==rows[0].auth_token)
                 {
-                    res.writeHead(301,{Location: '/user/'+req.uid});
-                    res.end();
+                    response.writeHead(301,{Location: '/user/'+request.uid});
+                    response.end();
                 }
                 else
                 {
                     auth_token = rows[0].auth_token;
-                    req.session.auth_token = auth_token;
-                    res.writeHead(301,{Location: '/user/'+req.uid});
-                    res.end();                
+                    request.session.auth_token = auth_token;
+                    response.writeHead(301,{Location: '/user/'+request.uid});
+                    response.end();                
                 }
 
             }
@@ -256,30 +254,30 @@ exports.hasAuthToken = function(req,res,next){
     }
 
 };
-//app.post('/login', user.auth, user.hasAuthToken, user.requestForAuthToken);
-exports.requestForAuthToken = function(req,res){
+//app.post('/login', user.auth, user.hasAuthToken, user.requestuestForAuthToken);
+exports.requestuestForAuthToken = function(request,response){
     var auth_token = crypto.randomBytes(48).toString('hex');
-    if (connection) {
+    if (database.connection) {
     
         var queryString = 'INSERT INTO token (id, uid, token, time) VALUES (NULL, ?, ?,5259480)'
-        connection.query(queryString, [req.uid,auth_token], function(err, rows, fields) {
+        database.connection.query(queryString, [request.uid,auth_token], function(err, rows, fields) {
             if (err) throw err;
             else
             {
-                req.session.auth_token = auth_token;
-                res.writeHead(301,{Location: '/user/'+req.uid});
-                res.end();
+                request.session.auth_token = auth_token;
+                response.writeHead(301,{Location: '/user/'+request.uid});
+                response.end();
             }
         });
     }
 };
 
-exports.isAuthTokenValid = function(req,res,next)
+exports.isAuthTokenValid = function(request,response,next)
 {
-    console.log(req.url);
-    if (connection) {
+    console.log(request.url);
+    if (database.connection) {
         var queryString = 'SELECT uid FROM token where token = ?';
-        connection.query(queryString, [req.session.auth_token], function(err, rows, fields) {
+        database.connection.query(queryString, [request.session.auth_token], function(err, rows, fields) {
             if (err) throw err;
             if(rows.length <= 0)
             {
@@ -287,28 +285,28 @@ exports.isAuthTokenValid = function(req,res,next)
             }
             else
             {
-                res.writeHead(301,{Location: '/user/'+rows[0].uid});
-                res.end();
+                response.writeHead(301,{Location: '/user/'+rows[0].uid});
+                response.end();
             }
         });
         }
 };
 
-exports.isAuthed = function(req,res,next)
+exports.isAuthed = function(request,response,next)
 {
-    console.log(req.url);
-    if(typeof req.session.auth_token !== "undefined")
+    console.log(request.url);
+    if(typeof request.session.auth_token !== "undefined")
     {
-        if (connection) 
+        if (database.connection) 
         {
             var queryString = 'SELECT uid FROM token where auth_token = ?';
-            connection.query(queryString, [req.session.auth_token], function(err, rows, fields) {
+            database.connection.query(queryString, [request.session.auth_token], function(err, rows, fields) {
                 if (err) throw err;
                 if(rows.length <= 0)
                 {
-                    console.log("not Token "+req.session.auth_token);
-                    //res.writeHead(301,{Location: '/login'});
-                    res.end();
+                    console.log("not token "+request.session.auth_token);
+                    //response.writeHead(301,{Location: '/login'});
+                    response.end();
                 }
                 else
                 {
@@ -319,8 +317,8 @@ exports.isAuthed = function(req,res,next)
     }
     else
     {
-        console.log("not Token dude "+req.session.auth_token);
-        //res.writeHead(301,{Location: '/login'});
-        res.end();
+        console.log("not token dude "+request.session.auth_token);
+        //response.writeHead(301,{Location: '/login'});
+        response.end();
     }
 };

@@ -10,7 +10,7 @@ module.exports = {
     host:       'localhost',
     user:       'root',
     password:   'root',
-    database:   'mealo'
+    database:   'adukala'
   },
   mail: {
 	from : "support@mealo.in",
@@ -40,5 +40,5 @@ module.exports = {
     offerkey: 123456,
     apiversion: 2
   }
-
+  
 };

@@ -3,30 +3,30 @@
  * GET home page.
  */
 
-exports.index = function(req, res){
-  res.render('admin/index', { title: 'Express' });
+exports.index = function(request, response){
+  response.render('admin/index', { title: 'Express' });
 };
-exports.meal = function(req, res){
-  res.render('admin/meal', { title: 'Express' });
+exports.meal = function(request, response){
+  response.render('admin/meal', { title: 'Express' });
 };
-exports.user = function(req, res){
-  res.render('admin/user', { title: 'Express' });
+exports.user = function(request, response){
+  response.render('admin/user', { title: 'Express' });
 };
-exports.createuser = function(req, res){
-  res.render('admin/createuser', { title: 'Express' });
+exports.createuser = function(request, response){
+  response.render('admin/createuser', { title: 'Express' });
 };
-exports.createmeal = function(req, res){
-  res.render('admin/createmeal', { title: 'Express' });
+exports.createmeal = function(request, response){
+  response.render('admin/createmeal', { title: 'Express' });
 };
-exports.edituser = function(req, res){
-  res.render('admin/edituser', { title: 'Express' });
+exports.edituser = function(request, response){
+  response.render('admin/edituser', { title: 'Express' });
 };
-exports.editmeal = function(req, res){
-  res.render('admin/editmeal', { title: 'Express' });
+exports.editmeal = function(request, response){
+  response.render('admin/editmeal', { title: 'Express' });
 };
-exports.deleteuser = function(req, res){
-  res.render('admin/deleteuser', { title: 'Express' });
+exports.deleteuser = function(request, response){
+  response.render('admin/deleteuser', { title: 'Express' });
 };
-exports.deletemeal = function(req, res){
-  res.render('admin/deletemeal', { title: 'Express' });
+exports.deletemeal = function(request, response){
+  response.render('admin/deletemeal', { title: 'Express' });
 };
