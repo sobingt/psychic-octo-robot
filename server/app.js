@@ -65,7 +65,7 @@ app.get('/user/:id/disable', user.disable);
 app.get('/user/:id/delete', user.disable);
 app.get('/meal/:id/edit', meal.getMeal);
 
-//get routes
+//get routes  
 app.get('/get/meal/:city', meal.getCityMeal);
 app.get('/get/dineout/:city', meal.getCityDineout);
 app.get('/get/chef/:id', user.getChefbyId);
@@ -76,9 +76,18 @@ app.get('/get/:city/cuisines', meal.getCityCuisines);
 app.get('/get/meal/:id/menu', meal.getMealMenu);
 app.get('/get/meals/:city/:cuisine', meal.getMealCityCuisine);
 
+//FIXME CREATE A SINGLE FUCNTION AND SINGLE ROUTE FOR TAGS
+app.get('/get/tags/language', meal.getLanguageTag);
+app.get('/get/tags/hobbies', meal.getHobbiesTag);
+app.get('/get/tags/cuisine', meal.getCuisinesTag);
+app.get('/get/tags/diet', meal.getDietTag);
+app.get('/get/tags/mealtype', meal.getMealTypeTag);
+app.get('/get/tags/guestsTag', meal.getGuestsTag);
+//app.get('/get/allcities', user.getCities);
+
 app.post('update/user', user.updateUser);
-app.post('create/user', user.createUser);
-app.post('create/meal', meal.createMeal);
+app.post('/admin/create/user', user.createUser);
+app.post('/admin/create/meal', meal.createMeal);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Adukala Admin Page</title>
+		<title>FoodBMG Admin Page</title>
 		<meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/stylesheets/style.css" />
 		<link rel="stylesheet" href="/admin/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/admin/css/bootstrap-glyphicons.css" />
 		<link rel="stylesheet" href="/admin/css/fullcalendar.css" />	
 		<link rel="stylesheet" href="/admin/css/unicorn.main.css" />
 		<link rel="stylesheet" href="/admin/css/unicorn.grey.css" class="skin-color" />
+		<link rel="stylesheet" href="/admin/css/bootstrap-select.css" />
+		<link rel="stylesheet" href="/admin/css/bootstrap-select.min.css" />
+		<link rel="stylesheet" href="/admin/css/tagmanager.css" />
 	</head>
 	<body>
 		<div id="header">
-			<h1><a href="./dashboard.html">Adukala Admin</a></h1>	
+			<h1><a href="./dashboard.html">FoodBMG Admin</a></h1>	
 			<a id="menu-trigger" href="#"><i class="glyphicon glyphicon-align-justify"></i></a>	
 		</div>
 		
@@ -39,19 +43,18 @@
 			<!--<a href="#" class="hide"><i class="glyphicon glyphicon-home"></i> Dashboard</a>-->
 			<ul>
 				<li><a href="#"><i class="glyphicon glyphicon-home"></i> <span>Dashboard</span></a></li>
-				<li class="active" class="submenu">
-					<a href="#"><i class="glyphicon glyphicon-th-list"></i> <span>Create</span> <span class="label">3</span></a>
-					<ul>
-						<li><a href="/admin/create/meal">Meal</a></li>
-						<li class="active"><a href="/admin/create/users">Users</a></li>
-						<li><a href="/admin/create/event">Events</a></li>
-					</ul>
-				</li>
+				<li class="submenu active open" ><a href="#"><i class="glyphicon glyphicon-th-list"></i> <span>Create</span></a>
+				<ul>
+					<li><a href="/admin/create/meal">Meal</a></li>
+					<li class="active"><a href="#">Users</a></li>
+					<li><a href="/admin/create/event">Events</a></li>
+				</ul>
+			</li>
 				<li class="submenu" ><a href="#"><i class="glyphicon glyphicon-tint"></i> <span>Edit</span></a>
                 <ul>
-						<li><a href="/admin/edit/meal">Meal</a></li>
-						<li><a href="/admin/edit/users">Users</a></li>
-						<li><a href="/admin/edit/event">Events</a></li>
+						<li><a href="/admin/meals">Meal</a></li>
+						<li><a href="/admin/users">Users</a></li>
+						<li><a href="/admin/events">Events</a></li>
 				</ul></li>
 				<li><a href="#"><i class="glyphicon glyphicon-pencil"></i> <span>Update</span></a></li>
 				<li><a href="#"><i class="glyphicon glyphicon-th"></i> <span>View all</span></a></li>
@@ -71,7 +74,7 @@
 
 		<div id="content">
 			<div id="content-header">
-				<h1>Common Form Elements</h1>
+				<h1>Create a new user</h1>
 				<div class="btn-group">
 					<a class="btn btn-large" title="Manage Files"><i class="glyphicon glyphicon-file"></i></a>
 					<a class="btn btn-large" title="Manage Users"><i class="glyphicon glyphicon-user"></i></a>
@@ -81,10 +84,11 @@
 			</div>
 			<div id="breadcrumb">
 				<a href="index.html" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
-				<a href="#">Form elements</a>
-				<a href="#" class="current">Common elements</a>
+				<a href="#">User</a>
+				<a href="#">Add</a>
 			</div>
 			<div class="container-fluid">
+				<form action="user" method="post" name="createuser" id="createuser" class="form-horizontal">
 				<div class="row">
 					<div class="col-12">
 						<div class="widget-box">
@@ -92,45 +96,78 @@
 								<span class="icon">
 									<i class="glyphicon glyphicon-align-justify"></i>									
 								</span>
-								<h5>Text inputs</h5>
+								<h5>General Information</h5>
 							</div>
 							<div class="widget-content nopadding">
-								<form action="#" method="get" class="form-horizontal">
+								
 									<div class="form-group">
-										<label class="control-label">Normal text input</label>
+										<label class="control-label">First Name</label>
 										<div class="controls">
-											<input type="text" class="form-control input-small" />
+											<input type="text" name="fname" id="fname" class="form-control input-small" placeholder="Please enter a first name" required/>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Password input</label>
+										<label class="control-label">Last Name</label>
 										<div class="controls">
-											<input type="password" class="form-control input-small" />
+											<input type="text" name="lname" id="lname" class="form-control input-small" placeholder="Please enter a last name" required/>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Input with description</label>
+										<label class="control-label">Email</label>
 										<div class="controls">
-											<input type="text" class="form-control input-small" />
-											<span class="help-block">This is a description</span>
+											<input type="email" name="email" id="email" class="form-control input-small" placeholder="Please enter a valid email" required/>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Input with placeholder</label>
+										<label class="control-label">Password</label>
 										<div class="controls">
-											<input type="text" class="form-control input-small" placeholder="This is a placeholder..." />
+											<input type="password" name="password" id="password" class="form-control input-small" placeholder="Please enter a password" required/>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Normal textarea</label>
+										<label class="control-label">Bio</label>
 										<div class="controls">
-											<textarea class="form-control"></textarea>
+											<textarea class="form-control" name="bio" id="bio"></textarea>
 										</div>
 									</div>
-									<div class="form-actions">
-										<button type="submit" class="btn btn-primary btn-small">Save</button> or <a class="text-danger" href="#">Cancel</a>
+									<div class="form-group">
+										<label class="control-label">Phone</label>
+										<div class="controls">
+											<input type="number" name="phone" id="phone" class="form-control input-small" placeholder="Please enter a phone number"/>
+										</div>
 									</div>
-								</form>
+									<div class="form-group">
+										<label class="control-label">Avatar</label>
+										<div class="controls">
+											<input type="file" id="avatar" name="avatar"/>
+											<input type="hidden" name="avatar_val" id="avatar_val" value=""  />
+										</div>
+									</div>
+									<div class="form-group">
+                                        <label class="control-label">Date Of Birth</label>
+                                        <div class=" controls">
+                                            <input type="text" name="dob" id="dob" data-date="01-01-1964" data-date-format="dd-mm-yyyy" value="" class="datepicker form-control input-small" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Role</label>
+                                        <div class="controls">
+                                        	<input type="hidden" name="role" id="alignment" value="" required/>
+											<div class="btn-group alignment" data-toggle="buttons-checkboxes	">
+    											<button type="button" name="roles" id="homechef" class="btn">Home Chef</button>
+    											<button type="button" name="roles" id="user" class="btn">User</button>
+    											<button type="button" nme="roles" id="admin" class="btn">Admin</button>
+											</div>
+                                    	</div>
+                                    </div>
+                                    <div class="form-group">
+										<label class="control-label">Is The User Active ?</label>
+										<div class="controls">
+											<label><input type="radio" name="is_active" value="yes" style="position:relative !important; opacity:100 !important;"/>Yes</label>
+											<label><input type="radio" name="is_active" value="no" style="position:relative !important; opacity:100 !important;"/> No</label>
+										</div>
+									</div>
+								
 							</div>
 						</div>						
 					</div>
@@ -142,85 +179,86 @@
 								<span class="icon">
 									<i class="glyphicon glyphicon-align-justify"></i>									
 								</span>
-								<h5>Rest of elements...</h5>
+								<h5>Address</h5>
 							</div>
 							<div class="widget-content nopadding">
-								<form action="#" method="get" class="form-horizontal">
+								
 									<div class="form-group">
-										<label class="control-label">Select input</label>
+										<label class="control-label">Street Address</label>
 										<div class="controls">
-											<select>
-												<option>First option</option>
-												<option>Second option</option>
-												<option>Third option</option>
-												<option>Fourth option</option>
-												<option>Fifth option</option>
-												<option>Sixth option</option>
-												<option>Seventh option</option>
-												<option>Eighth option</option>
+											<input type="text" name="streetadd" id="streetadd" class="form-control input-small" required/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Area</label>
+										<div class="controls">
+											<input type="text" name="area" id="area" class="form-control input-small"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label">City</label>
+										<div class="controls">
+											<select class="selectpicker" id="city" name="city" required>
+												{{#each cities}}
+												<option value="{{id}}">{{city}}</option>
+												{{/each}}
+
 											</select>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Multiple Select input</label>
+										<label class="control-label">State</label>
 										<div class="controls">
-											<select multiple class="forn-control">
-												<option>First option</option>
-												<option selected>Second option</option>
-												<option>Third option</option>
-												<option>Fourth option</option>
-												<option>Fifth option</option>
-												<option>Sixth option</option>
-												<option>Seventh option</option>
-												<option>Eighth option</option>
-											</select>
-										</div>
-									</div>
-                                    <div class="form-group">
-                                        <label class="control-label">Color picker (hex)</label>
-                                        <div class="controls">
-                                            <input type="text" data-color="#000000" value="#000000" class="colorpicker form-control input-small" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Color picker (rgba)</label>
-                                        <div class="controls">
-                                            <input type="text" data-color="rgba(244,202,56,0.5)" value="rgba(244,202,56,0.5)" data-color-format="rgba" class="colorpicker form-control input-small" />
-                                        </div>
-                                    </div>                                        
-                                    <div class="form-group">
-                                        <label class="control-label">Date picker</label>
-                                        <div class=" controls">
-                                            <input type="text" data-date="12-02-2012" data-date-format="dd-mm-yyyy" value="12-02-2012" class="datepicker form-control input-small" />
-                                        </div>
-                                    </div>
-									<div class="form-group">
-										<label class="control-label">Radio inputs</label>
-										<div class="controls">
-											<label><input type="radio" name="radios" /> First One</label>
-											<label><input type="radio" name="radios" checked /> Second One</label>
-											<label><input type="radio" name="radios" /> Third One</label>
+											<input type="text" name="state" id="state" class="form-control input-small" required/>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Checkboxes</label>
+										<label class="control-label">Country</label>
 										<div class="controls">
-											<label><input type="checkbox" name="checkboxes" checked /> First One</label>
-											<label><input type="checkbox" name="checkboxes" /> Second One</label>
-											<label><input type="checkbox" name="checkboxes" checked /> Third One</label>
+											<input type="text" name="country" i="country" class="form-control input-small" required/>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">File upload input</label>
+										<label class="control-label">Pincode</label>
 										<div class="controls">
-											<input type="file" />
+											<input type="text" name="pincode" id="pincode" class="form-control input-small" required/>
 										</div>
 									</div>
-								</form>
+									
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="widget-box">
+							<div class="widget-title">
+								<span class="icon">
+									<i class="glyphicon glyphicon-align-justify"></i>									
+								</span>
+								<h5>Tags</h5>
+							</div>
+							<div class="widget-content nopadding">
+								<div class="form-group">
+									<label class="control-label">Languages Spoken</label>
+									<div class="controls">
+										<input type="text" name="languageTag" id="languageTag" placeholder="Language Spoken" class="language-tag"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Hobbies</label>
+									<div class="controls">
+										<input type="text" name="hobbiesTag" id="hobbiesTag" placeholder="Hobbies" class="hobbies-tag"/>
+									</div>
+								</div>
+								<div class="form-actions">
+									<button type="submit" class="btn btn-primary btn-small">Save</button> or <a class="text-danger" href="#">Cancel</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
 			</div>
 		</div>
 		
@@ -235,9 +273,90 @@
             <script src="/admin/js/bootstrap-colorpicker.js"></script>
             <script src="/admin/js/bootstrap-datepicker.js"></script>
             <script src="/admin/js/jquery.icheck.min.js"></script>
-            <script src="/admin/js/select2.min.js"></script>
+            <script src="/admin/js/bootstrap-select.js"></script>
+            <script src="/admin/js/bootstrap-select.min.js"></script>
             <script src="/admin/js/jquery.jpanelmenu.min.js"></script>
+            <script src="/admin/js/select2.min.js"></script>
+            <script src="/admin/js/typeahead.js"></script>
+            <script src="/admin/js/typeahead.min.js"></script>
             <script src="/admin/js/unicorn.js"></script>
+            <script src="/admin/js/tagmanager.js"></script>
             <script src="/admin/js/unicorn.form_common.js"></script>
+            <script type="text/javascript">
+            	$(".btn-group button").click(function(){
+            		$("input[name='role']").val($(this).text());
+            	});
+            	$("#avatar").change(function(){
+            		$("input[name='avatar_val']").val($(this).text());
+            	});
+            	$('.selectpicker').selectpicker();
+            	$('.selectpicker').change(function(){
+            		$('#city').val($(this).val());
+            	});
+            	$(".language-tag").tagsManager({
+            		hiddenTagListName: 'languageList'
+            	});
+            	$(".language-tag").typeahead([
+	            	{
+	            		name: 'languages',
+	            		limit: 5,
+	            		valueKey: 'name',
+						remote: {
+							url: 'http://127.0.0.1:3000/get/tags/language',
+							filter: function (parsedResponse) {
+								console.log(parsedResponse);
+								return parsedResponse;
+							}
+						}
+	            	}
+            	]).on('typeahead:selected', function (e, d){
+            		tagApi.tagsManager("pushTag", d.value);
+            	});
+            	$(".hobbies-tag").tagsManager({
+            		hiddenTagListName: 'hobbiesList'
+            	});
+            	$(".hobbies-tag").typeahead([
+	            	{
+	            		name: 'hobbies',
+	            		limit: 5,
+	            		valueKey: 'name',
+						remote: {
+							url: 'http://127.0.0.1:3000/get/tags/hobbies',
+							filter: function (parsedResponse) {
+								console.log(parsedResponse);
+								return parsedResponse;
+							}
+						}
+	            	}
+            	]).on('typeahead:selected', function (e, d){
+            		tagApi.tagsManager("pushTag", d.value);
+            	});
+            	//$('#createuser').submit(function(){
+            	//	var language = $("input[name='language-list']").val();
+            	//	alert(language);
+            	//});
+            	/*
+            	$("input[name='city']").typeahead([
+  					{
+    					name: 'city',  
+						valueKey: 'city',
+						remote: {
+							url: 'http://127.0.0.1:3000/get/allcities',
+							filter: function (parsedResponse) {
+								console.log(parsedResponse);
+								return parsedResponse;
+							}
+						},
+						template: [
+							'<p>{{city}}</p><p style="display : block;">{{id}}</p>'
+						]
+
+  					}
+  				]);
+  				$("input[name='city']").val()
+  				*/
+            </script>
 	</body>
 </html>
+
+

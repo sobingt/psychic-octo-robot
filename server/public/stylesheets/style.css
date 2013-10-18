@@ -6,3 +6,7 @@ body {
 a {
   color: #00B7FF;
 }
+
+#s2id_city {
+	display: none !important;
+}
