@@ -11,6 +11,7 @@ var connection = mysql.createConnection({ host: config.database.host,
  * Create A New Meal
  */
 exports.createMeal = function(request, response) {
+    console.log(request.body);
     if (database.connection) {
         var queryString = "INSERT INTO adukala.meal (uid, name, description, created, type, cuisine, picture, cost, max_allowed, date, menu_id, diet, guests_preferred, advance_lead_time, location_id) VALUES ()";
      //   database.connection.query(queryString, );
@@ -44,7 +45,7 @@ exports.getMealMenu = function(request, response, next) {
  */
 exports.list = function(request, response) {
     if (database.connection) {
-        var queryString = "SELECT m.id, m.name, m.description, m.picture, DATE(m.date) as da, l.city, l.area,  GROUP_CONCAT(t.name ) as tags FROM meal m LEFT JOIN location l ON m.location_id = l.id LEFT JOIN meal_tags mt ON m.id = mt.mid LEFT JOIN tags t ON mt.tid = t.tid WHERE m.date >= CURRENT_DATE";
+        var queryString = "SELECT m.id, m.name, m.description, m.picture, l.city, l.area,  GROUP_CONCAT(t.name ) as tags FROM meal m LEFT JOIN location l ON m.location_id = l.id LEFT JOIN meal_tags mt ON m.id = mt.mid LEFT JOIN tags t ON mt.tid = t.tid WHERE m.date >= CURRENT_DATE";
         database.connection.query(queryString, function(errors, results, fields) {
             if (errors) {
                 throw errors;
@@ -119,6 +120,14 @@ exports.getCityCuisines = function(request, response) {
 };
 
 
+putImagePath = function(results) {
+    var path = results[0].picture;
+    if (results[0].id !== '') {
+        var absolutePath = config.host.url+config.host.port+'/'+path;
+        results[0].picture = absolutePath;
+    }
+}
+
 /*
  * GET the Meal details for a particular cuisine
  */
@@ -134,6 +143,7 @@ exports.getMealCityCuisine = function(req, res, next) {
                 }
                 if (results.length > 0) {
                     res.contentType('application/json');
+                    putImagePath(results);
                     res.send(JSON.stringify(results));
                     res.end();
                     next();
@@ -145,6 +155,7 @@ exports.getMealCityCuisine = function(req, res, next) {
        }
    }
 }
+
 
 /*
  * GET the Meal details for admin edit
@@ -164,3 +175,81 @@ exports.getMeal = function(request, response) {
         });
     }
 };
+
+exports.getLanguageTag = function(request, response) {
+    if (database.connection) {
+        var queryString = "SELECT t.name FROM tags t LEFT JOIN vocabulary v ON t.vid = v.vid WHERE v.name = 'language'";
+        database.connection.query(queryString, function(errors, rows) {
+            if (errors)
+                response.send("The tags cannot be retrieved because of  "+errors);
+            response.contentType('application/json');
+            response.send(JSON.stringify(rows));
+            response.end();
+        });
+    }
+}
+
+exports.getHobbiesTag = function(request, response) {
+    if (database.connection) {
+        var queryString = "SELECT t.name FROM tags t LEFT JOIN vocabulary v ON t.vid = v.vid WHERE v.name = 'hobbies'";
+        database.connection.query(queryString, function(errors, rows) {
+            if (errors)
+                response.send("The tags cannot be retrieved because of  "+errors);
+            response.contentType('application/json');
+            response.send(JSON.stringify(rows));
+            response.end();
+        });
+    }      
+}
+
+exports.getMealTypeTag = function(request, response) {
+    if (database.connection) {
+        var queryString = "SELECT t.name FROM tags t LEFT JOIN vocabulary v ON t.vid = v.vid WHERE v.name = 'meal_type'";
+        database.connection.query(queryString, function(errors, rows) {
+            if (errors)
+                response.send("The tags cannot be retrieved because of  "+errors);
+            response.contentType('application/json');
+            response.send(JSON.stringify(rows));
+            response.end();
+        });
+    }      
+}
+
+exports.getCuisinesTag = function(request, response) {
+    if (database.connection) {
+        var queryString = "SELECT t.name FROM tags t LEFT JOIN vocabulary v ON t.vid = v.vid WHERE v.name = 'cuisine'";
+        database.connection.query(queryString, function(errors, rows) {
+            if (errors)
+                response.send("The tags cannot be retrieved because of  "+errors);
+            response.contentType('application/json');
+            response.send(JSON.stringify(rows));
+            response.end();
+        });
+    }      
+}
+
+exports.getDietTag = function(request, response) {
+    if (database.connection) {
+        var queryString = "SELECT t.name FROM tags t LEFT JOIN vocabulary v ON t.vid = v.vid WHERE v.name = 'diet'";
+        database.connection.query(queryString, function(errors, rows) {
+            if (errors)
+                response.send("The tags cannot be retrieved because of  "+errors);
+            response.contentType('application/json');
+            response.send(JSON.stringify(rows));
+            response.end();
+        });
+    }      
+}
+
+exports.getGuestsTag = function(request, response) {
+    if (database.connection) {
+        var queryString = "SELECT t.name FROM tags t LEFT JOIN vocabulary v ON t.vid = v.vid WHERE v.name = 'guests_preferred'";
+        database.connection.query(queryString, function(errors, rows) {
+            if (errors)
+                response.send("The tags cannot be retrieved because of  "+errors);
+            response.contentType('application/json');
+            response.send(JSON.stringify(rows));
+            response.end();
+        });
+    }      
+}

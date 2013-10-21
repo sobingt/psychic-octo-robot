@@ -1,6 +1,5 @@
 
 var database = require('../database');
-
 var currentUser = '';
 
 /*
@@ -10,14 +9,11 @@ exports.list = function(request, response){
   if(database.connection) {
    var queryString = "SELECT id, fname, lname, email, role FROM user WHERE is_active = 1";
    database.connection.query(queryString, function(errors, results, fields){
-    if (errors) {
-        throw errors;
-    }
-    if (results.length > 0) {  
+    if (errors) throw errors;
+    if (results.length > 0) {
         response.contentType('application/json');
         response.send(JSON.stringify(results));
         response.end();
-        next();
     }
    });      
   }
@@ -105,7 +101,18 @@ exports.getChefMealbyId = function(request, response) {
     }
 };
 
-
+/*
+ * DISABLE a user
+ */
+exports.disable = function(request, response) {
+    if (database.connection) {
+        var queryString = "UPDATE adukala.user SET is_active = 0 WHERE id = ?";
+        database.connection.query(queryString, request.params.id, function(errors, rows) {
+            if (errors)
+                response.send('The user cannot be disabled beacause of'+ errors);
+        });
+    }
+};
 /*
  * GET The Dineouts of homechef by ID.
  */
@@ -142,39 +149,137 @@ exports.updateUser = function(request, response) {
 };
 
 
+
 /*
- * INSERT a new user
+ * INSERT a new username
  */
 exports.createUser = function(request, response) {
-    
     // FIX ME
     // HASH THE PASSWORD
     // COVERT LANGUAGE AND HOBBY TO JSON
     // GET THE PICTURE UPLOAD URL
-    // SET THE PROPER ROLE AND IS_ACTIVE    
+    // SET THE PROPER ROLE AND IS_ACTIVE   
+    console.log(request.body); 
+    var avatar = request.body.avatar
+       ,location_id = ''
+       ,languages = request.body.languageList
+       ,hobbies = request.body.hobbiesList;
+    var languages = languages.split(",");
+    var hobbies = hobbies.split(",");
+    var langlen = languages.length,
+        element  = null,
+        user_id = null,
+        hobbieslen = hobbies.length;
+        console.log('length '+hobbieslen);
     if (database.connection) {
-        var queryString = "INSERT INTO adukala.user (fname, lname, email, password, bio, phone, picture, language, hobby, role, is_active) VALUES ('?', '?', '?', ?, '?', ?, ?, '?', '?', '?', ?)";
-        database.connection.query(queryString, [request.body.fname, request.body.lname, request.body.email, request.body.password, request.body.bio, request.body.phone, request.body.picture, request.body.language, request.body.hobby, request.body.role, request.body.is_active], function(errors, rows) {
+        var queryString = "INSERT INTO adukala.location (street_address, area, city, state, country, pincode) VALUES (?, ?, ?, ?, ?, ?)";
+        database.connection.query(queryString, [request.body.streetadd, request.body.area, request.body.city, request.body.state, request.body.country, request.body.pincode], function(errors, rows) {
             if (errors)
-                response.send("The user cannot be created because of"+errors);
+                response.send("The user cannot be created because of "+errors);
+            location_id = rows.insertId;
+            var queryString2 = "INSERT INTO adukala.user (fname, lname, email, password, bio, phone, picture, role, location_id, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            database.connection.query(queryString2, [request.body.fname, request.body.lname, request.body.email, request.body.password, request.body.bio, request.body.phone, avatar, request.body.role, location_id, request.body.is_active], function(errors, rows1) {
+            if (errors)
+                response.send("The user cannot be created because of "+errors);
+            else
+                user_id = rows1.insertId;   
+                for (var i = 0; i < langlen; i++) {
+                    element = languages[i];
+                    console.log('ele '+element);
+                    var queryString = "SELECT t.tid FROM tags t LEFT JOIN vocabulary v ON t.vid = v.vid WHERE v.name = 'language' AND t.name = ?";
+                    database.connection.query(queryString, element, function(errors, rows2, element) {
+                        if (errors)
+                            throw errors;
+                        console.log('find term row '+rows2);
+                        if (rows2.length === 0) {
+                            //var query = "SELECT vid FROM adukala.vocabulary WHERE name = 'language'";
+                            //database.connection.query(query, function(errors, row){
+                            //    if (errors) throw errors;
+                                var vid = 1;
+                                //console.log('rows '+row);
+                                var queryString1 = "INSERT INTO adukala.tags (vid, name) VALUES (?, ?)";
+                                database.connection.query(queryString1, [vid, element], function(errors, rows3, element){
+                                   if (errors) throw errors;
+                                    console.log(rows3);
+                                    var tid = rows3.insertId;
+                                    var insertTag = "INSERT INTO adukala.user_tags (uid, tid) VALUES (?, ?);"
+                                    database.connection.query(insertTag, [user_id, tid], function(errors, rows4){
+                                        console.log(rows4);
+                                        if (errors) throw errors;
+                                    });
+                                });
+                            //});
+                        }
+                        else {
+                            var insertTag = "INSERT INTO adukala.user_tags (uid, tid) VALUES (?, ?);"
+                            database.connection.query(insertTag, [user_id, rows2], function(errors, rows5){
+                                console.log(rows5);
+                                if (errors) throw errors;
+                            });
+                        }        
+                    });    
+                };
+                /*for (var i = 0; i < hobbieslen; i++) {
+                    element = hobbies[i];
+                    console.log('ele '+element);
+                    var queryString = "SELECT t.name FROM tags t LEFT JOIN vocabulary v ON t.vid = v.vid WHERE v.name = 'hobbies' AND t.name = ?";
+                    database.connection.query(queryString, element, function(errors, result) {
+                        if (errors)
+                            throw errors;
+                        console.log('find term row '+result);
+                        if (result.length == 0) {
+                            //var query = "SELECT vid FROM adukala.vocabulary WHERE name = 'language'";
+                            //database.connection.query(query, function(errors, row){
+                            //    if (errors) throw errors;
+                                var vid = 6;
+                                //console.log('rows '+row);
+                                var queryString1 = "INSERT INTO adukala.tags (vid, name) VALUES (?, ?)";
+                                database.connection.query(queryString1, [vid, element], function(errors, result1){
+                                    console.log(result1);
+                                   if (errors) throw errors;
+                                    var tid = result1.insertId;
+                                    var insertTag = "INSERT INTO adukala.user_tags (uid, tid) VALUES (?, ?);"
+                                    database.connection.query(insertTag, [user_id, tid], function(errors, result2){
+                                        console.log(result2);
+                                        if (errors) throw errors;
+                                    });
+                                });
+                            //});
+                        }
+                        else {
+                            var insertTagh = "INSERT INTO adukala.user_tags (uid, tid) VALUES (?, ?);"
+                            database.connection.query(insertTagh, [user_id, result], function(errors, result3){
+                                console.log(result3);
+                                if (errors) throw errors;
+                            });
+                        }        
+                    });    
+                }*/
+
+            //var queryString3 = "INSERT INTO adukala.user (fname, lname, email, password, bio, phone, picture, role, location_id, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                //response.setHeader("Location", "/admin");
                 response.end();
+            });
         });
     }
 };
 
-
-/*
- * DISABLE a user
- */
-exports.disable = function(request, response) {
+/*function findTag(element, vocab) {
     if (database.connection) {
-        var queryString = "UPDATE adukala.user SET is_active = 0 WHERE id = ?";
-        database.connection.query(queryString, request.params.id, function(errors, rows) {
+        var queryString = "SELECT t.name FROM tags t LEFT JOIN vocabulary v ON t.vid = v.vid WHERE v.name = ? AND t.name = ?";
+        database.connection.query(queryString, vocab, element, function(errors, rows) {
             if (errors)
-                response.send('The user cannot be disabled beacause of'+ errors);
+                throw errors;
+            console.log(rows);
+            if (rows.length > 0)
+                return true;
+            else
+                return false;
         });
     }
-};
+}*/
+
+
 
 /*
  * Get the saved token for a particular user

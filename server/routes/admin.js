@@ -1,4 +1,5 @@
-
+var user = require('./user');
+var database = require('../database');
 /*
  * GET home page.
  */
@@ -13,10 +14,34 @@ exports.user = function(request, response){
   response.render('admin/user', { title: 'Express' });
 };
 exports.createuser = function(request, response){
-  response.render('admin/createuser', { title: 'Express' });
+    if (database.connection) {
+        var queryString = "SELECT id, city FROM city";
+        database.connection.query(queryString, function(errors, rows) {
+            if (errors)
+                response.send("No cities found " + errors);
+            //response.contentType("application/json");
+            //esponse.send(JSON.stringify(rows));
+            var cities = rows;
+            response.render('admin/createuser', {title: 'Admin Create User', cities: cities });
+            //response.end();
+        });
+    }
+  
 };
 exports.createmeal = function(request, response){
-  response.render('admin/createmeal', { title: 'Express' });
+  if (database.connection) {
+        var queryString = "SELECT id, city FROM city";
+        database.connection.query(queryString, function(errors, rows) {
+            if (errors)
+                response.send("No cities found " + errors);
+            //response.contentType("application/json");
+            //esponse.send(JSON.stringify(rows));
+            var cities = rows;
+            response.render('admin/createmeal', { title: 'Admin Create Meal', cities: cities });
+            //response.end();
+        });
+    }
+  
 };
 exports.edituser = function(request, response){
   response.render('admin/edituser', { title: 'Express' });
