@@ -51,8 +51,14 @@ app.use(function(request, response, next){
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+// additional routes to fetch data from server
+app.get('/', function(req, res) {
+  res.sendfile(__dirname + '/public/index.html');
+});
 
-app.get('/', routes.index);
+app.post('/login', user.login);
+app.get('/me', user.me);
+
 app.get('/admin', admin.index);
 //app.get('/admin/meals', admin.meal);
 //app.get('/admin/users', admin.getUsers);

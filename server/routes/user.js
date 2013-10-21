@@ -1,5 +1,8 @@
 
 var database = require('../database');
+
+var currentUser = '';
+
 /*
  * GET users listing.
  */
@@ -23,7 +26,7 @@ exports.list = function(request, response){
 
 
 /*
- * GET The data for the user edit form.
+ * GET The data for the user edit form for admin
  */
 exports.getUser = function(request, response) {
     if (database.connection) {
@@ -321,4 +324,83 @@ exports.isAuthed = function(request,response,next)
         //response.writeHead(301,{Location: '/login'});
         response.end();
     }
+};
+
+exports.isAuth = function(email,password,callback)
+{
+    if (database.connection) {
+            var queryString = "SELECT id FROM user WHERE email=? AND password=?";
+            database.connection.query(queryString, [email,password], function(errors, results, fields) {
+                if (errors) throw errors;
+                if (results.length > 0) {
+                    callback(true,results[0].id);
+                    console.log("success "+results[0].id);
+                }
+                else
+                {
+                    callback(false,0);
+                    console.log("Failed");
+                }
+            });
+        }};
+
+
+// export "login" module to handle login
+exports.login = function(req, res) {
+    console.log(req.body);
+    //HACK: neeed to solve it
+    require('./user').isAuth(req.body.email,req.body.pass,function(bool,uid){
+            if(bool)
+            {
+                currentUser = uid;
+                res.send({
+                    success: true
+                });
+            }
+            else
+            {
+                res.send(500, { success: true }); 
+            }
+    });};
+
+exports.getUserById = function(id,callback) {
+    if (database.connection) {
+        var queryString = "SELECT u.fname, u.lname, u.email, u.password, u.bio, u.phone, u.picture, GROUP_CONCAT(t.name) as tags        FROM user u LEFT JOIN user_tags ut ON u.id = ut.uid          LEFT JOIN tags t ON ut.tid = t.tid         WHERE id=?";
+        database.connection.query(queryString, id, function(errors, results, fields) {
+            if (errors) throw errors;
+            if (results.length > 0) {
+                callback(true,results[0])
+            }
+            else
+            {
+                callback(false,0)
+
+            }
+        });
+    }
+};
+
+
+// export "search" module to handle user search
+exports.me = function(req, res) {
+    require('./user').getUserById(currentUser, function(bool,user){
+        if(bool)
+        {
+            var name =user.fname+" "+user.lname;
+             res.send({
+                name:  name,
+                uid: user.id,
+                pos:   user.bio,
+                url:   user.picture,
+                loc:   user.fname
+            });
+        } 
+        else 
+        {
+            res.send(500, { success: false });
+        }
+
+    })
+
+    //currentUser = '';
 };
