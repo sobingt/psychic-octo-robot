@@ -1,0 +1,39 @@
+
+
+
+  <div class="col-sm-6 col-md-3">
+<a href="#meals/<%= _id %>" class="thumbnail plain" style="text-align: center;">
+    <img src="/image/<%= picture %>" height="150" width="125" alt="">
+    <h5><%= name %></h5>
+    <!--<%= description %> <br/>
+    <%= meal_type %>
+    <%= cuisine_type %>
+    <%= dishes %>
+    <%= alcohol %>
+    <%= fit_for %>
+<%= created %>
+<%= picture %>
+<%= host.id %>-->
+<%= host.fname %>
+<%= host.lname %>
+<%= host.email %>
+<%= cost.amount %>
+<%= cost.currency %>
+<%= max_allowed %>
+<%= min_allowed %>
+<%= duration %>
+<%= host_with %>
+<%= host_how %>
+<%= address.street %>
+<%= address.apartment %>
+<%= address.floor %>
+<%= amenities %>
+                        <% for(var item in availability) { %>
+                        <%= availability[item].date %>
+                    <% } %>
+    <i class="icon-globe"></i> <%= host.fname %>, <%= host.lname %>
+</a>
+
+  </div>
+
+

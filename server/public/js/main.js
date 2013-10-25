@@ -34,7 +34,7 @@ require(["backbone",/*App,*/
 
           require([ "jquery" ], function () {
               // Instantiates a new Backbone.js Mobile Router
-              this.router = new Router();
+              app = new Router();
               Backbone.history.start();
             });
 

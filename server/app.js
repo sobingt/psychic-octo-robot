@@ -7,6 +7,7 @@ var express = require('express')
 , routes = require('./routes')
 , user = require('./routes/user')
 , meal = require('./routes/meal')
+, mealmongodb = require('./routes/mealmongodb')
 , config = require('./config.js')
 , http = require('http')
 , hbs = require('hbs')
@@ -20,7 +21,7 @@ var express = require('express')
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);
@@ -53,6 +54,7 @@ if ('development' == app.get('env')) {
 }
 // additional routes to fetch data from server
 app.get('/', function(req, res) {
+  res.header('Access-Control-Allow-Origin', "*")
   res.sendfile(__dirname + '/public/index.html');
 });
 
@@ -94,6 +96,14 @@ app.get('/get/tags/guestsTag', meal.getGuestsTag);
 app.post('update/user', user.updateUser);
 app.post('/admin/create/user', user.createUser);
 app.post('/admin/create/meal', meal.createMeal);
+
+
+//mongoDB
+app.get('/meals', mealmongodb.findAll);
+app.get('/meals/:id', mealmongodb.findById);
+app.post('/meals', mealmongodb.addMeal);
+app.put('/meals/:id', mealmongodb.updateMeal);
+app.delete('/meals/:id', mealmongodb.deleteMeal);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

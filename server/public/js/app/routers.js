@@ -2,11 +2,13 @@ define([
     'backbone',
     'app/models/loginData',
     'app/models/memberData',
+    'app/models/meal',
+    'app/views/header',
     'app/views/loginView',
     'app/views/MemberView',
-    'app/views/MealView',
-    'app/views/dinerView'
-], function (Backbone,LoginData,MemberData,LoginView,MemberView, MealView, DinerView) {
+    'app/views/mealView',
+    'app/views/mealList'
+], function (Backbone,LoginData,MemberData,Meals,HeaderView,LoginView,MemberView, MealView, MealList ) {
     var Router = Backbone.Router.extend({
         initialize: function() {
 
@@ -16,31 +18,60 @@ define([
         routes: {
             '': 'login',
 			'meal': 'meal',
-			'meal/:id': 'diner'
+		  'meals' : 'list',
+            'meals/page/:page'  : 'list',
+            'meals/add'         : 'addMeal',
+            'meals/:id'         : 'mealDetails'
+        },
+
+        initialize: function () {
+            this.headerView = new HeaderView.View();
+            $('.header').html(this.headerView.el);
         },
 
         login: function () {
         var loginData  = new LoginData();
         var loginView  = new LoginView({ model: loginData });
 
-         $('body').append( loginView.render().el );
+         $('#content').append( loginView.render().el );
         },
 		
-		meal: function () {
-		var member = new MemberData(); 
-		var mealView  = new MealView({model: member});
-	//	var dinerListView  = new DinerListView();
-	//	mealView.setDinerView(dinerListView);
-		//member.fetch();       
-		$('body').html(mealView.render().el );
+
+		mealDetails: function(id) {
+            var meal = new Meals.model({
+                _id: id
+            });
+            
+            console.log("meal");
+            meal.fetch({success: function(){
+                $('#content').html(new MealView({model: meal}).el);
+            }});
         },
 		
-		diner: function () {
-		
-			var diner = new DinerView();
-			$('body').html(diner.render().el );			
-		
-		}
+        //////
+
+
+        list: function(page) {
+            console.log("Hello");
+            var p = page ? parseInt(page, 10) : 1;
+            var mealList = new Meals.collection();
+            mealList.fetch({success: function(){
+                $("#content").html(new MealList.ListView({model: mealList, page: p}).el);
+            }});
+            this.headerView.selectMenuItem('home-menu');
+        },
+
+    
+    addMeal: function() {
+        console.log("Hello");
+        var meal = new Meals.model();
+        $('#content').html(new MealView({model: meal}).el);
+        this.headerView.selectMenuItem('add-menu');
+    },
+    
+
+
+        /////
 
     });
     return Router;

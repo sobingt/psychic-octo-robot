@@ -3,7 +3,11 @@ body {
 	background: #ECF0F1;
 	font-family: 'Roboto', sans-serif;
 }
+#contentwrapper{
+margin-top: 111px;
 
+
+}
 .turquoise {
 	background: #1ABC9C;
 }
@@ -45,8 +49,7 @@ body {
 }
 
 .turquoise .input-group {
-	width: 200px;
-	color: #95A5A6;
+	width: 200px;	color: #95A5A6;
 }
 
 .turquoise .navbar-form {
