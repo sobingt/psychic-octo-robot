@@ -5,9 +5,12 @@ define([
     'bootstrap',
     'app/helpers/utils',
     'app/views/dinerListView',
+    'app/views/reviewListView',
+	'app/views/chefView',
     'text!templates/mealView.html',
-    'jquery-raty'
-], function($,_, Backbone, boostrap, utils, DinerListView, MealTemplate) {
+	'text!templates/meal.html',
+    'jqueryraty'
+	], function($,_, Backbone, boostrap, utils, DinerListView, ReviewListView, ChefView, MealEditTemplate, MealTemplate) {
 
 var MealView = Backbone.View.extend({
 
@@ -17,6 +20,7 @@ var MealView = Backbone.View.extend({
 
     className: 'container',
 
+    //template: _.template(MealEditTemplate),
     template: _.template(MealTemplate),
 
     initialize: function () {
@@ -25,6 +29,43 @@ var MealView = Backbone.View.extend({
 
     render: function () {
         $(this.el).html(this.template(this.model.toJSON()));
+		console.log(this.model.get('host').id);
+		console.log('mealid');
+		
+			var dinerListView = new DinerListView();
+			
+			var reviewListView = new ReviewListView();
+			
+			var chefView = new ChefView();
+						
+			//this.$el.append(_.template(MealTemplate));
+			
+			this.$el.find('.customers').append(dinerListView.render().el);
+			
+			this.$el.find('.host-stats').append(chefView.render().el);
+			
+			this.$el.find('.review-section').append(reviewListView.render().el);
+			
+			this.$('.art-pop').tooltip({
+				container: 'body',
+				placement: 'left'
+			});
+			
+			this.$('[data-use="rating"]').raty({
+				readOnly: true,
+				score: 2.5,
+				//score: this.model.get('rating'),
+				width: 360,
+				size     : 24,
+				starHalf    : 'image/star_half.gif',                                // The name of the half star image.
+				starOff     : 'image/star_off.gif',                                 // Name of the star image off.
+				starOn      : 'image/star_on.gif'                                   // Name of the star image on.   
+			});
+		
+		
+		
+		
+		
         return this;
     },
 

@@ -7,6 +7,7 @@ define([
 var utils = {
 
     // Asynchronously load templates located in separate .html files
+	/*
     loadTemplate: function(views, callback) {
 
         var deferreds = [];
@@ -23,7 +24,7 @@ var utils = {
 
         $.when.apply(null, deferreds).done(callback);
     },
-
+*/
     displayValidationErrors: function (messages) {
         for (var key in messages) {
             if (messages.hasOwnProperty(key)) {

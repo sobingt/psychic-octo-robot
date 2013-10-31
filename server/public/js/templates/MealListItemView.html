@@ -1,39 +1,56 @@
+			<div>
+				<!--<img class="dish-img" src="< url >../image/dsc1.jpg" >-->
+				<div id="<%= _id %>" class="carousel slide meal-carousels">
+				  <!-- Indicators -->
+				  <ol class="meal carousel-indicators">
+					<li data-target="#<%= _id %>" data-slide-to="0" class="active"></li>
+					<li data-target="#<%= _id %>" data-slide-to="1"></li>
+					<li data-target="#<%= _id %>" data-slide-to="2"></li>
+				  </ol>
 
-
-
-  <div class="col-sm-6 col-md-3">
-<a href="#meals/<%= _id %>" class="thumbnail plain" style="text-align: center;">
-    <img src="/image/<%= picture %>" height="150" width="125" alt="">
-    <h5><%= name %></h5>
-    <!--<%= description %> <br/>
-    <%= meal_type %>
-    <%= cuisine_type %>
-    <%= dishes %>
-    <%= alcohol %>
-    <%= fit_for %>
-<%= created %>
-<%= picture %>
-<%= host.id %>-->
-<%= host.fname %>
-<%= host.lname %>
-<%= host.email %>
-<%= cost.amount %>
-<%= cost.currency %>
-<%= max_allowed %>
-<%= min_allowed %>
-<%= duration %>
-<%= host_with %>
-<%= host_how %>
-<%= address.street %>
-<%= address.apartment %>
-<%= address.floor %>
-<%= amenities %>
-                        <% for(var item in availability) { %>
-                        <%= availability[item].date %>
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner">
+                    <% for(var item in picture) { %>
+                    <div class="item<% if(item==0) { %> active <% } %>">
+                      <img src="/image/<%= picture[item].url %>" />
+                      
+                    </div>
+                       
                     <% } %>
-    <i class="icon-globe"></i> <%= host.fname %>, <%= host.lname %>
-</a>
+					
+				  </div>
 
-  </div>
+				  <!-- Controls -->
+				  <a class="left carousel-control" href="#<%= _id %>" data-slide="prev">
+					<span class="icon-prev"></span>
+				  </a>
+				  <a class="right carousel-control" href="#<%= _id %>" data-slide="next">
+					<span class="icon-next"></span>
+				  </a>
+		
+				</div>
+				
+			</div>
+			
+			<div class="row">
+				
+				<div class="col-md-6 meal">
+					
+					<a href="/#meals/<%= _id %>"><h5><%= name %><%= cost.amount %><%= cost.currency %></h5></a> 
+					
+					
+					<strong>Meal Composition :</strong> Tasting Menu<br>
+					<strong>Cuisine Type :</strong> <%= cuisine_type %><br>
+					<strong>Meal Type :</strong> <%= meal_type %><br>
+				</div>
+				<div class="col-md-6 host">
+					<div class="dish-rating" data-use="rating"></div><br>
+					
+					By <%= host.fname %> <%= host.lname %><a class="meal-host-pic" href="http://www.eatwith.com/#!/offering/2673" target=_blank><img src="../image/chef.jpg" width="84" height="84"/></a>
+				</div>
+			
+			</div>
+			
+			<div class="break-rule"></div>
 
-
+			

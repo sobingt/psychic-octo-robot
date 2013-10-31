@@ -4,9 +4,13 @@ require.config({
     'jquery': './libs/jquery.v2',
     'underscore': './libs/underscore',
     'backbone': './libs/backbone',
-    'jquery-raty': './libs/jquery.raty',
+    'jqueryraty': './libs/jquery.raty',
+	'script': './libs/script',
     'bootstrap': './libs/bootstrap.min',
-    //'App': 'app',
+    'jqueryknob': './libs/jquery.knob',
+    'jquerynicescroll': './libs/jquery.nicescroll',
+    'jqueryscrollTo': './libs/jquery.scrollTo.min',
+    'commonscripts': './libs/common.scripts',
     'app': './app',
     'templates': './templates'
   },
@@ -22,6 +26,24 @@ require.config({
     bootstrap: {
           deps: ["jquery"],
           exports: "$.fn.popover"
+    },
+	commonscripts: {
+          deps: ["jquery"]
+    },
+	jqueryraty: {
+          deps: ["jquery"]
+    },
+	jqueryknob: {
+          deps: ["jquery"]
+    },
+	jquerynicescroll: {
+          deps: ["jquery"]
+    },
+	jqueryscrollTo: {
+          deps: ["jquery"]
+    },
+	script: {
+          deps: ["jquery"]
     }
   }/*,
   enforceDefine: true /// FIXME

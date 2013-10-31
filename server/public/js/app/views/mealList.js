@@ -5,7 +5,9 @@ define([
     'bootstrap',
     'app/helpers/utils',
     'app/views/paginator',
-    'text!templates/MealListItemView.html'
+    'text!templates/MealListItemView.html',
+	'script',
+	'jqueryraty'
 ], function($,_, Backbone, boostrap, utils, Paginator, MealListItemTemplate) {
 
 var MealListView = Backbone.View.extend({
@@ -20,10 +22,17 @@ var MealListView = Backbone.View.extend({
         var startPos = (this.options.page - 1) * 8;
         var endPos = Math.min(startPos + 8, len);
 
-        $(this.el).html('<ul class="thumbnails"></ul>');
+        $(this.el).html('<div class="thumbnails"></div>');
 
+        $('.thumbnails', this.el).append('<div class="row row0"></div>');
+        var rowValue= 0;
         for (var i = startPos; i < endPos; i++) {
-            $('.thumbnails', this.el).append(new MealListItemView({model: meals[i]}).render().el);
+            $('.row'+rowValue, this.el).append(new MealListItemView({model: meals[i]}).render().el);
+            if((i+1)%3==0)
+            {
+                rowValue++;
+                $('.thumbnails', this.el).append('<br><div class="row row'+rowValue+'"></div>');
+            }
         }
 
         $(this.el).append(new Paginator.View({model: this.model, page: this.options.page}).render().el);
@@ -34,7 +43,9 @@ var MealListView = Backbone.View.extend({
 
 var MealListItemView = Backbone.View.extend({
 
-    tagName: "li",
+    tagName: "div",
+
+    className: "dish col-md-4",
 
     template: _.template(MealListItemTemplate),
 
@@ -45,6 +56,24 @@ var MealListItemView = Backbone.View.extend({
 
     render: function () {
         $(this.el).html(this.template(this.model.toJSON()));
+		
+		this.$('.meal-carousels').on('mouseenter',function() {
+                 $(this).carousel({ interval: 1000, cycle: true, pause: 'none' });console.log("Start");
+		  }).on('mouseleave', function() {
+						$(this).carousel('pause'); console.log("sss");
+		  });
+		
+		this.$('[data-use="rating"]').raty({
+			readOnly: true,
+			score: 2.5,
+			//score: this.model.get('rating'),
+			width: 360,
+			size     : 24,
+			starHalf    : 'image/star_half.gif',                                // The name of the half star image.
+			starOff     : 'image/star_off.gif',                                 // Name of the star image off.
+			starOn      : 'image/star_on.gif'                                   // Name of the star image on.   
+		});
+
         return this;
     }
 

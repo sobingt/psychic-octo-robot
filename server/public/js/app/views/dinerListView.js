@@ -4,29 +4,27 @@ define([
     'backbone',
 	'bootstrap',
     'text!templates/dinerlist.html',
-	'jquery-raty'
-], function($,_, Backbone, boostrap, DinerListTemplate) {
+	'app/views/dinerView',
+	'jqueryraty'
+], function($,_, Backbone, boostrap, DinerListTemplate, DinerView) {
 
 
 	var DinerListView = Backbone.View.extend({
 
 		
-		events: {
-			'click a': 'goToDetails'
-		},
 		
 		render: function() {
+			var dinerView = new DinerView();
 			
 			this.$el.append(_.template(DinerListTemplate));
+			
+			this.$el.find('.diners').append(dinerView.render().el);
+			
 						
 			return this;
 		},
 		
 		
-		goToDetails: function() {
-			Backbone.history.navigate('meal/' + 1 , { trigger: true });
-			return this;
-		}
 		
 
 		
