@@ -10,6 +10,7 @@ db = new Db('foodbmg', server, {safe: true});
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'foodbmg' database");
+        populateDB();
         db.collection('foodbmg', {safe:true}, function(err, collection) {
             if (err) {
                 console.log("The 'foodbmg' collection doesn't exist. Creating it with sample data...");
@@ -34,8 +35,31 @@ exports.findById = function(req, res) {
     });
 };
 
+exports.findUserById = function(req, res) {
+    console.log("find");
+    var id = req.params.id;
+    console.log('Retrieving user: ' + id);
+    db.collection('users', function(err, collection) {
+        collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item) {
+            res.header('Access-Control-Allow-Origin', "*");     // TODO - Make this more secure!!
+            res.header('Access-Control-Allow-Methods', 'GET,PUT,POST');
+            res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept');
+            res.send(item);
+        });
+    });
+};
+
 exports.findAll = function(req, res) {
     db.collection('foodbmg', function(err, collection) {
+        collection.find().toArray(function(err, items) {
+            console.log(items);
+            res.send(items);
+        });
+    });
+};
+
+exports.findAllUsers = function(req, res) {
+    db.collection('users', function(err, collection) {
         collection.find().toArray(function(err, items) {
             console.log(items);
             res.send(items);
@@ -77,6 +101,27 @@ exports.updateMeal = function(req, res) {
     });
 }
 
+exports.updateUser = function(req, res) {
+    var id = req.params.id;
+    var user = req.body;
+    console.log(req.body);
+    res.send(req.body);
+    delete user._id;
+    console.log('Updating user: ' + id);
+    console.log(JSON.stringify(user));
+    db.collection('users', function(err, collection) {
+        collection.update({'_id':new BSON.ObjectID(id)}, user, {safe:true}, function(err, result) {
+            if (err) {
+                console.log('Error updating user: ' + err);
+                res.send({'error':'An error has occurred'});
+            } else {
+                console.log('' + result + ' document(s) updated');
+                res.send(user);
+            }
+        });
+    });
+}
+
 exports.deleteMeal = function(req, res) {
     var id = req.params.id;
     console.log('Deleting meal: ' + id);
@@ -97,6 +142,47 @@ exports.deleteMeal = function(req, res) {
 // You'd typically not find this code in a real-life app, since the database would already exist.
 var populateDB = function() {
 
+    var users = [{
+    "name": "Akshat Verma",
+    "fname": "akshat",
+    "lname": "verma",
+    "email": "akshat@bitbrothers.com",
+    "password": "abc123",
+    "bio": "hasdasdajhsdasndmabm,xhczxmcjlcansmn.xczc",
+    "phone": "02525274529",
+    "picture": "saint_cosme.jpg",
+    "location": {
+        "id": 1,
+        "latitude": "",
+        "longitude": "",
+        "street_address": "street",
+        "area": "araea",
+        "city": "mumbai",
+        "state": "maharashtra",
+        "country": "india",
+        "pincode": "400072"
+    },
+    "is_active": "yes",
+    "facebook_id": "123123123",
+    "role": "admin",
+    "language": [
+        {
+            "value": "hindi"
+        },
+        {
+            "value": "english"
+        }
+    ],
+    "hobbies": [
+        {
+            "value": "internet"
+        },
+        {
+            "value": "reading"
+        }
+    ]
+}
+]
     var meals = [
     {
         "name": "DUCK A LORANGE ITALIAN STYLE",

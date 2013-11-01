@@ -1,0 +1,30 @@
+<div class="users container">
+    <h3>Users</h3>
+    <hr/>
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <% _.each(users, function(user){ %>
+            <tr>
+                <td><%= user.get("_id") %></td>
+                <td><%= user.get("fname") %></td>
+                <td><%= user.get("lname") %></td>
+                <td><%= user.get("email") %></td>
+                <td><%= user.get("role") %></td>
+                <td><a href="#users/<%= user.get("_id") %>">Edit</td>
+            </tr>
+            <%    }); %>
+        </tbody>
+    </table>
+</div>
+     
+
+
+
