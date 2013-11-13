@@ -36,16 +36,16 @@ define([
 			HeaderView,
 			LoginView,
 			MemberView,
-			 MealView,
-			 MealList,
-			 UsersList,
-			 Users,
-			 UserView,
-			 UserProfileView,
-			 UserProfileEditView,
-			 ChangePasswordView,
-			 AddMealView,
-			 CurdView
+            MealView,
+            MealList,
+            UsersList,
+            Users,
+            UserView,
+            UserProfileView,
+            UserProfileEditView,
+            ChangePasswordView,
+            AddMealView,
+            CurdView
 			) 
 	{
     var Router = Backbone.Router.extend({
@@ -141,15 +141,35 @@ define([
             this.headerView.selectMenuItem('home-menu');
         },
 
+		addMeal: function() {
+			var meal = new Meals.model();
+			$('#main-content').html(new MealView({model: meal}).el);
+			this.headerView.selectMenuItem('add-menu');
+		},
+		
 		mealDetails: function(id) {
             var meal = new Meals.model({
                 _id: id
             });
-            
-            console.log("meal");
             meal.fetch({success: function(){
                 $('#main-content').html(new MealView({model: meal}).el);
+                function initialize() {
+                    var latLong = new google.maps.LatLng(meal.attributes.address.latitude, meal.attributes.address.longitude);
+                    var mapOptions = {
+                        zoom: 15,
+                        center: latLong,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    }
+                    var map = new google.maps.Map(document.getElementById('meal-map'),mapOptions);
+                    var marker=new google.maps.Marker({
+                        map: map,
+                        draggable: false,
+                        position:latLong
+                    });
+                }
+                google.maps.event.addDomListener(window, "load", initialize);
             }});
+            
         },
 
 		diner: function () {		
@@ -165,137 +185,137 @@ define([
 		var lat;
 		var lon;
 		$('#createmeal').stepy({
-              backLabel: 'Previous',
-              block: true,
-              nextLabel: 'Next',
-              titleTarget: '.stepy-tab',
-			  duration  : 300,
-			  transition: 'fade',
+            backLabel: 'Previous',
+            block: true,
+            nextLabel: 'Next',
+            titleTarget: '.stepy-tab',
+            duration  : 300,
+            transition: 'fade',
 			  
-			  finish: function() {
-					//alert('Canceling...');
-					var pricePerGuests=$('#priceperguest').val();
-					var currency=$('#currency').val();
-					if((pricePerGuests===0) || (pricePerGuests==="")){
-							$('#errordiv3').append("<p>Price is required!!!</p>" );
-							return false;
-						}
-					else if((currency==="") || (currency==="Choose")){
-								$('#errordiv3').html("");
-								$('#errordiv3').append("<p>Currency is required!!!</p>" );
-								return false;
-								}
-					else {
-						//everything is validated!!!!
-						$('form').submit();
-							
-						}	
-						
-				},		
-						
-			  next: function(index) {
-						//alert('Going to step: ' + index);
-						var mealTitle=$('#mealtitle').val();
-						var mealType=$('#mealtype').val();
-						var cuisineType=$('#cuisinetype').val();
-						var dishesServed=$('#dishesserved').val();
-						var alcohol=$('#alcohol').val();
-						var ownMenu=$('#ownmenu').val();
-						var minGuests=$("#slider-range").slider("values", 0);
-						var maxGuests=$("#slider-range").slider("values", 1);
-						var eventDuration=$('#eventduration').val();
-						var hostWith=$('#hostwith').val();
-						var howIHost=$('#howihost').val();
-						//console.log(mealTitle);
-						//console.log(mealType);
-						//console.log(minGuests+"eventduration"+eventDuration+"menu"+ownMenu);
-						if(index===2) {
-							if(mealTitle===""){
-								//alert("Meal Title is Required");
-								$('#errordiv').append("<p>Meal Title is required!!!</p>" );
-								return false;
-											  }
-							else if(mealType===""){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>Meal Type is required!!!</p>" );
-								return false;
-								}
-							else if(cuisineType===""){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>Cuisine Type is required!!!</p>" );
-								return false;
-								}
-							else if(dishesServed===""){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>Dishes served is required!!!</p>" );
-								return false;
-								}
-							else if(alcohol===""){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>Alcohol option is required!!!</p>" );
-								return false;
-								}
-							else if(ownMenu===""){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>Your Menu is required!!!</p>" );
-								return false;
-								}
-							else if(minGuests===0){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>Minimum Guests cant be 0!!!</p>" );
-								return false;
-								}
-							else if(maxGuests===100){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>Maximum Guests is required!!!</p>" );
-								return false;
-								}
-							else if((eventDuration==="") || (eventDuration==="Choose")){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>Event Duration is required!!!</p>" );
-								return false;
-								}
-							else if((hostWith==="") || (hostWith==="Choose")){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>Host With option is required!!!</p>" );
-								return false;
-								}
-							else if((howIHost==="") || (howIHost==="Choose")){
-								$('#errordiv').html("");
-								$('#errordiv').append("<p>How I Host option is required!!!</p>" );
-								return false;
-								}
-							else {	
-								return true;
-								}
-						}//end of validation page 1
-						if(index===3){
-							//alert("inside 3");
-							var mapLocation=$('#maploc').val();
-							var directions=$('#directions').val();
-							var amenities="";
-							$(":checkbox[name=amenities]:checked").each(function() {
-											amenities+= $(this).val();
-									});
-							console.log("amenitiess initial"+amenities);
-							if(mapLocation===""){
-									//alert("inside map location");
-									$('#errordiv2').append("<p>Map Location is required!!!</p>");
-									return false;
-								}
-							else if(directions===""){
-									$('#errordiv2').html("");
-									$('#errordiv2').append("<p>Directions is required!!!</p>" );
-									return false;
-								}
-							else{
-									console.log("lat is"+lat+"lon is"+lon);
-									console.log("amenities"+amenities);
-									return true;
-								}	
-						}
-					}	
-          });
+        finish: function() {
+        	//alert('Canceling...');
+        	var pricePerGuests=$('#priceperguest').val();
+        	var currency=$('#currency').val();
+        	if((pricePerGuests===0) || (pricePerGuests==="")){
+        			$('#errordiv3').append("<p>Price is required!!!</p>" );
+        			return false;
+        		}
+        	else if((currency==="") || (currency==="Choose")){
+        				$('#errordiv3').html("");
+        				$('#errordiv3').append("<p>Currency is required!!!</p>" );
+        				return false;
+        				}
+        	else {
+        		//everything is validated!!!!
+        		$('form').submit();
+        			
+        		}	
+        		
+        },		
+        		
+        next: function(index) {
+        		//alert('Going to step: ' + index);
+        		var mealTitle=$('#mealtitle').val();
+        		var mealType=$('#mealtype').val();
+        		var cuisineType=$('#cuisinetype').val();
+        		var dishesServed=$('#dishesserved').val();
+        		var alcohol=$('#alcohol').val();
+        		var ownMenu=$('#ownmenu').val();
+        		var minGuests=$("#slider-range").slider("values", 0);
+        		var maxGuests=$("#slider-range").slider("values", 1);
+        		var eventDuration=$('#eventduration').val();
+        		var hostWith=$('#hostwith').val();
+        		var howIHost=$('#howihost').val();
+        		//console.log(mealTitle);
+        		//console.log(mealType);
+        		//console.log(minGuests+"eventduration"+eventDuration+"menu"+ownMenu);
+        		if(index===2) {
+        			if(mealTitle===""){
+        				//alert("Meal Title is Required");
+        				$('#errordiv').append("<p>Meal Title is required!!!</p>" );
+        				return false;
+        							  }
+        			else if(mealType===""){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>Meal Type is required!!!</p>" );
+        				return false;
+        				}
+        			else if(cuisineType===""){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>Cuisine Type is required!!!</p>" );
+        				return false;
+        				}
+        			else if(dishesServed===""){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>Dishes served is required!!!</p>" );
+        				return false;
+        				}
+        			else if(alcohol===""){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>Alcohol option is required!!!</p>" );
+        				return false;
+        				}
+        			else if(ownMenu===""){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>Your Menu is required!!!</p>" );
+        				return false;
+        				}
+        			else if(minGuests===0){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>Minimum Guests cant be 0!!!</p>" );
+        				return false;
+        				}
+        			else if(maxGuests===100){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>Maximum Guests is required!!!</p>" );
+        				return false;
+        				}
+        			else if((eventDuration==="") || (eventDuration==="Choose")){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>Event Duration is required!!!</p>" );
+        				return false;
+        				}
+        			else if((hostWith==="") || (hostWith==="Choose")){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>Host With option is required!!!</p>" );
+        				return false;
+        				}
+        			else if((howIHost==="") || (howIHost==="Choose")){
+        				$('#errordiv').html("");
+        				$('#errordiv').append("<p>How I Host option is required!!!</p>" );
+        				return false;
+        				}
+        			else {	
+        				return true;
+        				}
+        		}//end of validation page 1
+        		if(index===3){
+        			//alert("inside 3");
+        			var mapLocation=$('#maploc').val();
+        			var directions=$('#directions').val();
+        			var amenities="";
+        			$(":checkbox[name=amenities]:checked").each(function() {
+        							amenities+= $(this).val();
+        					});
+        			console.log("amenitiess initial"+amenities);
+        			if(mapLocation===""){
+        					//alert("inside map location");
+        					$('#errordiv2').append("<p>Map Location is required!!!</p>");
+        					return false;
+        				}
+        			else if(directions===""){
+        					$('#errordiv2').html("");
+        					$('#errordiv2').append("<p>Directions is required!!!</p>" );
+        					return false;
+        				}
+        			else{
+        					console.log("lat is"+lat+"lon is"+lon);
+        					console.log("amenities"+amenities);
+        					return true;
+        				}	
+        		}
+        	}	
+        });
 		  
 		$(".tagsinput").tagsInput();
 		$('.tagsinput input').attr('disabled', 'disabled');

@@ -57,12 +57,11 @@ var MealView = Backbone.View.extend({
 				//score: this.model.get('rating'),
 				width: 360,
 				size     : 24,
-				starHalf    : 'image/star_half.gif',                                // The name of the half star image.
-				starOff     : 'image/star_off.gif',                                 // Name of the star image off.
-				starOn      : 'image/star_on.gif'                                   // Name of the star image on.   
+				starHalf    : 'image/star_orange_half.gif',                                // The name of the half star image.
+                starOff     : 'image/star_off.gif',                                 // Name of the star image off.
+                starOn      : 'image/star_orange_full.gif'                                   // Name of the star image on.   
 			});
 
-		
         return this;
     },
 
