@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="/stylesheets/style.css" />
+
+    <legend>User Details</legend>
+    <form action="" method="get" class="form-horizontal span12" id="user-edit">
+        <fieldset>
+            <br/>
+            <div class="row">
+                <div class="col-12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon">
+                                <i class="glyphicon glyphicon-align-justify"></i>                                   
+                            </span>
+                            <h5></h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                        
+                            <div class="form-group">
+                                <label class="control-label">First Name</label>
+                                <div class="controls">
+                                    <input type="text" class="form-control input-small"  id="fname" name="fname" value="<%= user.fname %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Last Name</label>
+                                <div class="controls">
+                                    <input type="text" class="form-control input-small" id="lname" name="lname" value="<%= user.lname %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
+                                <div class="controls">
+                                    <input type="text" class="form-control input-small" id="email" name="email" value="<%= user.email %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Password</label>
+                                <div class="controls">
+                                    <input type="password" id="password" name="password" class="form-control input-small" />
+                                </div>
+                            </div>                                  
+                            <div class="form-group">
+                                <label class="control-label">Confirm  Password</label>
+                                <div class="controls">
+                                    <input type="password" id="confirm_password" name="confirm_password" class="form-control input-small" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Phone</label>
+                                <div class="controls">
+                                    <input type="text" id="phone" name="phone" class="form-control input-small" value="<%= user.phone %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Bio</label>
+                                <div class="controls">
+                                    <textarea class="form-control" id="bio" name="bio"><%= user.bio %></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Upload an Avatar</label>
+                                <div class="controls">
+                                    <input type="file" name="avatar" id="avatar"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Role</label>
+                                <div class="controls">
+                                    <label><input type="radio" name="role"  /> User</label>
+                                    <label><input type="radio" name="role" /> Host</label>
+                                    <label><input type="radio" name="role"  /> Admin</label>
+                                </div>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label class="control-label">Street Address</label>
+                                <div class="controls">
+                                    <input type="text" id="street_add" name="street_add" class="form-control input-small"  value="<%= user.location.street_address %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Area</label>
+                                <div class="controls">
+                                    <input type="text" id="area" name="area" class="form-control input-small" value="<%= user.location.area %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">City</label>
+                                <div class="controls">
+                                    <input type="text" id="city" name="city" class="form-control input-small" value="<%= user.location.city %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">State</label>
+                                <div class="controls">
+                                    <input type="text" id="state" name="state" class="form-control input-small" value="<%= user.location.state %>"/>
+                                </div>
+                            </div>                                  
+                            <div class="form-group">
+                                <label class="control-label">Country</label>
+                                <div class="controls">
+                                    <input type="text" id="country" name="country" class="form-control input-small" value="<%= user.location.country %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Pincode</label>
+                                <div class="controls">
+                                    <input type="text" id="pincode" name="pincode" class="form-control input-small" value="<%= user.location.pincode %>"/>
+                                </div>
+                            </div>             
+                        
+                            <div class="form-group">
+                                <label class="control-label">Language</label>
+                                <input type="text" id="language" name="language" id="language" class="form-control input-small" value="{{language}}"/>
+                            </div> 
+                            <div class="form-group">
+                                <label class="control-label">Hobbies</label>
+                                <div class="controls">
+                                    <input type="text" id="hobbies" name="hobbies" id="hobbies" class="form-control input-small" value="{{hobby}}"/>
+                                </div>  
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-small submit">Save</button> or <a class="text-danger" href="#">Cancel</a>
+                            </div>
+                        
+                    </div>
+                    </div>                      
+                </div>
+            </div><!-- row-->
+        </fieldset>
+    </form>
+<div class="row-fluid status-bar">
+    <div class="span12">
+        <div class="alert alert-success" style="display: none">
+            <b>Success!</b> Meal saved successfully
+        </div>
+    </div>
+</div>
+<script src="/js/libs/jquery.bootstrap.wizard.min.js"></script>
+<script src="/js/libs/jquery.bootstrap.wizard.js"></script>
+<script src="/js/libs/jquery.easyWizard.js"></script>
+<script src="/js/libs/prettify.js"></script>
+<script type="text/javascript">
+
+</script>

@@ -8,24 +8,40 @@ define([
     'app/views/MemberView',
     'app/views/mealView',
     'app/views/mealList',
+	'app/views/usersList',
+    'app/models/users',
+    'app/views/userView',
     'app/views/userProfileView',
     'app/views/userProfileEditView',
     'app/views/changePasswordView',
 	'jquerytagsinput'
-], function (Backbone,LoginData,MemberData,Meals,HeaderView,LoginView,MemberView, MealView, MealList, UserProfileView, UserProfileEditView, ChangePasswordView ) {
+], function (Backbone,
+			LoginData,
+			MemberData,
+			Meals,
+			HeaderView,
+			LoginView,
+			MemberView,
+			 MealView,
+			 MealList,
+			 UsersList,
+			 Users,
+			 UserView,
+			 UserProfileView,
+			 UserProfileEditView,
+			 ChangePasswordView
+			) 
+	{
     var Router = Backbone.Router.extend({
-        initialize: function() {
-
-            
-        },
-
         routes: {
-            '': 'login',
-			'profile/:id': 'profile',
-			'profile/edit/:id': 'profileEdit',
-			'profile/cp/:id': 'changePassword',
-			'meal': 'meal',
-			'meals' : 'list',
+            ''					: 'login',
+			'profile/:id'		: 'profile',
+			'profile/edit/:id'	: 'profileEdit',
+			'profile/cp/:id'	: 'changePassword',
+			'users'             : 'userList',
+            'users/:id'         : 'userDetails',
+			'meal'				: 'meal',
+			'meals' 			: 'list',
             'meals/page/:page'  : 'list',
             'meals/add'         : 'addMeal',
             'meals/:id'         : 'mealDetails'
@@ -84,6 +100,15 @@ define([
 			//('#main-content').html(new UserProfileView({model: member}).el);
 		},
 		
+        userDetails: function(id) {
+            var user = new Users.model({_id: id});
+            user.fetch({success: function(){
+                $('#content').html(new UserView({model: user}).el);
+            }});
+          //  user.fetch({success: function(){
+            //}});
+        },
+
         list: function(page) {
             var p = page ? parseInt(page, 5) : 1;
             var mealList = new Meals.collection();
@@ -93,7 +118,12 @@ define([
             this.headerView.selectMenuItem('home-menu');
         },
 
-    
+        userList: function(){
+            var usersList = new UsersList();
+            $("#content").html(usersList.render());
+            this.headerView.selectMenuItem('home-menu');
+        },
+
 		addMeal: function() {
 			console.log("Hello");
 			var meal = new Meals.model();
@@ -110,8 +140,19 @@ define([
             meal.fetch({success: function(){
                 $('#main-content').html(new MealView({model: meal}).el);
             }});
-        }
+        },
 
+		diner: function () {		
+			var diner = new DinerView();
+			$('body').html(diner.render().el );			
+		},
+
+
+
+        register: function() {
+            var register = new RegisterData();
+            var registerView = new RegisterView({model: register});
+        }
     });
     return Router;
 });
