@@ -8,8 +8,11 @@ define([
     'app/views/MemberView',
     'app/views/mealView',
     'app/views/mealList',
-    'app/views/userProfileView'
-], function (Backbone,LoginData,MemberData,Meals,HeaderView,LoginView,MemberView, MealView, MealList, UserProfileView ) {
+    'app/views/userProfileView',
+    'app/views/userProfileEditView',
+    'app/views/changePasswordView',
+	'jquerytagsinput'
+], function (Backbone,LoginData,MemberData,Meals,HeaderView,LoginView,MemberView, MealView, MealList, UserProfileView, UserProfileEditView, ChangePasswordView ) {
     var Router = Backbone.Router.extend({
         initialize: function() {
 
@@ -19,8 +22,10 @@ define([
         routes: {
             '': 'login',
 			'profile/:id': 'profile',
+			'profile/edit/:id': 'profileEdit',
+			'profile/cp/:id': 'changePassword',
 			'meal': 'meal',
-		  'meals' : 'list',
+			'meals' : 'list',
             'meals/page/:page'  : 'list',
             'meals/add'         : 'addMeal',
             'meals/:id'         : 'mealDetails'
@@ -35,13 +40,48 @@ define([
         var loginData  = new LoginData();
         var loginView  = new LoginView({ model: loginData });
 
-         $('#main-content').append( loginView.render().el );
+         $('#main-content').html( loginView.render().el );
         },
 		
 		profile: function(id) {
-			var profileView = new UserProfileView();
+			var member = new MemberData({
+				id: id
+			});
 			
-			$('#main-content').append( profileView.render().el );
+			//var profileView = new UserProfileView();
+			var profileView = new UserProfileView({model: member});
+			//console.log("member");
+			//console.log(member);
+			//console.log(new UserProfileView({model: member}).el);
+			$('#main-content').html( profileView.render().el );
+			$(".tagsinput").tagsInput({
+			'interactive':false,
+			'onAddTag' : function(){ return false;}
+			});
+			$('.tagsinput').find('a').remove();
+			//('#main-content').html(new UserProfileView({model: member}).el);
+		},
+		
+		profileEdit: function(id) {
+			var member = new MemberData({
+				id: id
+			});
+			
+			var profileEditView = new UserProfileEditView({model: member});
+			$('#main-content').html( profileEditView.render().el );
+			$(".tagsinput").tagsInput();
+
+			//('#main-content').html(new UserProfileView({model: member}).el);
+		},
+		
+		changePassword: function(id) {
+			var member = new MemberData({
+				id: id
+			});
+			
+			var changePasswordView = new ChangePasswordView({model: member});
+			$('#main-content').html( changePasswordView.render().el );
+			//('#main-content').html(new UserProfileView({model: member}).el);
 		},
 		
         list: function(page) {

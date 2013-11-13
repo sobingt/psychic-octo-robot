@@ -18,7 +18,7 @@ var MealView = Backbone.View.extend({
     
     id: 'meal',
 
-    className: 'container',
+    className: 'wrapper',
 
     //template: _.template(MealEditTemplate),
     template: _.template(MealTemplate),

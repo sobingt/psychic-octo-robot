@@ -10,6 +10,7 @@ require.config({
     'jqueryknob': './libs/jquery.knob',
     'jquerynicescroll': './libs/jquery.nicescroll',
     'jqueryscrollTo': './libs/jquery.scrollTo.min',
+    'jquerytagsinput': './libs/jquery.tagsinput',
     'commonscripts': './libs/common.scripts',
     'app': './app',
     'templates': './templates'
@@ -27,7 +28,7 @@ require.config({
           deps: ["jquery"],
           exports: "$.fn.popover"
     },
-	commonscripts: {
+	jquerytagsinput: {
           deps: ["jquery"]
     },
 	jqueryraty: {
@@ -41,6 +42,9 @@ require.config({
     },
 	jqueryscrollTo: {
           deps: ["jquery"]
+    },
+	commonscripts: {
+          deps: ["jquery","jquerytagsinput","jqueryraty","jqueryscrollTo","jquerynicescroll"]
     },
 	script: {
           deps: ["jquery"]

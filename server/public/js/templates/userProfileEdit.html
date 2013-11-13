@@ -1,0 +1,111 @@
+              <!-- page start-->
+	<div class="row">
+	<aside class="profile-nav col-lg-3">
+		<section class="panel">
+			<div class="user-heading round">
+				<a href="#">
+					<img src="../image/profile.jpg" alt="">
+				</a>
+				<h1><%= name %></h1>
+				<p><%= email %></p>
+			</div>
+			
+		
+			<ul class="nav nav-pills nav-stacked">
+				<li><a id="userProfile"> <i class="icon-user"></i> Profile</a></li>
+				<!-- <li><a href="profile-activity.html"> <i class="icon-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li> -->
+				<li class="active"><a> <i class="icon-edit"></i> Edit profile</a></li>
+				<li><a id="userChangePassword"> <i class="icon-lock"></i> Change Password</a></li>
+			</ul>
+		
+		</section>
+	</aside>
+	  <aside class="profile-info col-lg-9">
+		  <section class="panel">
+			  <div class="bio-graph-heading">
+				  Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
+			  </div>
+			  <div class="panel-body bio-graph-info">
+				  <h1> Profile Info</h1>
+				  <form class="form-horizontal" role="form">
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">About Me</label>
+						  <div class="col-lg-10">
+							  <textarea name="" id="" class="form-control" cols="30" rows="10" placeholder="<%= bio %>"></textarea>
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">First Name</label>
+						  <div class="col-lg-6">
+							  <input type="text" class="form-control" id="f-name" placeholder="<%= first_name %> ">
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">Middle Name</label>
+						  <div class="col-lg-6">
+							  <input type="text" class="form-control" id="m-name" placeholder="<%= middle_name %> ">
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">Last Name</label>
+						  <div class="col-lg-6">
+							  <input type="text" class="form-control" id="l-name" placeholder="<%= last_name %> ">
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">I am a</label>
+						  <div class="col-lg-6">
+							  <label  class="col-lg-2 control-label">Male</label>
+							  <input type="radio" class="form-control" id="male" name="gender" <% if (gender=="male") { %> checked="checked" <% } %>>
+							  <label  class="col-lg-2 control-label">Female</label>
+							  <input type="radio" class="form-control" id="female" name="gender" <% if (gender=="female") { %> checked="checked" <% } %>>
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">My email id is</label>
+						  <div class="col-lg-6">
+							  <input type="text" class="form-control" id="email" placeholder="<%= email %> ">
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">I am from</label>
+						  <div class="col-lg-6">
+							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="Mumbai" />
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">I love</label>
+						  <div class="col-lg-6">
+							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="Cooking,Meeting People" />
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">I work as</label>
+						  <div class="col-lg-6">
+							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="Waiter" />
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">I work in</label>
+						  <div class="col-lg-6">
+							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="New Mumbai" />
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">I speak</label>
+						  <div class="col-lg-6">
+							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="English,Spanish,Thai" />
+						  </div>
+					  </div>
+
+					  <div class="form-group">
+						  <div class="col-lg-offset-2 col-lg-10">
+							  <button type="submit" class="btn btn-success">Save</button>
+							  <button type="button" class="btn btn-default">Cancel</button>
+						  </div>
+					  </div>
+				  </form>
+			  </div>
+		  </section>
+	  </aside>
+	</div>

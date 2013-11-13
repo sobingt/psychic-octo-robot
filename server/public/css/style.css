@@ -337,7 +337,7 @@ ul.sidebar-menu li.active a i {
 /*main content*/
 
 #main-content {
-    margin-left: 180px;
+    //margin-left: 25px;  //this is the margin we didnt want in the profile page.
 }
 
 .header, .footer {
@@ -2312,8 +2312,8 @@ ul.inbox-pagination li {
 }
 
 .profile-nav .user-heading a img {
-    width: 112px;
-    height: 112px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     -webkit-border-radius: 50%;
 }
