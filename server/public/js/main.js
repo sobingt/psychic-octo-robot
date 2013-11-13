@@ -10,7 +10,14 @@ require.config({
     'jqueryknob': './libs/jquery.knob',
     'jquerynicescroll': './libs/jquery.nicescroll',
     'jqueryscrollTo': './libs/jquery.scrollTo.min',
-    'jquerytagsinput': './libs/jquery.tagsinput',
+    'jquerystepy': './libs/jquery.stepy',
+	'jquerytags':'./libs/jquery.tagsinput',
+	'customcheck':'./libs/ga',
+	'datepicker':'./libs/bootstrap-datepicker',
+	'date':'./libs/date',
+	'daterange':'./libs/daterangepicker',
+	'jqueryui':'./libs/jquery-ui-1.10.1.custom.min',
+	'jqueryddslick':'./libs/jquery.ddslick',
     'commonscripts': './libs/common.scripts',
     'app': './app',
     'templates': './templates'
@@ -28,9 +35,18 @@ require.config({
           deps: ["jquery"],
           exports: "$.fn.popover"
     },
-	jquerytagsinput: {
+	jquerystepy: {
           deps: ["jquery"]
     },
+	datepicker:{
+		 deps:["jquery"]
+	},
+	jqueryui:{
+		deps:["jquery"]
+	},
+	jqueryddslick:{
+		deps:["jquery"]
+	},
 	jqueryraty: {
           deps: ["jquery"]
     },
@@ -44,7 +60,7 @@ require.config({
           deps: ["jquery"]
     },
 	commonscripts: {
-          deps: ["jquery","jquerytagsinput","jqueryraty","jqueryscrollTo","jquerynicescroll"]
+          deps: ["jquery","jquerytags","jqueryraty","jqueryscrollTo","jquerynicescroll"]
     },
 	script: {
           deps: ["jquery"]
