@@ -4,18 +4,25 @@ require.config({
     'jquery': './libs/jquery.v2',
     'underscore': './libs/underscore',
     'backbone': './libs/backbone',
-    'jqueryraty': './libs/jquery.raty',
-	'script': './libs/script',
+	  'script': './libs/script',
     'bootstrap': './libs/bootstrap.min',
     'jqueryknob': './libs/jquery.knob',
     'jquerynicescroll': './libs/jquery.nicescroll',
     'jqueryscrollTo': './libs/jquery.scrollTo.min',
-    'jquerytagsinput': './libs/jquery.tagsinput',
+    'jquerystepy': './libs/jquery.stepy',
+  	'jquerytags':'./libs/jquery.tagsinput',
+  	'customcheck':'./libs/ga',
+  	'datepicker':'./libs/bootstrap-datepicker',
+  	'date':'./libs/date',
+  	'daterange':'./libs/daterangepicker',
+  	'jqueryui':'./libs/jquery-ui-1.10.1.custom.min',
+  	'jqueryddslick':'./libs/jquery.ddslick',
+    'jqueryraty': './libs/jquery.raty',
     'commonscripts': './libs/common.scripts',
     'app': './app',
     'templates': './templates'
   },
-  
+
   shim: {
     underscore: {
       exports: "_"
@@ -25,29 +32,38 @@ require.config({
       exports: 'Backbone'
     },
     bootstrap: {
-          deps: ["jquery"],
-          exports: "$.fn.popover"
+      deps: ["jquery"],
+      exports: "$.fn.popover"
     },
-	jquerytagsinput: {
-          deps: ["jquery"]
+  	jquerystepy: {
+      deps: ["jquery"]
     },
-	jqueryraty: {
-          deps: ["jquery"]
+  	datepicker:{
+  		deps:["jquery"]
+  	},
+  	jqueryui:{
+  		deps:["jquery"]
+  	},
+  	jqueryddslick:{
+  		deps:["jquery"]
+  	},
+  	jqueryraty: {
+      deps: ["jquery"]
     },
-	jqueryknob: {
-          deps: ["jquery"]
+	  commonscripts: {
+      deps: ["jquery","jquerytags","jqueryraty","jqueryscrollTo","jquerynicescroll"]
     },
-	jquerynicescroll: {
-          deps: ["jquery"]
+  	jqueryknob: {
+      deps: ["jquery"]
     },
-	jqueryscrollTo: {
-          deps: ["jquery"]
+  	jquerynicescroll: {
+      deps: ["jquery"]
     },
-	commonscripts: {
-          deps: ["jquery","jquerytagsinput","jqueryraty","jqueryscrollTo","jquerynicescroll"]
+  	jqueryscrollTo: {
+      deps: ["jquery"]
     },
-	script: {
-          deps: ["jquery"]
+	  script: {
+      deps: ["jquery"]
     }
   }/*,
   enforceDefine: true /// FIXME
@@ -66,4 +82,4 @@ require(["backbone",/*App,*/
 
           //App.initialize();
 
-        });
+    });

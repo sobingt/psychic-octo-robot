@@ -1,56 +1,61 @@
-			<div>
-				<!--<img class="dish-img" src="< url >../image/dsc1.jpg" >-->
-				<div id="<%= _id %>" class="carousel slide meal-carousels">
-				  <!-- Indicators -->
-				  <ol class="meal carousel-indicators">
-					<li data-target="#<%= _id %>" data-slide-to="0" class="active"></li>
-					<li data-target="#<%= _id %>" data-slide-to="1"></li>
-					<li data-target="#<%= _id %>" data-slide-to="2"></li>
-				  </ol>
-
-				  <!-- Wrapper for slides -->
-				  <div class="carousel-inner">
-                    <% for(var item in picture) { %>
-                    <div class="item<% if(item==0) { %> active <% } %>">
-                      <img src="/image/<%= picture[item].url %>" />
-                      
-                    </div>
-                       
-                    <% } %>
-					
-				  </div>
-
-				  <!-- Controls -->
-				  <a class="left carousel-control" href="#<%= _id %>" data-slide="prev">
-					<span class="icon-prev"></span>
-				  </a>
-				  <a class="right carousel-control" href="#<%= _id %>" data-slide="next">
-					<span class="icon-next"></span>
-				  </a>
-		
-				</div>
-				
+<div class="meal-image-block">
+	<div id="<%= _id %>" class="carousel slide meal-carousels">
+	  <!-- Indicators -->
+		<ol class="meal carousel-indicators">
+			<li data-target="#<%= _id %>" data-slide-to="0" class="active"></li>
+			<li data-target="#<%= _id %>" data-slide-to="1"></li>
+			<li data-target="#<%= _id %>" data-slide-to="2"></li>
+		</ol>
+	  <!-- Wrapper for slides -->
+	  	<div class="carousel-inner">
+        	<% for(var item in picture) { %>
+        	<div class="item<% if(item==0) { %> active <% } %>">
+          		<img src="/image/<%= picture[item].url %>" /> 
+        	</div>
+        	<% } %>
+	  	</div>
+	  <!-- Controls -->
+	  	<a class="left carousel-control" href="#<%= _id %>" data-slide="prev">
+			<span class="icon-prev"></span>
+	  	</a>
+	  	<a class="right carousel-control" href="#<%= _id %>" data-slide="next">
+			<span class="icon-next"></span>
+	  	</a>
+	</div>
+</div>
+<div class="row meal">
+	<div class="box-holder">
+		<div class="title">
+			<a href="/#meals/<%= _id %>"><p class="meal-name"><%= name %></p></a>
+		</div>
+		<div class="mid-sec">
+			<div class="dish-rating" data-use="rating"></div>
+			<div class="currency"><% if(cost.currency == 'USD') { %><i class="icon-usd"></i><% } else { %><i class="icon-rupee"></i><% } %>&nbsp;<%= cost.amount %></div>
+		</div>
+	</div>
+	<div class="box-holder">
+		<!-- <div class="meal-desctn">
+			<div class="text">
+				<%= description %>
 			</div>
-			
-			<div class="row">
-				
-				<div class="col-md-6 meal">
-					
-					<a href="/#meals/<%= _id %>"><h5><%= name %><%= cost.amount %><%= cost.currency %></h5></a> 
-					
-					
-					<strong>Meal Composition :</strong> Tasting Menu<br>
-					<strong>Cuisine Type :</strong> <%= cuisine_type %><br>
-					<strong>Meal Type :</strong> <%= meal_type %><br>
-				</div>
-				<div class="col-md-6 host">
-					<div class="dish-rating" data-use="rating"></div><br>
-					
-					By <%= host.fname %> <%= host.lname %><a class="meal-host-pic" href="http://www.eatwith.com/#!/offering/2673" target=_blank><img src="../image/chef.jpg" width="84" height="84"/></a>
-				</div>
-			
-			</div>
-			
-			<div class="break-rule"></div>
+		</div>  -->
+		<strong>Meal Composition :</strong> Tasting Menu<br>
+		<strong>Cuisine Type :</strong> <%= cuisine_type %><br>
+		<strong>Meal Type :</strong> <%= meal_type %><br>
+		<strong>Location :</strong> <%= address.area %>
+	</div>
+	<div class="host">
+		<div class="host-pic-small">
+		<a class="meal-host-pic" href="http://www.eatwith.com/#!/offering/2673" target=_blank><img src="../image/chef.jpg" width="84" height="84"/></a>
+		</div>
+		<div class="host-name">
+			By<b> <%= host.fname %> <%= host.lname %></b>
+			<p><%= address.city %></p>
+		</div>
+		<div class="host-location">
+		</div>
+	</div>
+</div>
+<div class="break-rule"></div>
 
 			

@@ -4,7 +4,7 @@ define([
     'backbone',
 	'bootstrap',
     'text!templates/userProfileEdit.html',
-	'jquerytagsinput',
+	'jquerytags',
 	'jqueryknob',
 	'jquerynicescroll',
 	'jqueryscrollTo',

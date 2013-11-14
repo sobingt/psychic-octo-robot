@@ -4,7 +4,7 @@ define([
     'backbone',
 	'bootstrap',
     'text!templates/changePassword.html',
-	'jquerytagsinput',
+	'jquerytags',
 	'jqueryknob',
 	'jquerynicescroll',
 	'jqueryscrollTo',

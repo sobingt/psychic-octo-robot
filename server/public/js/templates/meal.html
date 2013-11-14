@@ -1,98 +1,146 @@
-
-
 <div class="row" id="title-meal">
-	<div class="col-md-2">
-	</div>
-	<div class="col-md-8">
-		<blockquote>
-			<%= name %>
-		</blockquote>
-	</div>
-	<div class="col-md-2">
-	</div>
+    <div clas="row">
+    	<div class="col-md-1">
+    	</div>
+    	<div class="col-md-10">
+            <blockquote>
+                <i class="icon-quote-left" style="size:10px; padding: 0 10px 0 5px"></i><%= name %><i class="icon-quote-right"></i>
+            </blockquote>
+    	</div>
+    	<div class="col-md-1">
+    	</div>
+    </div>
 </div>
 
 	<div class="row">
-		<div class="col-md-2">
-
-		</div>
-		<div class="col-md-6">
-        
+		<div class="col-md-7">        
 			<div id="carousel-example-generic" class="carousel slide">
-			  <!-- Indicators -->
-			  <ol class="carousel-indicators">
-				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-				<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-			  </ol>
-
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
 			  <!-- Wrapper for slides -->
-			  <div class="carousel-inner">
-				<div class="item active">
-				  <img src="/image/dsc1.jpg" width="622" height="350"/>
-
-				</div>
-				<div class="item">
-				  <img src="/image/dsc2.jpg" width="622" height="350"/>
-				  
-				</div>
-				<div class="item">
-				  <img src="/image/dsc3.jpg" width="622" height="350"/>
-				  
-				</div>
-				
-			  </div>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="/image/dsc1.jpg" width="622" height="350"/>
+                    </div>
+                    <div class="item">
+                        <img src="/image/dsc2.jpg" width="622" height="350"/>
+                    </div>
+                    <div class="item">
+                        <img src="/image/dsc3.jpg" width="622" height="350"/>
+                    </div>
+                </div>
 
 			  <!-- Controls -->
-			  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-				<span class="icon-prev"></span>
-			  </a>
-			  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-				<span class="icon-next"></span>
-			  </a>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+				    <span class="icon-prev"></span>
+			    </a>
+    			<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    			    <span class="icon-next"></span>
+    			</a>
 			</div>	
 
 			<div class="meal-description">
-				<strong>Meal Composition :</strong> Tasting Menu<br>
-				<strong>Cuisine Type :</strong> <%= cuisine_type %><br>
-				<strong>Meal Type :</strong> <%= meal_type %><br>
+                <div class="meal-tags">
+                    <div class="tags-left col-md-6">
+        				<small data-toggle="tooltip" class="art-pop" title="Meal Composition"><h4 class="icon-lemon"></h4></small> <span class="tagsinput"> <span class="tag">Tasting Menu</span></span><br>
+        				<small data-toggle="tooltip" class="art-pop" title="Cuisine Type"><h4 class="icon-leaf"></h4></small> <span class="tagsinput"><span class="tag"><%= cuisine_type %></span></span><br>
+        				<small data-toggle="tooltip" class="art-pop" title="Meal Type"><h4 class="icon-food"></h4></small> <span class="tagsinput"><span class="tag"><%= meal_type %></span></span><br>
+                    </div>
+                    <div class="tags-right col-md-6">
+                        <small data-toggle="tooltip" class="art-pop" title="Alcohol"><h4 class="icon-glass"></h4></small> <span class="tagsinput"> <span class="tag"><%= alcohol %></span></span><br>
+                        <small data-toggle="tooltip" class="art-pop" title="Cuisine Type"><h4 class="icon-leaf"></h4></small> <span class="tagsinput"> <span class="tag">Tasting Menu</span></span><br>
+                        <small data-toggle="tooltip" class="art-pop" title="Meal Type"><h4 class="icon-glass"></h4></small> <span class="tagsinput"> <span class="tag">Tasting Menu</span></span><br>
+                    </div>
+                </div><br><br/>
+                <div class="meal-desc">
 				<%= description %>
+                </div>
 			</div>
+            <br>
+            <div id="meal-map">
+            </div>
+            <div class="meal-comments">
+                <article class="media">
+                    <a class="pull-left thumb p-thumb">
+                    <img src="/image/profile.jpg">
+                    </a>
+                    <div class="media-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p> <i class="icon-time"></i> 1 hours ago</p>
+                    </div>
+                </article>
+                <article class="media">
+                    <a class="pull-left thumb p-thumb">
+                    <img src="../image/chef.jpg">
+                    </a>
+                    <div class="media-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p> <i class="icon-time"></i> 1 hours ago</p>
+                    </div>
+                </article>
+                <article class="media">
+                    <a class="pull-left thumb p-thumb">
+                    <img src="/image/profile.jpg">
+                    </a>
+                    <div class="media-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p> <i class="icon-time"></i> 1 hours ago</p>
+                    </div>
+                </article>
+                <article class="media">
+                    <a class="pull-left thumb p-thumb">
+                    <img src="../image/chef.jpg">
+                    </a>
+                    <div class="media-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p> <i class="icon-time"></i> 1 hours ago</p>
+                    </div>
+                </article>
+            </div>
 		
 		</div>
-		<div class="col-md-4">
-        		
+		<div class="col-md-4">     		
 			<div class="meal-details">
-				<div class="meal-booking">
-						<button type="button" class="btn btn-success btn-lg btn-block">Book Now <span class="glyphicon glyphicon-glass"></span></button>
+				<div class="meal-booking meal-details-inner">
+						<button type="button" class="btn btn-success btn-lg btn-block">Book Now </button>
 				</div>
-				
-				<div class="meal-rating" data-use="rating">
-					
+				<div class="meal-rating meal-details-inner" data-use="rating">
 				</div>
-								
-				<div class="meal-stats">
-				
+				<div class="meal-stats meal-details-inner">
 					<div class="cost">
 						<div class="statistics">
 							<div class="symbols">
-									<%= cost.currency %>
+                                <i class="icon-usd"></i>
 							</div>
-							<%= cost.amount %>
-							<div class="stat-sm"><small>Per Person</small></div>
+                            <div class="statistics-pr">
+                                <%= cost.amount %>
+                            </div>
+                                <div class="stat-sm"><small>Per Person</small></div>
 						</div>
 					</div>
 					
 					<div class="break-rule"></div>
 									
 					<div class="people-review">
-                        <div class="statistics-pr">100%
-							<div class="stat-sm"><small>positive rating</small></div>
-						</div>
-						<div class="pr-small">by</div>
-						<div class="statistics-v">423
+                        <div class="statistics">
+                            <div class="symbols">
+                                <i class="icon-check-sign"></i>
+                            </div>
+                            <div class="statistics-pr">100%</div>
+                            <div class="stat-sm"><small>positive rating</small></div>
+                            
+                        <div class="stat-left">
+						  <div class="pr-small">by</div>
+						  <div class="statistics-v">423
 							<div class="stat-sm"><small>votes</small></div>
-						</div>
+						  </div>
+                        </div>
+
+                        </div>
                     </div>
 					
 					<div class="break-rule"></div>
@@ -100,10 +148,12 @@
 					<div class="accept-rate">
                         <div class="statistics">
 							<div class="symbols">
-								<span class="glyphicon glyphicon-thumbs-up"></span>
+								<span class="icon-thumbs-up"></span>
 							</div>
-							40%
-							<div class="stat-sm"><small data-toggle="tooltip" class="art-pop" title="It is the ratio of people who have been accepted to dine with the Chef.">Acceptance Rate</small></div>
+                            <div class="statistics-pr">
+							 40%
+                            </div>
+							    <div class="stat-sm"><small data-toggle="tooltip" class="art-pop" title="It is the ratio of people who have been accepted to dine with the Chef.">Acceptance Rate</small></div>
 						</div>
                     </div>
 					
@@ -112,44 +162,55 @@
 					<div class="avg-resp-time">
 						<div class="statistics">
 							<div class="symbols">
-								<span class="glyphicon glyphicon-time"></span>
+								<span class="icon-time"></span>
 							</div>
-							4 Hours
-							<div class="stat-sm">
-								<small data-toggle="tooltip" class="art-pop" title="It is the time it usually takes this Chef to respond to a request." >Average Response Time</small>
-							</div>
+                            <div class="statistics-pr">
+							    4 Hours
+                            </div>
+						    <div class="stat-sm">
+							    <small data-toggle="tooltip" class="art-pop" title="It is the time it usually takes this Chef to respond to a request." >Average Response Time</small>
+						    </div>
 						</div>
 					</div>
 					
 					<div class="break-rule"></div>
-					
+	
 					<div class="served">
 						<div class="statistics">
 							<div class="symbols">
-									<span class="glyphicon glyphicon-cutlery"></span>
+									<span class="icon-food"></span>
 							</div>
-							10
+                            <div class="statistics-pr">
+							 10
+                            </div>
 							<div class="stat-sm"><small>People Served</small></div>
 						</div>
 					</div>
 					
-					<div class="break-rule"></div>
-					
+					<div class="break-rule"></div>	
 				</div>
 				
-				<div class="host-stats">
-
+				<div class="host-stats meal-details-inner">
                 </div>
 				
 				<div class="break-rule"></div>
 				
-				<div class ="customers" id="customers">
-					<h3>People who dined with me</h3>
+				<div class ="customers meal-details-inner" id="customers">
+                    <div class="statistics">
+                        <div class="symbols">
+                            <i class="icon-user"></i>
+                        </div>
+                        <div class="statistics-pr-cust">
+					       People who dined with me
+                        </div>
+                    </div>
 				</div>
 				
 			</div>
 			
 		</div>
+        <div class="col-md-1">
+        </div>
 	</div>
 	
 	<div class="review-section">
@@ -159,212 +220,3 @@
 	</div>
 
 	
-	<div class="row-fluid">
-
-    <form class="form-horizontal span12">
-
-        <fieldset>
-
-            <legend>Meal Details</legend>
-            <br/>
-
-            <div class="row">
-                <div class="span8">
-
-                    <div class="control-group">
-                        <label for="wineId" class="control-label">Id:</label>
-
-                        <div class="controls">
-                            <input id="wineId" name="id" type="text" value="<%= _id === null ? '' : _id %>" disabled/>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="name" class="control-label">Name:</label>
-
-                        <div class="controls">
-                            <input type="text" id="name" name="name" value="<%= name %>"/>
-                            <span class="help-inline"></span>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="meal_type" class="control-label">Meal type</label>
-
-                        <div class="controls">
-                            <input type="text" id="meal_type" name="meal_type" value="<%= meal_type %>"/>
-                            <span class="help-inline"></span>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="cuisine_type" class="control-label">cuisine_type</label>
-
-                        <div class="controls">
-                            <input type="text" id="cuisine_type" name="cuisine_type" value="<%= cuisine_type %>"/>
-                            <span class="help-inline"></span>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="dishes" class="control-label">dishes</label>
-
-                        <div class="controls">
-                            <input type="text" id="dishes" name="dishes" value="<%= dishes %>"/>
-                            <span class="help-inline"></span>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="alcohol" class="control-label">alcohol</label>
-
-                        <div class="controls">
-                            <input type="text" id="alcohol" name="alcohol" value="<%= alcohol %>"/>
-                            <span class="help-inline"></span>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="fit_for" class="control-label">fit_for:</label>
-
-                        <div class="controls">
-                            <input type="text" id="fit_for" name="fit_for" value="<%= fit_for %>"/>
-                        </div>
-                    </div>
- 
-                    <div class="control-group">
-                        <label for="host.fname" class="control-label">host.fname:</label>
-
-                        <div class="controls">
-                            <input type="text" id="host.fname" name="host.fname" value="<%= host.fname %>"/>
-                        </div>
-                    </div>
- 
-                    <div class="control-group">
-                        <label for="host.lname" class="control-label">host.lname:</label>
-
-                        <div class="controls">
-                            <input type="text" id="host.lname" name="host.lname" value="<%= host.lname %>"/>
-                        </div>
-                    </div>
-  
-                    <div class="control-group">
-                        <label for="host.lname" class="control-label">host.email:</label>
-
-                        <div class="controls">
-                            <input type="text" id="host.email" name="host.email" value="<%= host.email %>"/>
-                        </div>
-                    </div> 
-                    
-                    <div class="control-group">
-                        <label for="cost.amount" class="control-label">cost.amount:</label>
-
-                        <div class="controls">
-                            <input type="text" id="cost.amount" name="cost.amount" value="<%= cost.amount %>"/>
-                        </div>
-                    </div>  
-                    
-                    <div class="control-group">
-                        <label for="cost.currency" class="control-label">cost.currency:</label>
-
-                        <div class="controls">
-                            <input type="text" id="cost.currency" name="cost.currency" value="<%= cost.currency %>"/>
-                        </div>
-                    </div>
-                    
-                    <div class="control-group">
-                        <label for="cost.currency" class="control-label">cost.currency:</label>
-
-                        <div class="controls">
-                            <input type="text" id="cost.currency" name="cost.currency" value="<%= cost.currency %>"/>
-                        </div>
-                    </div>
-                     
-                    <div class="control-group">
-                        <label for=" max_allowed" class="control-label"> max_allowed:</label>
-
-                        <div class="controls">
-                            <input type="text" id=" max_allowed" name=" max_allowed" value="<%=  max_allowed %>"/>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label for=" min_allowed" class="control-label"> min_allowed:</label>
-
-                        <div class="controls">
-                            <input type="text" id=" min_allowed" name=" min_allowed" value="<%=  min_allowed %>"/>
-                        </div>
-                    </div>
-
- 
-                    <div class="control-group">
-                        <label for=" duration" class="control-label"> duration:</label>
-
-                        <div class="controls">
-                            <input type="text" id=" duration" name=" duration" value="<%=  duration %>"/>
-                        </div>
-                    </div>
-                    
-                    <div class="control-group">
-                        <label for=" host_with" class="control-label">  host_with:</label>
-
-                        <div class="controls">
-                            <input type="text" id=" host_with" name=" host_with" value="<%=   host_with %>"/>
-                        </div>
-                    </div>
-                     
-                    <div class="control-group">
-                        <label for="host_how" class="control-label">  host_how:</label>
-
-                        <div class="controls">
-                            <input type="text" id=" host_how" name="host_how" value="<%=   host_how %>"/>
-                        </div>
-                    </div>
-                     
-                    <div class="control-group">
-                        <label for="address.street" class="control-label">  address.street:</label>
-
-                        <div class="controls">
-                            <input type="text" id="address.street" name="address.street" value="<%=   address.street %>"/>
-                        </div>
-                    </div>
-                   
-
-                    <div class="control-group">
-                        <label for="description" class="control-label">Menu:</label>
-
-                        <div class="controls">
-                            <textarea id="description" name="description" style="width: 90%;" rows="6"><%= description
-                                %></textarea>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="span4">
-                    <div class="well" style="width: 180px;text-align: center;width:50%;margin: 0px auto;">
-                        <p><img id="picture" width="180" src="/image/<%= picture === null ? '/image/dish.jpg' : '' + picture %>"/></p>
-                        <p style="color:#999;">Drop to Add images</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </fieldset>
-
-        <div class="form-actions">
-            <a href="#" class="btn btn-primary save">Save</a>
-            <a href="#" class="btn delete">Delete</a>
-        </div>
-
-    </form>
-
-</div>
-
-<div class="row-fluid status-bar">
-    <div class="span12">
-        <div class="alert alert-success" style="display: none">
-            <b>Success!</b> Meal saved successfully
-        </div>
-    </div>
-</div>

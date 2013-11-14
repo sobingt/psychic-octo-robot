@@ -14,7 +14,7 @@ define([
 	'jqueryknob',
 	'jquerynicescroll',
 	'jqueryscrollTo',
-	'jquerytagsinput',
+	'jquerytags',
 	'commonscripts'
 ], function($,_, Backbone, boostrap, UserProfileTemplate) {
 	

@@ -1,0 +1,235 @@
+<style>
+div.tagsinput-add {
+    display: none;
+}
+
+div.tagsinput {
+    border-style: none;
+	float:left;
+}
+
+#errordiv{
+	font-family:"Times New Roman";
+	font-size:20px;
+	color:Red;
+	Text-align:center;
+}
+#errordiv2{
+	font-family:"Times New Roman";
+	font-size:20px;
+	color:Red;
+	Text-align:center;
+}
+#errordiv3{
+	font-family:"Times New Roman";
+	font-size:20px;
+	color:Red;
+	Text-align:center;
+}
+</style>
+
+
+              <!-- page start-->
+              <div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              Host A Meal
+                          </header>
+                          <div class="panel-body">
+                              <div class="stepy-tab">
+                                  <ul id="default-titles" class="stepy-titles clearfix">
+                                      <li id="default-title-0" class="current-step">
+                                          <div>Offering</div>
+                                      </li>
+                                      <li id="default-title-1" class="">
+                                          <div>Hosting</div>
+                                      </li>
+                                      <li id="default-title-2" class="">
+                                          <div>Pricing</div>
+                                      </li>
+                                  </ul>
+                              </div>
+                              <form class="form-horizontal" id="createmeal">
+                                  <fieldset title="Offering" class="step" id="default-step-0">
+                                      <legend> </legend>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Meal Tile</label>
+                                          <div class="col-lg-10">
+                                              <input type="text" id="name" name="name" class="form-control" value="<%= name %>" placeholder="eg. Pasta party Mallu Style">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+											<label class="col-lg-2 control-label">*Meal Type</label>
+											<input name="tagsinput" id="mealtype" class="tagsinput"/>
+											<select class="selecttag" data-default-value="Choose">
+											<option value="Choose" selected="selected">Choose</option>
+											<option value="breakfast">Breakfast</option>
+											<option value="lunch">Lunch</option>
+											<option value="brunch">Brunch</option>
+											<option value="dinner">Dinner</option>
+											</select>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Cuisine Type</label>
+										  <input name="tagsinput" id="cuisinetype" class="tagsinput"/>
+                                          <select class="selecttag">
+											<option value="Choose" selected="selected">Choose</option>
+											<option value="afgan">Afgan</option>
+											<option value="american">American</option>
+											<option value="african">African</option>
+											<option value="asian">Asian</option>
+										  </select>
+                                      </div>
+									  <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Dishes served</label>
+										  <input name="tagsinput" id="dishesserved" class="tagsinput"/>
+                                          <select class="selecttag">
+											<option value="Choose" selected="selected">Choose</option>
+											<option value="appetizers">Appetizers</option>
+											<option value="main-course">Main-course</option>
+											<option value="deserts">Deserts</option>
+											<option value="tapas">Tapas</option>
+										  </select>
+                                      </div>
+									  <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Alcochol</label>
+										  <input name="tagsinput" id="alcohol" class="tagsinput"/>
+                                          <select  class="selecttag">
+											<option value="Choose" selected="selected">Choose</option>
+											<option value="wine">Wine</option>
+											<option value="red-wine">Red-Wine</option>
+											<option value="white-wine">White-Wine</option>
+											<option value="beer">Beer</option>
+										  </select>
+                                      </div>
+									  <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Your menu:</label>
+                                          <div class="col-lg-10">
+                                              <textarea class="form-control" id="ownmenu" cols="60" rows="5" placeholder="e.g., &quot;My menu consists of 3 courses. For the first course I will be serving green herbs salad with Gorgonzola cheese dressing and ceviche made with the catch of the day. As a main dish, I will be serving roast beef with a side of grilled asparagus and creamed potatoes. And for dessert, a surprise with lots and lots of chocolate... There will be lots of red and white wine throughout the dinner, but if you are a beer fan, I'll have some cooled in the fridge. Menu is subject to changes based on produce I find in the local market.&quot;"></textarea>
+                                          </div>
+                                      </div>
+									  <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Min-Max guests</label>
+										  <div id="slider-range" class="col-lg-6"></div>
+                                          <div class="slider-info">
+                                              Min-Max guests:
+                                              <span id="slider-range-amount"></span>
+                                          </div>                           
+                                      </div>
+									  <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Event Duration:</label>
+										  <!--<input name="tagsinput" id="tagsinput" class="tagsinput" value="Flat" />  -->
+                                          <select id="eventduration">
+										    <option value="Choose" selected="selected">Choose</option>
+											<option value="1 hour"> 1 hour</option>
+											<option value="1.5 hour">1.5 hour</option>
+											<option value="2 hour">2 hour</option>
+											<option value="2.5 hour">2.5 hour</option>
+										  </select>
+                                      </div>
+									  <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Host With:</label>
+										  <select id="hostwith">
+											<option value="Choose" selected="selected">Choose</option>
+											<option value="I host by myself"> I host by myself</option>
+											<option value="I host with my family">I host with my family</option>
+											<option value="I host with my spouse">I host with my spouse</option>
+											<option value="I host naked">I host naked</option>
+										  </select>
+                                      </div>
+									  <div class="form-group">
+                                          <label class="col-lg-2 control-label">*How I host:</label>
+                                          <select id="howihost">
+											<option value="Choose" selected="selected">Choose</option>
+											<option value="When I host I sit with my guests">When I host I sit with my guests</option>
+											<option value="When I host I just serve the meal">When I host I just serve the meal</option>
+											<option value="When I host I sit with the guests upon their request">When I host I sit with the guests upon their request</option>
+										  <select>
+                                      </div>
+									  <div class="form-group">
+										<div class="col-lg-12" id="errordiv">
+										</div>
+									  </div>
+                                  </fieldset>
+                                  <fieldset title="Hosting" class="step" id="default-step-1" >
+                                      <legend> </legend>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Address</label>
+                                          <div class="col-lg-10">
+                                              <input type="text" class="form-control" placeholder="eg. &quot; A/502 Shivling Borivali West &quot;" id="maploc">
+											  <!--<input type="button" value="Geocode" id="generate">-->
+                                          </div>
+                                      </div>
+									  <!-- FOR MAPSSSSS -->
+									  <div class="form-group">
+											<div class="col-lg-12" id="map">
+											
+                                            </div>
+                                      </div>
+									  <!--END OF MAPSSSS -->
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">Apartment#</label>
+                                          <div class="col-lg-10">
+                                              <input type="text" class="form-control" placeholder="Apartment Number,Floor Number">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Directions</label>
+                                          <div class="col-lg-10">
+                                              <textarea class="form-control" cols="60" rows="5" id="directions" placeholder="e.g., By Metro: Take the green line and get off at Cupcake station. When you exit the station, turn right. Walk 3 blocks until you reach Chocolate Alley Road. Turn right. We're the fifth house on the left with a bright red door."></textarea>
+                                          </div>
+                                      </div>
+									   <div class="form-group">
+                                          <label class="col-lg-2 control-label">*Please check available amenities</label>
+                                          <div class=" col-lg-10 checkboxes">
+                                              <input name="amenities" id="amenities-01" value="I agree" type="checkbox"/> I agree to the terms
+                                              <input name="amenities" id="amenities-02" value="Second value" type="checkbox" /> Please send me regular update
+                                              <input name="amenities" id="amenities-03" value="This is nice" type="checkbox" /> This is nice checkbox.
+                                          </div>
+                                      </div>
+									  <div class="form-group">
+										<div class="col-lg-12" id="errordiv2">
+										</div>
+									  </div>
+
+                                  </fieldset>
+                                  <fieldset title="Pricing" class="step" id="default-step-2" >
+								   <legend> </legend>
+									<div class="form-group">
+                                      <label class="col-lg-2 control-label">*Price per guest:</label>
+									  <div class="col-lg-2">
+                                              <input type="text" class="form-control" placeholder="25" id="priceperguest">
+                                      </div>
+                                          <select id="currency">
+											<option value="Choose" selected="selected">Choose</option>
+											<option value="When I host I sit with my guests">USD</option>
+											<option value="When I host I just serve the meal">UKP</option>
+											<option value="When I host I sit with the guests upon their request">INR</option>
+										  <select>
+									</div>
+									<div class="form-group">
+                                              <label class="control-label col-sm-4">Starts with years view</label>
+                                              <div class="col-sm-6">
+
+
+                                                  <div class="input-append date" id="dpYears" data-date="12-02-2012"
+                                                       data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                      <input class="form-control" size="16" type="text" value="12-02-2012" readonly>
+                                                      <span class="add-on"><i class="icon-calendar"></i></span>
+                                                  </div>
+                                              </div>
+                                     </div>
+									 <div class="form-group">
+										<div class="col-lg-12" id="errordiv3">
+										</div>
+									 </div>
+                                  </fieldset>
+                                  <input type="submit" class=" save finish btn btn-danger" value="Finish"/>
+                              </form>
+                          </div>
+                      </section>
+                  </div>
+              </div>
+              <!-- page end-->
+			  
