@@ -390,7 +390,6 @@ blockquote {
     font-weight:200;
     line-height: 1.45;
     margin-bottom: 0.25empx;
-    margin-top: 55px;
     margin-right: 0;
     padding-bottom: 0.25px;
     padding-left: 40px;
@@ -419,14 +418,12 @@ blockquote:before {
 }
 
 .icon-quote-left {
-    padding: 0 0px 0 0px !important;
-    position: absolute;
-    margin-left: -70px !important;    
+    padding: 0 25px 0 0px !important;
+    margin-left: 150px !important;    
 }
 
 .icon-quote-right {
     padding: 0 0px 0 25px !important;
-    margin-right: -30px !important;
     margin-top: 15px;
     position: absolute;
 }
@@ -435,6 +432,10 @@ blockquote:before {
     margin: 30px 12px 0 15px;
     border-radius: 14px;
     padding-bottom: 10px;
+}
+
+#meal-info {
+    padding-left: 36px;   
 }
 
 .meal-comments article {
@@ -453,16 +454,16 @@ blockquote:before {
 }
 
 #meal-map {
-    width:650px;
+    width:100%;
     height:400px;
     background-color:#CCC;
     border: 2px solid #2c3e50;
 }
 
-.meal-details-inner {
-    padding: 10px 20px 10px 20px;
+.meal-stats .cost {
+    font-size: 20px;
+    font-weight: bold;   
 }
-
 .meal-rating {
     margin-left: 95px;    
 }
@@ -539,12 +540,12 @@ div.stat-left {
     margin-right: 60px;
 }
 
-ol.meal.carousel-indicators {
-display: none;
+.host-stats {
+    margin-top:15px;   
 }
 
-.carousel-inner .item img {
-    width:auto;    
+ol.meal.carousel-indicators {
+display: none;
 }
 
 .host-pic {
@@ -610,6 +611,8 @@ div.meal-tags strong {
 
 div.meal-desc {
     text-indent:3.5em;
+    text-align: justify;
+    font-size:16px;
 }
 
 .art-pop h4 {
@@ -625,13 +628,12 @@ div.meal-desc {
 }
 
 .thumbnails {
-    margin-top:90px;   
-    margin-left:-130px;
+    margin-top:90px;
 }
 
 .carousel-inner .item img {
-    width:350px;
-    height:260px;
+    width:100%;
+    height:auto;
     border: 4px solid #e74c3c;
 }
 
@@ -3383,6 +3385,7 @@ ul.amounts li {
 
 .carousel-inner {
     margin-bottom: 15px;
+    padding: 0px 5px 5px 5px;
 }
 
 /*gritter*/

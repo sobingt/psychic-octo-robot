@@ -21,8 +21,7 @@ var MealListView = Backbone.View.extend({
         var len = meals.length;
         var startPos = (this.options.page - 1) * 8;
         var endPos = Math.min(startPos + 8, len);
-
-        $(this.el).html('<div class="thumbnails"></div>');
+        $(this.el).html('<div class="col-md-1"></div><div class="col-md-10"><div class="thumbnails"></div></div><div class="col-md-1"></div>');
 
         $('.thumbnails', this.el).append('<div class="row row0"></div>');
         var rowValue= 0;
@@ -35,7 +34,7 @@ var MealListView = Backbone.View.extend({
             }
         }
 
-        $(this.el).append(new Paginator.View({model: this.model, page: this.options.page}).render().el);
+        $('.col-md-10', this.el).append(new Paginator.View({model: this.model, page: this.options.page}).render().el);
 
         return this;
     }
@@ -58,9 +57,9 @@ var MealListItemView = Backbone.View.extend({
         $(this.el).html(this.template(this.model.toJSON()));
 		
 		this.$('.meal-carousels').on('mouseenter',function() {
-                 $(this).carousel({ interval: 1000, cycle: true, pause: 'none' });console.log("Start");
+                 $(this).carousel({ interval: 1000, cycle: true, pause: 'none' });
 		  }).on('mouseleave', function() {
-						$(this).carousel('pause'); console.log("sss");
+						$(this).carousel('pause'); 
 		  });
 		
 		this.$('[data-use="rating"]').raty({
@@ -71,7 +70,7 @@ var MealListItemView = Backbone.View.extend({
 			size     : 24,
 			starHalf    : 'image/star_half.gif',                                // The name of the half star image.
 			starOff     : 'image/star_off.gif',                                 // Name of the star image off.
-			starOn      : 'image/star_on.gif'                                   // Name of the star image on.   
+			starOn      : 'image/star_full.gif'                                   // Name of the star image on.   
 		});
 
         return this;

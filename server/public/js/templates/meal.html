@@ -1,27 +1,25 @@
-<div class="row" id="title-meal">
-    <div clas="row">
-    	<div class="col-md-1">
-    	</div>
-    	<div class="col-md-10">
+<div class="col-md-1">
+</div>
+<div class="col-md-10">
+    <div class="row" id="title-meal">
+        <div class="row">	
             <blockquote>
                 <i class="icon-quote-left" style="size:10px; padding: 0 10px 0 5px"></i><%= name %><i class="icon-quote-right"></i>
             </blockquote>
     	</div>
-    	<div class="col-md-1">
-    	</div>
     </div>
-</div>
 
-	<div class="row">
-		<div class="col-md-7">        
-			<div id="carousel-example-generic" class="carousel slide">
+
+        <div class="row" id="meal-info">
+        <div class="col-md-8">        
+            <div id="carousel-example-generic" class="carousel slide">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
                     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                     <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                     <li data-target="#carousel-example-generic" data-slide-to="2"></li>
                 </ol>
-			  <!-- Wrapper for slides -->
+              <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
                         <img src="/image/dsc1.jpg" width="622" height="350"/>
@@ -34,32 +32,33 @@
                     </div>
                 </div>
 
-			  <!-- Controls -->
+              <!-- Controls -->
                 <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-				    <span class="icon-prev"></span>
-			    </a>
-    			<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-    			    <span class="icon-next"></span>
-    			</a>
-			</div>	
+                    <span class="icon-prev"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <span class="icon-next"></span>
+                </a>
+            </div>  
 
-			<div class="meal-description">
+            <div class="meal-description">
                 <div class="meal-tags">
                     <div class="tags-left col-md-6">
-        				<small data-toggle="tooltip" class="art-pop" title="Meal Composition"><h4 class="icon-lemon"></h4></small> <span class="tagsinput"> <span class="tag">Tasting Menu</span></span><br>
-        				<small data-toggle="tooltip" class="art-pop" title="Cuisine Type"><h4 class="icon-leaf"></h4></small> <span class="tagsinput"><span class="tag"><%= cuisine_type %></span></span><br>
-        				<small data-toggle="tooltip" class="art-pop" title="Meal Type"><h4 class="icon-food"></h4></small> <span class="tagsinput"><span class="tag"><%= meal_type %></span></span><br>
+                        <small data-toggle="tooltip" class="art-pop" title="Meal Composition"><h4 class="icon-lemon"></h4></small> <span class="tagsinput"> <span class="tag">Tasting Menu</span></span><br>
+                        <small data-toggle="tooltip" class="art-pop" title="Cuisine Type"><h4 class="icon-leaf"></h4></small> <span class="tagsinput"><span class="tag"><%= cuisine_type %></span></span><br>
+                        <small data-toggle="tooltip" class="art-pop" title="Meal Type"><h4 class="icon-food"></h4></small> <span class="tagsinput"><span class="tag"><%= meal_type %></span></span><br>
                     </div>
                     <div class="tags-right col-md-6">
                         <small data-toggle="tooltip" class="art-pop" title="Alcohol"><h4 class="icon-glass"></h4></small> <span class="tagsinput"> <span class="tag"><%= alcohol %></span></span><br>
                         <small data-toggle="tooltip" class="art-pop" title="Cuisine Type"><h4 class="icon-leaf"></h4></small> <span class="tagsinput"> <span class="tag">Tasting Menu</span></span><br>
                         <small data-toggle="tooltip" class="art-pop" title="Meal Type"><h4 class="icon-glass"></h4></small> <span class="tagsinput"> <span class="tag">Tasting Menu</span></span><br>
                     </div>
-                </div><br><br/>
-                <div class="meal-desc">
-				<%= description %>
-                </div>
-			</div>
+                </div><hr><br>
+                <div class="break-rule"></div>
+            </div>          
+            <div class="meal-desc">
+                <p><%= description %> </p>
+            </div>
             <br>
             <div id="meal-map">
             </div>
@@ -100,32 +99,33 @@
                         <p> <i class="icon-time"></i> 1 hours ago</p>
                     </div>
                 </article>
-            </div>
-		
-		</div>
-		<div class="col-md-4">     		
-			<div class="meal-details">
-				<div class="meal-booking meal-details-inner">
-						<button type="button" class="btn btn-success btn-lg btn-block">Book Now </button>
-				</div>
-				<div class="meal-rating meal-details-inner" data-use="rating">
-				</div>
-				<div class="meal-stats meal-details-inner">
-					<div class="cost">
-						<div class="statistics">
-							<div class="symbols">
+            </div>   
+            <div class="review-section">
+            </div>     
+        </div>
+        <div class="col-md-4">          
+            <div class="meal-details">
+                <div class="meal-booking meal-details-inner">
+                        <button type="button" class="btn btn-success btn-lg btn-block">Book Now </button>
+                </div>
+                <div class="meal-rating meal-details-inner" data-use="rating">
+                </div>
+                <div class="meal-stats meal-details-inner">
+                    <div class="price">
+                        <div class="statistics">
+                            <div class="symbols">
                                 <i class="icon-usd"></i>
-							</div>
+                            </div>
                             <div class="statistics-pr">
                                 <%= cost.amount %>
                             </div>
                                 <div class="stat-sm"><small>Per Person</small></div>
-						</div>
-					</div>
-					
-					<div class="break-rule"></div>
-									
-					<div class="people-review">
+                        </div>
+                    </div>
+                    
+                    <div class="break-rule"></div>
+                                    
+                    <div class="people-review">
                         <div class="statistics">
                             <div class="symbols">
                                 <i class="icon-check-sign"></i>
@@ -134,89 +134,83 @@
                             <div class="stat-sm"><small>positive rating</small></div>
                             
                         <div class="stat-left">
-						  <div class="pr-small">by</div>
-						  <div class="statistics-v">423
-							<div class="stat-sm"><small>votes</small></div>
-						  </div>
+                          <div class="pr-small">by</div>
+                          <div class="statistics-v">423
+                            <div class="stat-sm"><small>votes</small></div>
+                          </div>
                         </div>
 
                         </div>
                     </div>
-					
-					<div class="break-rule"></div>
-					
-					<div class="accept-rate">
+                    
+                    <div class="break-rule"></div>
+                    
+                    <div class="accept-rate">
                         <div class="statistics">
-							<div class="symbols">
-								<span class="icon-thumbs-up"></span>
-							</div>
-                            <div class="statistics-pr">
-							 40%
+                            <div class="symbols">
+                                <span class="icon-thumbs-up"></span>
                             </div>
-							    <div class="stat-sm"><small data-toggle="tooltip" class="art-pop" title="It is the ratio of people who have been accepted to dine with the Chef.">Acceptance Rate</small></div>
-						</div>
+                            <div class="statistics-pr">
+                             40%
+                            </div>
+                                <div class="stat-sm"><small data-toggle="tooltip" class="art-pop" title="It is the ratio of people who have been accepted to dine with the Chef.">Acceptance Rate</small></div>
+                        </div>
                     </div>
-					
-					<div class="break-rule"></div>
-					
-					<div class="avg-resp-time">
-						<div class="statistics">
-							<div class="symbols">
-								<span class="icon-time"></span>
-							</div>
-                            <div class="statistics-pr">
-							    4 Hours
+                    
+                    <div class="break-rule"></div>
+                    
+                    <div class="avg-resp-time">
+                        <div class="statistics">
+                            <div class="symbols">
+                                <span class="icon-time"></span>
                             </div>
-						    <div class="stat-sm">
-							    <small data-toggle="tooltip" class="art-pop" title="It is the time it usually takes this Chef to respond to a request." >Average Response Time</small>
-						    </div>
-						</div>
-					</div>
-					
-					<div class="break-rule"></div>
-	
-					<div class="served">
-						<div class="statistics">
-							<div class="symbols">
-									<span class="icon-food"></span>
-							</div>
                             <div class="statistics-pr">
-							 10
+                                4 Hours
                             </div>
-							<div class="stat-sm"><small>People Served</small></div>
-						</div>
-					</div>
-					
-					<div class="break-rule"></div>	
-				</div>
-				
-				<div class="host-stats meal-details-inner">
+                            <div class="stat-sm">
+                                <small data-toggle="tooltip" class="art-pop" title="It is the time it usually takes this Chef to respond to a request." >Average Response Time</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="break-rule"></div>
+    
+                    <div class="served">
+                        <div class="statistics">
+                            <div class="symbols">
+                                    <span class="icon-food"></span>
+                            </div>
+                            <div class="statistics-pr">
+                             10
+                            </div>
+                            <div class="stat-sm"><small>People Served</small></div>
+                        </div>
+                    </div>
+                    
+                    <div class="break-rule"></div>  
                 </div>
-				
-				<div class="break-rule"></div>
-				
-				<div class ="customers meal-details-inner" id="customers">
+                
+                <div class="host-stats meal-details-inner">
+                </div>
+                
+                <div class="break-rule"></div>
+                
+                <div class ="customers meal-details-inner" id="customers">
                     <div class="statistics">
                         <div class="symbols">
                             <i class="icon-user"></i>
                         </div>
                         <div class="statistics-pr-cust">
-					       People who dined with me
+                           People who dined with me
                         </div>
                     </div>
-				</div>
-				
-			</div>
-			
-		</div>
-        <div class="col-md-1">
+                </div>              
+            </div>          
         </div>
-	</div>
-	
-	<div class="review-section">
-	
-	
-	
-	</div>
+        </div>
+</div>
+
+
+
 
 	
