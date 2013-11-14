@@ -14,6 +14,7 @@ define([
     'app/views/userProfileView',
     'app/views/userProfileEditView',
     'app/views/changePasswordView',
+    'app/views/chatView',
 	'jquerytagsinput'
 ], function (Backbone,
 			LoginData,
@@ -22,14 +23,15 @@ define([
 			HeaderView,
 			LoginView,
 			MemberView,
-			 MealView,
-			 MealList,
-			 UsersList,
-			 Users,
-			 UserView,
-			 UserProfileView,
-			 UserProfileEditView,
-			 ChangePasswordView
+			MealView,
+			MealList,
+			UsersList,
+			Users,
+			UserView,
+			UserProfileView,
+			UserProfileEditView,
+			ChangePasswordView,
+			ChatView
 			) 
 	{
     var Router = Backbone.Router.extend({
@@ -38,6 +40,7 @@ define([
 			'profile/:id'		: 'profile',
 			'profile/edit/:id'	: 'profileEdit',
 			'profile/cp/:id'	: 'changePassword',
+			'chat/:id'			: 'chat',
 			'users'             : 'userList',
             'users/:id'         : 'userDetails',
 			'meal'				: 'meal',
@@ -97,6 +100,16 @@ define([
 			
 			var changePasswordView = new ChangePasswordView({model: member});
 			$('#main-content').html( changePasswordView.render().el );
+			//('#main-content').html(new UserProfileView({model: member}).el);
+		},
+		
+		chat: function(id) {
+			var member = new MemberData({
+				id: id
+			});
+			
+			var chatView = new ChatView({model: member});
+			$('#main-content').html( chatView.render().el );
 			//('#main-content').html(new UserProfileView({model: member}).el);
 		},
 		
