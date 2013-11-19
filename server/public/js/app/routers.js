@@ -3,6 +3,7 @@ define([
 'backbone',
 'app/models/meal',
 'app/models/profile',
+'app/models/users',
 'app/views/header',
 'app/views/loginView',
 'app/views/mealView',
@@ -25,6 +26,7 @@ define([
     Backbone,
     Meals,
     Profile,
+    Users,
     HeaderView,
     LoginView,
     MealView,
@@ -92,13 +94,13 @@ define([
             });
             profile.fetch();
 
-            var member = new MemberData({
+            var users = new Users.model({
                 id: id
             });
             var profileView = new UserProfileView({
-                model: member
+                model: users
             });
-            member.fetch();
+            users.fetch();
             //profileView.taginput();
             profileView.$el.find('.tagsinput').tagsInput({
                 'interactive': false,
@@ -210,7 +212,7 @@ define([
             var p = page ? parseInt(page, 5) : 1;
             var mealList = new Meals.collection();
             var meallistView = new MealList.ListView({model: mealList, page: p});
-            mealList.fetch();
+            
         },
 
         singleMeal: function (id) {
