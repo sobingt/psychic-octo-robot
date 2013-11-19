@@ -4297,32 +4297,9 @@ span.customSelect.changed {
     background:url(../img/customSelect-arrow.gif) no-repeat center right;
 }
 
-nav li a#profile-circle {
-    -moz-border-radius: 99em;
-    -webkit-border-radius: 99em;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: 5px solid #eee;
-    border-radius: 99em;
-    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
-    display: block;
-    height: 100px;
-    margin-bottom: 1em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1em;
-    position: absolute
-;
-    width: 100px;
-}
 
 /*********************/
 
-/**
- * Circular Tooltip (SO)
- * http://stackoverflow.com/q/13132864/1397351
- */
 * { margin: 0; padding: 0; }
 
 /* generic styles for button & circular menu */
@@ -4505,6 +4482,39 @@ select {
     -moz-appearance:none;
     appearance:none;
     cursor:pointer;
+}
+
+a.button#profile-circle {
+    -moz-border-radius: 99em;
+    -webkit-border-radius: 99em;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 5px solid #eee;
+    border-radius: 99em;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+    display: block;
+    height: 100px;
+    position: absolute
+;
+    width: 100px;
+}
+
+ul.tip li.slice span.badge {
+    font-size: 12px;
+    padding: 2px;
+    position: absolute;
+    margin-top: -6px;
+    margin-left: -29px;
+}
+
+span.badge.bg-important, span.badge.bg-warning {
+    -webkit-transform: rotate(180deg);
+}
+
+.icon-bell-alt:before, .icon-envelope-alt:before, .icon-wrench:before, .icon-off:before {
+    -webkit-transform: rotate(180deg);
+    font-size: 17px;
 }
 
 
