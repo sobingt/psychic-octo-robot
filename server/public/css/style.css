@@ -337,7 +337,10 @@ ul.sidebar-menu li.active a i {
 /*main content*/
 
 #main-content {
-    //margin-left: 25px;  //this is the margin we didnt want in the profile page.
+    /** margin-left: 25px; ***/
+    /** this is the margin we didnt want in the profile page. **/
+    margin-left: 25px;
+    margin-top: 64px;
 }
 
 .header, .footer {
@@ -4294,6 +4297,188 @@ span.customSelect.changed {
     background:url(../img/customSelect-arrow.gif) no-repeat center right;
 }
 
+nav li a#profile-circle {
+    -moz-border-radius: 99em;
+    -webkit-border-radius: 99em;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 5px solid #eee;
+    border-radius: 99em;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+    display: block;
+    height: 100px;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    position: absolute
+;
+    width: 100px;
+}
+
+/*********************/
+
+/**
+ * Circular Tooltip (SO)
+ * http://stackoverflow.com/q/13132864/1397351
+ */
+* { margin: 0; padding: 0; }
+
+/* generic styles for button & circular menu */
+.ctrl {
+    position: absolute;
+    /* top: 50%; */ 
+    /* left: 50%; */
+    font: 1.5em/1.13 Verdana, sans-serif;
+    transition: .5s;
+    margin-top: -50px;
+    margin-left: -50px;
+}
+/* generic link styles */
+a.ctrl, .ctrl a {
+    display: block;
+    opacity: .56;
+    background: #3498db;
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px dimgrey;
+}
+a.ctrl:hover, .ctrl a:hover, a.ctrl:focus, .ctrl a:focus { opacity: 1; }
+a.ctrl:focus, .ctrl a:focus { outline: none; }
+/* circular menu */
+.tip {
+    z-index: 1;
+    /**outline: dotted 1px white;/**/
+    /**margin: -5em;**/
+    width: 10em; height: 10em;
+    -webkit-transform: scale(.001);
+         opacity: 0;
+    list-style: none;
+    
+}
+/* the ends of the menu */
+.tip:before, .tip:after {
+    position: absolute;
+    top: 34.3%;
+    width: .5em; height: 14%;
+    opacity: 1;
+    /**opacity: .56;**/
+    background: #3498db;
+    content: '';
+    display: none;
+}
+.tip:before {
+    left: 5.4%;
+    border-radius: .25em 0 0 .25em;
+    box-shadow: -1px 0 1px dimgrey, inset 1px 0 1px white, inset -1px 0 1px grey, 
+                inset 0 1px 1px white, inset 0 -1px 1px white;
+    transform: rotate(-75deg);
+}
+.tip:after {
+    right: 5.4%;
+    border-radius: 0 .25em .25em 0;
+    box-shadow: 1px 0 1px dimgrey, inset -1px 0 1px white, inset 1px 0 1px grey,
+                inset 0 1px 1px white, inset 0 -1px 1px white;
+    -webkit-transform: rotate(75deg);
+}
+
+/* make the menu appear on click */
+.button:focus + .tip {
+    -webkit-transform: scale(1);
+    opacity: 1;
+}
+
+
+/* make the menu appear on click */
+.button:focus .badge {
+display: none;
+}
+
+/* slices of the circular menu */
+.slice {
+    overflow: hidden;
+    position: absolute;
+    /**outline: dotted 1px yellow;/**/
+    width: 50%; height: 50%;
+    -webkit-transform-origin: 100% 100%;
+}
+/* 
+ * rotate each slice at the right angle = (A/2)° + (k - (n+1)/2)*A°
+ * where A is the angle of 1 slice (30° in this case)
+ * k is the number of the slice (in {1,2,3,4,5} here)
+ * and n is the number of slices (5 in this case)
+ * formula works for odd number of slices (n odd)
+ * for even number of slices (n even) the rotation angle is (k - n/2)*A°
+ * 
+ * after rotating, skew on Y by 90°-A°; here A° = the angle for 1 slice = 30° 
+ */
+.slice:first-child { -webkit-transform: rotate(180deg) skewY(60deg); }
+.slice:nth-child(2) { -webkit-transform: rotate(151deg) skewY(60deg); }
+.slice:nth-child(3) { -webkit-transform: rotate(122deg) skewY(60deg); }
+.slice:nth-child(4) { -webkit-transform: rotate(93deg) skewY(60deg); }
+.slice:last-child { -webkit-transform: rotate(93deg) skewY(60deg); }
+/* covers for the inner part of the links so there's no hover trigger between
+   star button & menu links; give them a red background to see them */
+.slice:after {
+    position: absolute;
+    top: 32%; left: 32%;
+    width: 136%; height: 136%;
+    border-radius: 50%;
+    /* "unskew" = skew by minus the same angle by which parent was skewed */
+    -webkit-transform: skewY(-60deg);
+    content: '';
+    /* display: none; */
+}
+/* menu links */
+.slice a {
+    width: 200%; height: 200%;
+    border-radius: 50%;
+    box-shadow: 0 0 3px dimgrey, inset 0 0 4px white;
+    /* "unskew" & rotate by -A°/2 */
+    -webkit-transform: skewY(-60deg) rotate(-15deg);
+
+    /*
+    background: 
+            linear-gradient(75deg, 
+        transparent 50%, grey 50%, transparent 54%) no-repeat 36.5% 0,
+            linear-gradient(-75deg, 
+        transparent 50%, grey 50%, transparent 54%) no-repeat 63.5% 0,
+        radial-gradient(rgba(127,127,127,0) 49%, 
+                    rgba(255,255,255,.7) 51%, #3498db 52%);
+    background-size: 15% 15%, 15% 15%, cover;
+    */
+
+    background: /* lateral separators */              
+            linear-gradient(75deg,           
+            transparent 50%, grey 50%, transparent 54%) no-repeat 36.5% 0,              
+            linear-gradient(-75deg, transparent 50%, grey 50%, transparent 54%) no-repeat 63.5% 0,
+            /* make sure inner part is transparent */          
+            radial-gradient(rgba(127,127,127,0) 45%,                       
+            rgba(255,255,255,.7) 45%, #3498DB 45%);
+
+    background-size: 16% 16%, 16% 16%, cover;
+    line-height: 1.4;
+}
+/* arrow for middle link */
+.slice:nth-child(3) a:after {
+    position: absolute;
+    top: 18%; 
+    left: 50%;
+    margin: -.25em;
+    width: .5em; height: .5em;
+    box-shadow: 2px 2px 2px white;
+    -webkit-transform: rotate(45deg);
+    background: linear-gradient(-45deg, #3498db 50%, transparent 50%);
+    content: '';
+}
+
+.badge-right {
+    float: right;
+    margin-top: 4px;
+}
+
 /*select tag css */
 
 select {
@@ -4321,3 +4506,7 @@ select {
     appearance:none;
     cursor:pointer;
 }
+
+
+
+/*********************/

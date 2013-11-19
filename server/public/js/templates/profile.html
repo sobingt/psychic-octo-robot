@@ -3,17 +3,23 @@
 			<section class="panel">
 				<div class="user-heading round">
 					<a href="#">
-						<img src="<%= facebook.profile_picture %>" alt="">
-						<!--<img src="../image/profile.jpg" alt="">-->
+						<img src="<%= facebook.profile_picture %>?width=200&height=200" alt="">
 					</a>
 					<h1><%= name %></h1>
-					<p><%= email %></p>
+					<p><%= location %></p>
 				</div>
+			
+				<ul class="nav nav-pills nav-stacked">
+					<li class="active"><a> <i class="icon-user"></i> Profile</a></li>
+					<!-- <li><a href="profile-activity.html"> <i class="icon-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li> -->
+					<li><a id="userProfileEdit"> <i class="icon-edit"></i> Edit profile</a></li>
+					<!--<li><a id="userChangePassword"> <i class="icon-lock"></i> Change Password</a></li>-->
+				</ul>
 			
 				<section class="panel">
 					<div class="panel-body bio-graph-info">
 						<div class="row">
-						<p class="bio-intro"> I am <span><%= name %></span> from <span>Mumbai</span> love 
+						<p class="bio-intro"> I am <span>Sobin George Thomas</span> from <span>Mumbai</span> love 
 						<span>Cooking and Meeting people</span>. I work as a <span>Waiter</span> in <span>New Mumbai</span>.
 						I Speak <span>English, Spanish & Thai</span>
 						</p>
@@ -90,7 +96,7 @@
 										<img src="../image/foodbmg.png" alt="">
 									</a>
 									<h4>Welcome</h4>
-									FoodBMG welcomes <%= name %> 
+									Hi <%= name %> FoodBMG welcomes you
 								</div>
 							</div>
 							<div class="at-time">August 22 at 12:35am</div>
@@ -148,7 +154,7 @@
 										<img src="../image/level1.jpg" alt="">
 									</a>
 									<h4>Level 1</h4>
-									<%= name %> has been promoted to Level 1
+									<%= name %>, you have been promoted to Level 1
 								</div>
 							</div>
 							<div class="at-time">August 22 at 12:35am</div>
@@ -161,7 +167,7 @@
 										<img src="../image/badge.jpg" alt="">
 									</a>
 									<h4>Badge Name</h4>
-									<%= name %> has recieved Badge Name badge
+									<%= name %>, you have recieved Badge Name badge
 								</div>
 							</div>
 							<div class="at-time">August 22 at 12:35am</div>

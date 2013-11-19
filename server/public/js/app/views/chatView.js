@@ -10,26 +10,13 @@ define([
 	
 	var ChatView = Backbone.View.extend({
 		
-		tagName: 'section',
-		className: 'wrapper',
+		el: "#main-content",
 		 
 		template: _.template(ChatTemplate),
 
 		initialize: function() {
-			_.bindAll(this, 'render');
+			this.model.bind('change', this.render, this);
 		},
-
-		
-		render: function() {
-			
-			$(this.el).html(this.template(this.model.toJSON()));
-
-			this.$("#chat-guest-list").niceScroll({styler:"fb",cursorcolor:"#e8403f", cursorwidth: '4', cursorborderradius: '10px', background: '#404040', cursorborder: ''});
-			this.$("#chat-body").niceScroll({styler:"fb",cursorcolor:"#e8403f", cursorwidth: '4', cursorborderradius: '10px', background: '#404040', cursorborder: ''});
-			
-			return this;
-		},
-		
 		
 	});
 

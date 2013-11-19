@@ -10,11 +10,7 @@ define([
 
 var UserView = Backbone.View.extend({
 
-    tagName: 'section',
-    
-    id: 'user',
-
-    className: 'container',
+    el: '#main-content',
 
     template: _.template(UserTemplate),
 

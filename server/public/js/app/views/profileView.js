@@ -4,7 +4,7 @@ define([
     'backbone',
 	'bootstrap',
 	//Other user's profile with meals
-    'text!templates/userProfileOther.html',
+    'text!templates/profile.html',
 	//User's profile without meals
     //'text!templates/userProfileAdd.html',
 	//Other user's profile without meals
@@ -18,7 +18,7 @@ define([
 	'commonscripts'
 ], function($,_, Backbone, boostrap, UserProfileTemplate) {
 	
-	var UserProfileView = Backbone.View.extend({
+	var ProfileView = Backbone.View.extend({
 		
 		/*
 		tagName: 'section',
@@ -83,7 +83,7 @@ define([
 		},
 		*/
 		goToEditProfile: function() {
-			Backbone.history.navigate('profile/edit/' + 2 , { trigger: true });
+			Backbone.history.navigate('me/edit', { trigger: true });
 			return this;
 		},
 				
@@ -113,6 +113,6 @@ define([
 		
 	});
 		
-	return UserProfileView;
+	return ProfileView;
 
 });

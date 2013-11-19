@@ -4,7 +4,7 @@
 		<section class="panel">
 			<div class="user-heading round">
 				<a href="#">
-					<img src="../image/profile.jpg" alt="">
+					<img src="<%= facebook.profile_picture %>?width=200&height=200" alt="">
 				</a>
 				<h1><%= name %></h1>
 				<p><%= email %></p>
@@ -31,34 +31,34 @@
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">About Me</label>
 						  <div class="col-lg-10">
-							  <textarea name="" id="" class="form-control" cols="30" rows="10" placeholder="<%= bio %>"></textarea>
+							  <textarea name="" id="" class="form-control" cols="30" rows="10" placeholder="<%= facebook.bio %>"></textarea>
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">First Name</label>
 						  <div class="col-lg-6">
-							  <input type="text" class="form-control" id="f-name" placeholder="<%= first_name %> ">
+							  <input type="text" class="form-control" id="f-name" placeholder="<%= facebook.first_name %> ">
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">Middle Name</label>
 						  <div class="col-lg-6">
-							  <input type="text" class="form-control" id="m-name" placeholder="<%= middle_name %> ">
+							  <input type="text" class="form-control" id="m-name" placeholder="<%= facebook.middle_name %> ">
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">Last Name</label>
 						  <div class="col-lg-6">
-							  <input type="text" class="form-control" id="l-name" placeholder="<%= last_name %> ">
+							  <input type="text" class="form-control" id="l-name" placeholder="<%= facebook.last_name %> ">
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">I am a</label>
 						  <div class="col-lg-6">
 							  <label  class="col-lg-2 control-label">Male</label>
-							  <input type="radio" class="form-control" id="male" name="gender" <% if (gender=="male") { %> checked="checked" <% } %>>
+							  <input type="radio" class="form-control" id="male" name="gender" <% if (facebook.gender=="male") { %> checked="checked" <% } %>>
 							  <label  class="col-lg-2 control-label">Female</label>
-							  <input type="radio" class="form-control" id="female" name="gender" <% if (gender=="female") { %> checked="checked" <% } %>>
+							  <input type="radio" class="form-control" id="female" name="gender" <% if (facebook.gender=="female") { %> checked="checked" <% } %>>
 						  </div>
 					  </div>
 					  <div class="form-group">

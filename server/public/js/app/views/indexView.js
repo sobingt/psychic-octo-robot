@@ -4,12 +4,12 @@ define([
     'backbone',
     'app/helpers/utils',
     'text!templates/login.html'
-], function($, _, Backbone, utils, LoginTemplate) {
+], function($, _, Backbone, utils, IndexTemplate) {
 
 		var LoginView = Backbone.View.extend({
 			el: '#contentwrapper',
 
-			template: _.template(LoginTemplate),
+			template: _.template(IndexTemplate),
 
 			events: {
 				'click #facebook-login-btn': 'facebook_login',

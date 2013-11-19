@@ -10,6 +10,15 @@
     "hbs": "*",
     "jade": "*",
     "mongodb": "*",
-    "mysql": "*"
+    "mysql": "*",
+    "mongoose": ">= 3.6.2",
+    "connect-mongo": "0.3.2",
+    "nodemailer": ">= 0.3.20",
+    "socket.io": "0.9",
+    "cookie": "0.0.5",
+    "passport": "0.1.16",
+    "passport-facebook": "*",
+    "passport-google-oauth": "*",
+    "underscore": "*"
   }
 }

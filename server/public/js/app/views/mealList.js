@@ -12,6 +12,8 @@ define([
 
 var MealListView = Backbone.View.extend({
 
+    el: "#main-content",
+
     initialize: function () {
         this.render();
     },

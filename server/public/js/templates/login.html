@@ -1,13 +1,47 @@
+<!--<div class="wrapper row-fluid">
+
+	<div class="header span12">
+
+		<div id="brand">
+			<img src="http://placehold.it/400x100&text=Logo">
+		</div>
+
+		<hr>
+
+		<div id="login">
+			<a href="#" id="facebook-login-btn" class="btn btn-large">Login Facebook</a>
+			<a href="#" id="google-login-btn" class="btn btn-large">Login Google</a>
+		</div>
+
+		<hr>
+	</div>
+
+</div>-->
+
 <form role="form" class="form-signin" action="login" method="post" id="login">
 	<h2 class="form-signin-heading">Please sign in</h2>
 	<label class="control-label"></label>
 
-	<div class="form-group">
-		<input type="text" class="form-control" placeholder="Email address" autofocus="" name="email">
-		<input type="password" class="form-control" placeholder="Password" name="pass">
+	<div class="login-wrap">
+	<input type="text" class="form-control" placeholder="User ID" autofocus>
+	<input type="password" class="form-control" placeholder="Password">
+	<label class="checkbox">
+	    <input type="checkbox" value="remember-me"> Remember me
+	    <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
+	</label>
+	<button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
+	<p>or you can sign in via social network</p>
+	<div class="login-social-link">
+	    <a href="#" id="facebook-login-btn" class="facebook">
+	        <i class="icon-facebook"></i>
+	        Facebook
+	    </a>
+	    <a href="#" id="google-login-btn" class="twitter">
+	        <i class="icon-google-plus"></i>
+	        Google
+	    </a>
 	</div>
-						
-	<div class="btns-group">
-		<button class="btn btn-lg btn-primary btn-block" type="submit" id="signin">Sign in</button>
+
 	</div>
+
 </form>

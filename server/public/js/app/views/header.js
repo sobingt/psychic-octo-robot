@@ -3,30 +3,43 @@ define([
     'underscore',
     'backbone',
     'bootstrap',
+    'modernizr',
     'app/helpers/utils',
     'text!templates/header.html',
-], function($,_, Backbone, boostrap, utils, HeaderTemplate) {
+], function($,_, Backbone, boostrap, Modernizr, utils, HeaderTemplate) {
 
 
 var HeaderView = Backbone.View.extend({
 
-    template: _.template(HeaderTemplate),
+            el: '#header',
 
-    initialize: function () {
-        this.render();
-    },
+            template: _.template(HeaderTemplate),
 
-    render: function () {
-        $(this.el).html(this.template());
-        return this;
-    },
+            events: {
+                'click #logout-btn' : 'logout'
+            },
 
-    selectMenuItem: function (menuItem) {
-        $('.nav li').removeClass('active');
-        if (menuItem) {
-            $('.' + menuItem).addClass('active');
-        }
-    }
+            initialize: function() {
+                this.model.bind('change', this.render, this);
+            },
+
+            serialize: function() {
+                return this.model.toJSON();
+            },
+
+            logout: function() {
+                $.ajax('logout').done(function(data){
+                    window.location.hash = 'index';
+                });
+            },
+
+            selectMenuItem: function (menuItem) {
+                $('.nav li').removeClass('active');
+                if (menuItem) {
+                    $('.' + menuItem).addClass('active');
+                }
+            }  
+
 
 });
 
