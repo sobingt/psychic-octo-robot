@@ -1,39 +1,16 @@
     <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Foodbmg</a>
+    <div class="navbar navbar-inverse navbar-fixed-top	">
+      <div class="row">
+		<div class="col-md-1">
+		</div>
+        <div class="col-md-1">
+          <img src="../image/foodbmg.png" alt="" height="55">
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-
-          <ul class="nav pull-right top-menu" style="margin-right: 16%;">
-                    <!-- user login dropdown start-->
-                    <li >
-                            <!--<div class="profile-circle button ctrl" style="background-image: url('http://img.labnol.org/di/bo.jpg')">-->
-                            
-                          <!--</div>-->
+        <div class="col-md-7">
+            <input type="text" class="row" style="width: 100%;height: 36px;margin-top: 10px;font-size: 18px;">
+            <button class="btn" type="button" style="position: absolute;top: 11px;">Go!</button>
+		</div>
+		<div class="col-md-3">
                           <a id='profile-circle' class='button' style="background-image: url('<%= facebook.profile_picture %>?width=200&height=200')" tabindex='1'><span class="badge bg-success">6</span><span class="badge bg-important badge-right">6</span></a>
                           <ul class='tip ctrl'>
                             <li class='slice'><a href='#'><span class="icon-bell-alt"></span>
@@ -43,10 +20,6 @@
                             <li class='slice'><a href='#'><span class="icon-wrench"></span></a></li>
                             <li class='slice'><a id="logout-btn" href='#'><span class="icon-off"></span></a></li>
                         </ul>
-                    </li>
-                    <!-- user login dropdown end -->
-                </ul>
-
         </div><!--/.nav-collapse -->
       </div>
     </div>

@@ -4,8 +4,13 @@ define([
     'backbone',
     'bootstrap',
     'app/helpers/utils',
+	'app/models/payment',
+	'app/models/profile',
+	'app/views/header',
+	'app/views/paymentView',
     'app/views/reviewListView',
     'app/views/chefView',
+	'text!templates/payment.html',
     'text!templates/mealView.html',
     'text!templates/meal.html',
     'jqueryraty'
@@ -14,8 +19,13 @@ define([
             Backbone, 
             boostrap, 
             utils, 
+			Payment,
+			Profile,
+			HeaderView,
+			PaymentView,
             ReviewListView, 
-            ChefView, 
+            ChefView,
+			PaymentTemplate,
             MealEditTemplate, 
             MealTemplate) {
 
@@ -69,9 +79,32 @@ define([
             "change": "change",
             "click .save": "beforeSave",
             "click .delete": "deleteMeal",
-            "drop #picture": "dropHandler"
+            "drop #picture": "dropHandler",
+			"click #book":"bookMeal"
         },
 
+		bookMeal:function(){
+			//alert("inside my function");
+			console.log(this.model);
+			console.log(this.model.attributes);
+			console.log(this.model.attributes._id);
+			console.log(this.model.attributes.name);
+			console.log(this.model.attributes.cost.amount);
+			var profile = new Profile();
+            var headerView = new HeaderView.View({
+                model: profile
+            });
+            profile.fetch();
+            var payment = new Payment({
+                _id: null
+            });
+			
+            var paymentView = new PaymentView({
+                model: payment
+            });
+			payment.fetch();
+		},
+		
         change: function (event) {
             // Remove any existing alert message
             utils.hideAlert();

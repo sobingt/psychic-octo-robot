@@ -24,6 +24,7 @@ var express = require('express')
 , routes    = require('./app/controllers/')
 , user    = require('./app/controllers/user')
 , meal    = require('./app/controllers/meal')
+,transaction=require('./app/controllers/transaction')
 , FacebookStrategy  = require('passport-facebook').Strategy
 , GoogleStrategy    = require('passport-google-oauth').OAuth2Strategy
 , _         = require('Underscore');
@@ -273,6 +274,9 @@ app.get('/meals/:id', meal.findById);
 app.post('/meals', meal.addMeal);
 app.put('/meals/:id', meal.updateMeal);
 app.delete('/meals/:id', meal.deleteMeal);
+app.get('/payment',transaction.getTransaction);
+app.post('/payment',transaction.addTransaction);
+
 
 app.get('/me', user.getProfile);
 

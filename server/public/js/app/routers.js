@@ -14,6 +14,7 @@ define([
 'app/views/changePasswordView',
 'app/views/chatView',
 'app/views/addMealView',
+'app/views/homeView',
 'jqueryui',
 'datepicker',
 'date',
@@ -36,7 +37,8 @@ define([
     UserProfileView,
     ChangePasswordView,
     ChatView,
-    AddMealView
+    AddMealView,
+	HomeView
     ) {
         Backbone.Layout.configure({
             manage: true
@@ -80,6 +82,9 @@ define([
                 model: profile
             });
             profile.fetch();
+			
+			var homeView=new HomeView();
+			this.changeView(homeView);
 
         },
 
