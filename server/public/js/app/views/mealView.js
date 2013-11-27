@@ -85,24 +85,29 @@ define([
 
 		bookMeal:function(){
 			//alert("inside my function");
-			console.log(this.model);
+			/*console.log(this.model);
 			console.log(this.model.attributes);
 			console.log(this.model.attributes._id);
 			console.log(this.model.attributes.name);
-			console.log(this.model.attributes.cost.amount);
-			var profile = new Profile();
-            var headerView = new HeaderView.View({
-                model: profile
-            });
-            profile.fetch();
-            var payment = new Payment({
-                _id: null
-            });
-			
-            var paymentView = new PaymentView({
+			console.log(this.model.attributes.cost.amount);*/
+
+            var payment = new Payment();
+			//console.log(payment);
+			payment.fetch();
+			console.log(payment);
+			payment.set({
+			mealId:this.model.get('_id'),
+			itemName:this.model.get('name'),
+			itemDate:"",
+			itemAmount:this.model.get('cost').amount,
+			itemCurrency:this.model.get('cost').currency,
+			});
+			//payment.fetch();
+			payment.save();
+			var paymentView = new PaymentView({
                 model: payment
             });
-			payment.fetch();
+			paymentView.render();
 		},
 		
         change: function (event) {

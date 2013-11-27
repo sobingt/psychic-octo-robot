@@ -6,6 +6,7 @@ define([
 
         var Profile = Backbone.Model.extend({
             urlRoot: '/me'
+			
         });
 
         return Profile;

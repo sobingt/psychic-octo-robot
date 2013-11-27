@@ -7,6 +7,7 @@ var express = require('express')
 , mealmongodb = require('./routes/mealmongodb')
 , config = require('./config.js')
 , http = require('http')
+, https = require('https')
 , hbs = require('hbs')
 , mysql = require('mysql')
 , path = require('path')
@@ -274,11 +275,16 @@ app.get('/meals/:id', meal.findById);
 app.post('/meals', meal.addMeal);
 app.put('/meals/:id', meal.updateMeal);
 app.delete('/meals/:id', meal.deleteMeal);
+
+
 app.get('/payment',transaction.getTransaction);
 app.post('/payment',transaction.addTransaction);
+app.get('/paymentconfirm/:id',transaction.confirmTransaction);
 
 
 app.get('/me', user.getProfile);
+//app.get('/pay', user.getProfile);
+//app.post('/pay', user.getProfile);
 
 app.get('/users', mealmongodb.findAllUsers);
 app.get('/users/:id', mealmongodb.findUserById);
@@ -321,9 +327,21 @@ app.removeEventListener = function( eventName, callback ) {
 // Server
 var server = app.listen(app.get('port'));
 
+
+
 // Active listening and Socket.IO makes "global" access.
 io = socket.listen(server);
 
 server.listen(app.get('port'), function(){
   console.log("[Server][Express] OK : " + app.get('port'));
 });
+
+var httpsOptions = {
+    key: fs.readFileSync('path/to/private/key/ca.key'),
+    cert: fs.readFileSync('path/to/certs/key-cert.pem')
+}
+
+https.createServer(httpsOptions, app).listen(443,function () {
+    console.log("server listening on port " + 443);
+});
+

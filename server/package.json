@@ -19,6 +19,7 @@
     "passport": "0.1.16",
     "passport-facebook": "*",
     "passport-google-oauth": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "paypal-ipn": "*"
   }
 }

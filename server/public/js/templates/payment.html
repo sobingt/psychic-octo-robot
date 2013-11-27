@@ -1,0 +1,47 @@
+<div class="col-md-1">
+</div>
+<form id="paypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="business" value="foodbmg@gmail.com">
+<input type="hidden" name="cmd" value="_xclick">
+
+<input type="hidden" name="item_name" value="<%=itemName %>">
+<input type="hidden" id="email" name="email" value="dfsad@sds.com">
+<input type="hidden" name="amount" value="<%= itemAmount %>">
+
+<input type="hidden" name="no_shipping" value="1">
+<input type="hidden" name="currency_code" value="<%= itemCurrency %>">
+<input type="hidden" name="handling" value="0">
+<input type="hidden" name="cancel_return" value="http://localhost:4000/paymentcancel">
+<input type="hidden" name="return" value="https://localhost:443/paymentconfirm/<%= _id %>">
+	<div class="row">	
+            <blockquote>
+                <i class="icon-quote-left" style="size:10px; padding: 0 10px 0 5px"></i><%=itemName %><i class="icon-quote-right"></i>
+            </blockquote>
+    </div>
+	
+<div class="row">
+	<div class="col-md-2">
+		<div class="meal-stats meal-details-inner">
+                    <div class="price">
+                        <div class="statistics">
+                            <div class="symbols">
+                                <i class="icon-usd"></i>
+                            </div>
+                            <div class="statistics-pr">
+                                <%= itemAmount %>
+                                
+                            </div>
+                                <div class="stat-sm"><small>Per Person</small></div>
+                        </div>
+                    </div>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-4">
+		<button type="button" class="btn btn-success btn-lg btn-block" id="cancel">Cancel</button>
+</div>
+<div class="col-md-4">
+		<button type="submit" class="btn btn-success btn-lg btn-block" id="confirm">Confirm</button>
+</div>
+</form>
