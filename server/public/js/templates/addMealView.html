@@ -57,7 +57,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Meal Type</label>
-                            <input name="tagsinput" id="mealtype" class="tagsinput"/>
+                            <input name="meal_type" id="mealtype" class="tagsinput"/>
                             <select class="selecttag" data-default-value="Choose">
                                 <option value="Choose" selected="selected">Choose</option>
                                 <option value="breakfast">Breakfast</option>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Cuisine Type</label>
-                            <input name="tagsinput" id="cuisinetype" class="tagsinput"/>
+                            <input name="cuisine_type" id="cuisinetype" class="tagsinput"/>
                             <select class="selecttag">
                                 <option value="Choose" selected="selected">Choose</option>
                                 <option value="afgan">Afgan</option>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Dishes served</label>
-                            <input name="tagsinput" id="dishesserved" class="tagsinput"/>
+                            <input name="dishes" id="dishesserved" class="tagsinput"/>
                             <select class="selecttag">
                                 <option value="Choose" selected="selected">Choose</option>
                                 <option value="appetizers">Appetizers</option>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Alcochol</label>
-                            <input name="tagsinput" id="alcohol" class="tagsinput"/>
+                            <input name="alcohol" id="alcohol" class="tagsinput"/>
                             <select  class="selecttag">
                                 <option value="Choose" selected="selected">Choose</option>
                                 <option value="wine">Wine</option>
@@ -102,21 +102,23 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Your menu:</label>
                             <div class="col-lg-10">
-                                <textarea class="form-control" id="ownmenu" cols="60" rows="5" placeholder="e.g., &quot;My menu consists of 3 courses. For the first course I will be serving green herbs salad with Gorgonzola cheese dressing and ceviche made with the catch of the day. As a main dish, I will be serving roast beef with a side of grilled asparagus and creamed potatoes. And for dessert, a surprise with lots and lots of chocolate... There will be lots of red and white wine throughout the dinner, but if you are a beer fan, I'll have some cooled in the fridge. Menu is subject to changes based on produce I find in the local market.&quot;"></textarea>
+                                <textarea class="form-control" name="description" id="ownmenu" cols="60" rows="5" placeholder="e.g., &quot;My menu consists of 3 courses. For the first course I will be serving green herbs salad with Gorgonzola cheese dressing and ceviche made with the catch of the day. As a main dish, I will be serving roast beef with a side of grilled asparagus and creamed potatoes. And for dessert, a surprise with lots and lots of chocolate...&quot;"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Min-Max guests</label>
-                            <div id="slider-range" class="col-lg-6"></div>
+                            <div id="slider-range" class="col-lg-6" name="min-max-guests"></div>
                             <div class="slider-info">
                                 Min-Max guests:
                                 <span id="slider-range-amount"></span>
+                                <input type="hidden" name="min_allowed">
+                                <input type="hidden" name="max_allowed">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Event Duration:</label>
                             <!--<input name="tagsinput" id="tagsinput" class="tagsinput" value="Flat" />  -->
-                            <select id="eventduration">
+                            <select id="eventduration" name="duration">
                                 <option value="Choose" selected="selected">Choose</option>
                                 <option value="1 hour"> 1 hour</option>
                                 <option value="1.5 hour">1.5 hour</option>
@@ -126,7 +128,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Host With:</label>
-                            <select id="hostwith">
+                            <select id="hostwith" name="host_with">
                                 <option value="Choose" selected="selected">Choose</option>
                                 <option value="I host by myself"> I host by myself</option>
                                 <option value="I host with my family">I host with my family</option>
@@ -136,7 +138,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*How I host:</label>
-                            <select id="howihost">
+                            <select id="howihost" name="host_how">
                             <option value="Choose" selected="selected">Choose</option>
                             <option value="When I host I sit with my guests">When I host I sit with my guests</option>
                             <option value="When I host I just serve the meal">When I host I just serve the meal</option>
@@ -153,7 +155,7 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Address</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="eg. &quot; A/502 Shivling Borivali West &quot;" id="maploc">
+                                <input type="text" name="address.street" class="form-control" placeholder="eg. &quot; A/502 Shivling Borivali West &quot;" id="maploc">
                                 <!--<input type="button" value="Geocode" id="generate">-->
                             </div>
                         </div>
@@ -166,13 +168,13 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Apartment#</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="Apartment Number,Floor Number">
+                                <input type="text" name="address.apartment" class="form-control" placeholder="Apartment Number,Floor Number">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Directions</label>
                             <div class="col-lg-10">
-                                <textarea class="form-control" cols="60" rows="5" id="directions" placeholder="e.g., By Metro: Take the green line and get off at Cupcake station. When you exit the station, turn right. Walk 3 blocks until you reach Chocolate Alley Road. Turn right. We're the fifth house on the left with a bright red door."></textarea>
+                                <textarea class="form-control" name="address.floor" cols="60" rows="5" id="directions" placeholder="e.g., By Metro: Take the green line and get off at Cupcake station. When you exit the station, turn right. Walk 3 blocks until you reach Chocolate Alley Road. Turn right. We're the fifth house on the left with a bright red door."></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -193,21 +195,20 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">*Price per guest:</label>
                             <div class="col-lg-2">
-                                <input type="text" class="form-control" placeholder="25" id="priceperguest">
+                                <input type="text" class="form-control" placeholder="25" id="priceperguest" name="cost.amount">
                             </div>
-                            <select id="currency">
+                            <select id="currency" name="cost.currency">
                             <option value="Choose" selected="selected">Choose</option>
-                            <option value="When I host I sit with my guests">USD</option>
-                            <option value="When I host I just serve the meal">UKP</option>
-                            <option value="When I host I sit with the guests upon their request">INR</option>
+                            <option value="USD">USD</option>
+                            <option value="INR">INR</option>
                             <select>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Starts with years view</label>
+                            <label class="control-label col-sm-4">Date (Starts with years view)</label>
                             <div class="col-sm-6">
                                 <div class="input-append date" id="dpYears" data-date="12-02-2012"
                                     data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                    <input class="form-control" size="16" type="text" value="12-02-2012" readonly>
+                                    <input class="form-control" name="availability.date" size="16" type="text" value="12-02-2012" readonly>
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>
                             </div>

@@ -10,11 +10,11 @@ db = new Db('foodbmg', server, {safe: true});
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'foodbmg' database");
-        populateDB();
+        //populateDB();
         db.collection('meals', {safe:true}, function(err, collection) {
             if (err) {
                 console.log("The 'foodbmg' collection doesn't exist. Creating it with sample data...");
-                populateDB();
+                //populateDB();
             }
         });
     }

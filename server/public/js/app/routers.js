@@ -4,6 +4,7 @@ define([
 'app/models/meal',
 'app/models/profile',
 'app/models/users',
+'app/models/attendee',
 'app/views/header',
 'app/views/loginView',
 'app/views/mealView',
@@ -15,6 +16,7 @@ define([
 'app/views/chatView',
 'app/views/addMealView',
 'app/views/homeView',
+'app/views/mealAttendees',
 'jqueryui',
 'datepicker',
 'date',
@@ -28,6 +30,7 @@ define([
     Meals,
     Profile,
     Users,
+    Attendee,
     HeaderView,
     LoginView,
     MealView,
@@ -38,7 +41,8 @@ define([
     ChangePasswordView,
     ChatView,
     AddMealView,
-	HomeView
+	HomeView,
+    MealAttendee
     ) {
         Backbone.Layout.configure({
             manage: true
@@ -223,7 +227,7 @@ define([
         singleMeal: function (id) {
             var profile = new Profile();
             var headerView = new HeaderView.View({
-                model: profile
+                    model: profile
             });
             profile.fetch();
             var meal = new Meals.model({
@@ -232,6 +236,13 @@ define([
             var mealView = new MealView({
                 model: meal
             });
+            var attendee = new Attendee.model({
+                meal_id: id
+            });
+            var attendeeView = new MealAttendee.ListView({
+                model: attendee
+            });
+            attendee.fetch();
             meal.fetch({
                 success: function () {
                     function initialize() {
@@ -251,6 +262,11 @@ define([
                     google.maps.event.addDomListener(window, "load", initialize);
                 }
             });
+            attendee.fetch({
+                success: function () {
+
+                }
+            });
 
         },
 
@@ -267,10 +283,11 @@ define([
             var addMealView = new AddMealView({
                 model: meal
             });
-            meal.fetch();
+            this.changeView(addMealView);
+
             var lat;
             var lon;
-            $('#createmeal').stepy({
+            addMealView.$el.find('#createmeal').stepy({
                 backLabel: 'Previous',
                 block: true,
                 nextLabel: 'Next',
@@ -380,6 +397,8 @@ define([
                             $('#errordiv2').append("<p>Directions is required!!!</p>");
                             return false;
                         } else {
+                            //$("#latitude").val(lat);
+                            //$("#longitude").val(lon);   
                             console.log("lat is" + lat + "lon is" + lon);
                             console.log("amenities" + amenities);
                             return true;
@@ -442,7 +461,8 @@ define([
             }
         });
         $("#slider-range-amount").text($("#slider-range").slider("values", 0) + " - " + $("#slider-range").slider("values", 1));
-
+        $("#max_allowed").val($("#slider-range").slider("values", 1));
+        $("#min_allowed").val($("#slider-range").slider("values", 0));
         $('#dpYears').datepicker();
 
 

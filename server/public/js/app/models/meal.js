@@ -12,7 +12,7 @@ define([
 
             initialize: function () {
                 this.validators = {};
-
+/*
                 this.validators.name = function (value) {
                     return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a name"};
                 };
@@ -24,6 +24,7 @@ define([
                 this.validators.cuisine_type = function (value) {
                     return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a Cuisine Type"};
                 };
+                */
             },
 
             validateItem: function (key) {

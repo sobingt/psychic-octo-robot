@@ -4,6 +4,8 @@ define([
     'backbone',
     'bootstrap',
     'app/helpers/utils',
+    'app/routers',
+    'app/models/profile',
     'app/views/reviewListView',
     'app/views/chefView',
     'text!templates/addMealView.html',
@@ -18,6 +20,8 @@ define([
     Backbone,
     boostrap,
     utils,
+    Routers,
+    Profile,
     ReviewListView,
     ChefView,
     AddMealTemplate) {
@@ -33,13 +37,14 @@ define([
         },
 
         events: {
-            "click .save": "beforeSave",
+            //"click .save": "saveMeal",
             "submit form": "saveMeal",
             "drop #picture": "dropHandler"
         },
 
         initialize: function() {
             this.model.bind('change', this.render, this);
+
         },
 
         serialize: function() {
@@ -48,17 +53,22 @@ define([
 
         formSubmit: function () {
             var self = this;
-            console.log('before save');
-            this.model.save(null, {
+            console.log(this.model);
+            /*this.model.save(null, {
                 success: function (model) {
                     self.render();
-                    app.navigate('meals/' + model.id, false);
+                    this.navigate('meals/' + model.id, false);
                     utils.showAlert('Success!', 'Meal saved successfully', 'alert-success');
                 },
                 error: function () {
                     utils.showAlert('Error', 'An error occurred while trying to delete this item', 'alert-error');
                 }
-            });
+            }); */
+        },
+
+        color : function(){
+            $(this.el).find("label").css('color','red');
+
         },
 
         beforeSave: function () {
@@ -66,7 +76,6 @@ define([
             var check = this.model.validateAll();
             if (check.isValid === false) {
                 utils.displayValidationErrors(check.messages);
-                alert("ERROR");
                 console.log(check.messages);
                 return false;
             }
@@ -74,10 +83,30 @@ define([
             return false;
         },
 
-        saveMeal: function () {
+        saveMeal: function (e) {
             var self = this;
-            console.log('before save');
+            e.preventDefault();
+            var form_data = JSON.stringify( this.getFormData( this.$el.find('form') ) );
             this.model.save(null, {
+                success: function(model) {
+                    //self.render();
+
+
+                    // TO-DO fix the redirect to the created meal page
+
+
+                    Routers.navigate('meals/' + model.id, true);
+                    console.log('here' + model);
+                    ///return false;
+                    utils.showAlert('Success!', 'Meal saved successfully', 'alert-success');
+                },
+                error: function() {
+                    utils.showAlert('Error', 'An error occurred while trying to save this item', 'alert-error');     
+                }
+            });
+            //this.collection.add(this.model);
+            return false 
+            /*this.model.save(null, {
                 success: function (model) {
                     self.render();
                     app.navigate('meals/' + model.id, false);
@@ -86,7 +115,41 @@ define([
                 error: function () {
                     utils.showAlert('Error', 'An error occurred while trying to delete this item', 'alert-error');
                 }
+            }); */
+        },
+
+        getFormData: function(form) {
+            var unindexed_array = form.serializeArray();
+            var indexed_array = {};
+            
+            $.map(unindexed_array, function(n, i){
+                var temp = n['name'].split('.');
+                if ( temp.length > 1) {
+                    if (!indexed_array[temp[0]]) {
+                        indexed_array[temp[0]] = {};
+                        indexed_array[temp[0]][temp[1]] = n['value'];
+                    }
+                    else {
+                        indexed_array[temp[0]][temp[1]] = n['value'];
+                    }
+                }
+                else {
+                    indexed_array[n['name']] = n['value'];
+                }
             });
+            var profile = new Profile();
+            profile.fetch({
+                success: function(model) {
+                    var data = model.toJSON();
+                    indexed_array['host'] = {};
+                    indexed_array['host']['id'] = data._id;
+                    indexed_array['host']['fname'] = data.facebook.first_name;
+                    indexed_array['host']['lname'] = data.facebook.last_name;
+                    indexed_array['host']['email'] = data.email;
+                }
+            });
+            //this.model.set(indexed_array);
+            //return indexed_array;
         },
 
 

@@ -290,6 +290,7 @@ app.get('/users', mealmongodb.findAllUsers);
 app.get('/users/:id', mealmongodb.findUserById);
 app.put('/users/:id', mealmongodb.updateUser);
 
+app.get('/attendee/:meal_id', meal.findAttendeeByMealId);
 
 // routes
 app.get('/authentication', user.requiresLogin(app));
