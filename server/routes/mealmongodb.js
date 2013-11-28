@@ -104,9 +104,6 @@ exports.updateMeal = function(req, res) {
 exports.updateUser = function(req, res) {
     var id = req.params.id;
     var user = req.body;
-    console.log(req.body);
-    res.send(req.body);
-    delete user._id;
     console.log('Updating user: ' + id);
     console.log(JSON.stringify(user));
     db.collection('users', function(err, collection) {

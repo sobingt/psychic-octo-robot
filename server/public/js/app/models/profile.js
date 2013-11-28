@@ -5,8 +5,8 @@ define([
 ], function(Backbone) {
 
         var Profile = Backbone.Model.extend({
-            urlRoot: '/me'
-			
+            urlRoot: '/me',
+			idAttribute: "_id"
         });
 
         return Profile;

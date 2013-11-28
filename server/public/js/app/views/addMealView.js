@@ -87,6 +87,7 @@ define([
             var self = this;
             e.preventDefault();
             var form_data = JSON.stringify( this.getFormData( this.$el.find('form') ) );
+            console.log(form_data);
             this.model.save(null, {
                 success: function(model) {
                     //self.render();
@@ -148,8 +149,8 @@ define([
                     indexed_array['host']['email'] = data.email;
                 }
             });
-            //this.model.set(indexed_array);
-            //return indexed_array;
+            this.model.set(indexed_array);
+            return indexed_array;
         },
 
 

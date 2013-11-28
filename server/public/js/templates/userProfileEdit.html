@@ -31,25 +31,19 @@
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">About Me</label>
 						  <div class="col-lg-10">
-							  <textarea name="" id="" class="form-control" cols="30" rows="10" placeholder="<%= facebook.bio %>"></textarea>
+							  <textarea name="bio" id="" class="form-control" cols="30" rows="10" placeholder="Your Bio"><%= bio %></textarea>
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">First Name</label>
 						  <div class="col-lg-6">
-							  <input type="text" class="form-control" id="f-name" placeholder="<%= facebook.first_name %> ">
-						  </div>
-					  </div>
-					  <div class="form-group">
-						  <label  class="col-lg-2 control-label">Middle Name</label>
-						  <div class="col-lg-6">
-							  <input type="text" class="form-control" id="m-name" placeholder="<%= facebook.middle_name %> ">
+							  <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" value="<%= facebook.first_name %>">
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">Last Name</label>
 						  <div class="col-lg-6">
-							  <input type="text" class="form-control" id="l-name" placeholder="<%= facebook.last_name %> ">
+							  <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" value="<%= facebook.last_name %>">
 						  </div>
 					  </div>
 					  <div class="form-group">
@@ -64,39 +58,77 @@
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">My email id is</label>
 						  <div class="col-lg-6">
-							  <input type="text" class="form-control" id="email" placeholder="<%= email %> ">
+							  <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<%= email %>">
+						  </div>
+					  </div>
+					  <div class="form-group">
+						  <label  class="col-lg-2 control-label">My Phone Number is</label>
+						  <div class="col-lg-6">
+							  <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" value="<%= phone %>">
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">I am from</label>
 						  <div class="col-lg-6">
-							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="Mumbai" />
+							  <input name="city" id="tagsinput" class="tagsinput" value="<%= address.city %>" />
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">I love</label>
 						  <div class="col-lg-6">
-							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="Cooking,Meeting People" />
+							  <input name="hobbies" id="tagsinput" class="tagsinput" value="<%= hobbies %>" />
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">I work as</label>
 						  <div class="col-lg-6">
-							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="Waiter" />
+							  <input name="work.work" id="tagsinput" class="tagsinput" value="<% if (work.work) {%><%=  work.work%><% } %>" />
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">I work in</label>
 						  <div class="col-lg-6">
-							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="New Mumbai" />
+							  <input name="work.city" id="tagsinput" class="tagsinput" value="<% if (work.city) {%><%= work.city %><% } %>" />
 						  </div>
 					  </div>
 					  <div class="form-group">
 						  <label  class="col-lg-2 control-label">I speak</label>
 						  <div class="col-lg-6">
-							  <input name="tagsinput" id="tagsinput" class="tagsinput" value="English,Spanish,Thai" />
+							  <input name="languages" id="tagsinput" class="tagsinput" value="<% _.each(facebook.languages, function(language){%><%= language.name %> <% });%>" />
 						  </div>
 					  </div>
+					  <hr>
+					  <div class="form-group">
+                            <label class="col-lg-2 control-label">Street Address</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="address.street" class="form-control" placeholder="eg. &quot; A/502 Shivling Borivali West &quot;" id="maploc" value="<%= address.street %>">
+                                <!--<input type="button" value="Geocode" id="generate">-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Area</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="address.area" class="form-control" placeholder="Area" value="<%= address.area %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">City</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="address.city" class="form-control" placeholder="City" value="<%= address.city %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">State</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="address.state" class="form-control" placeholder="State" value="<%= address.state %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Country</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="address.country" class="form-control" placeholder="Country" value="<%=address.country %>">
+                            </div>
+                        </div>
 
 					  <div class="form-group">
 						  <div class="col-lg-offset-2 col-lg-10">

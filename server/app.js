@@ -283,6 +283,7 @@ app.get('/paymentconfirm/:id',transaction.confirmTransaction);
 
 
 app.get('/me', user.getProfile);
+app.put('/me/:id', mealmongodb.updateUser);
 //app.get('/pay', user.getProfile);
 //app.post('/pay', user.getProfile);
 
@@ -342,7 +343,7 @@ var httpsOptions = {
     cert: fs.readFileSync('path/to/certs/key-cert.pem')
 }
 
-https.createServer(httpsOptions, app).listen(443,function () {
-    console.log("server listening on port " + 443);
+ https.createServer(httpsOptions, app).listen(443,function () {
+     console.log("server listening on port " + 443);
 });
 
