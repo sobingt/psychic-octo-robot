@@ -4,7 +4,6 @@ define([
 'app/models/meal',
 'app/models/profile',
 'app/models/users',
-'app/models/attendee',
 'app/views/header',
 'app/views/loginView',
 'app/views/mealView',
@@ -16,11 +15,7 @@ define([
 'app/views/chatView',
 'app/views/addMealView',
 'app/views/homeView',
-'app/views/mealAttendees',
 'jqueryui',
-'datepicker',
-'date',
-'daterange',
 'jquerytags',
 'customcheck',
 'jquerytags'
@@ -30,7 +25,6 @@ define([
     Meals,
     Profile,
     Users,
-    Attendee,
     HeaderView,
     LoginView,
     MealView,
@@ -41,8 +35,7 @@ define([
     ChangePasswordView,
     ChatView,
     AddMealView,
-	HomeView,
-    MealAttendee
+	HomeView
     ) {
         Backbone.Layout.configure({
             manage: true
@@ -236,13 +229,6 @@ define([
             var mealView = new MealView({
                 model: meal
             });
-            var attendee = new Attendee.model({
-                meal_id: id
-            });
-            var attendeeView = new MealAttendee.ListView({
-                model: attendee
-            });
-            attendee.fetch();
             meal.fetch({
                 success: function () {
                     function initialize() {
@@ -262,11 +248,7 @@ define([
                     google.maps.event.addDomListener(window, "load", initialize);
                 }
             });
-            attendee.fetch({
-                success: function () {
-
-                }
-            });
+               
 
         },
 
@@ -410,7 +392,7 @@ define([
         $(".tagsinput").tagsInput();
         $('.tagsinput input').attr('disabled', 'disabled');
 
-        $('#maploc').change(function () {
+        $('#maploc').keypress(function () {
             $('#map').css("height", "230px");
             var latLong = new google.maps.LatLng(19.28, 70.80);
             var mapOptions = {
@@ -435,7 +417,7 @@ define([
                         position: results[0].geometry.location
                     });
                 } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
+                   // alert('Geocode was not successful for the following reason: ' + status);
                 }
             });
         });
@@ -446,11 +428,63 @@ define([
             if (selectedvalue !== 'Choose') {
                 if (!(parents.find('.tagsinput').tagExist(selectedvalue))) {
                     parents.find('.tagsinput').addTag(selectedvalue);
+					//parents.find('.addbutton').css('visibility', 'visible');
+					parents.children('.tagsinput').append('<button type="button" class="btn addbutton"><i class="icon-plus"></i></button>');
+					$(this).css('visibility', 'hidden');
                 }
             }
             $(".selecttag").val($(".selecttag").data("default-value"));
+			
+			$(".addbutton").on('click',function(){
+					//alert("hi");
+					$(this).parent().parent().find('.selecttag').css('visibility', 'visible');
+					$(this).remove();
+			});
+			
         });
-
+		
+		$('#pictures').change(function(){
+			//alert("hi");
+			var preview=$("#preview");
+			var x=$(this).get(0).files[0];
+			//alert(x);
+			//var fileList=$(this).files;
+			//alert(fileL4ist);
+			//var numFiles=x.length;
+			//alert(numFiles);
+			
+			
+			var img = document.createElement("img");
+			img.classList.add("obj");
+			img.file = $(this).get(0).files[0];
+			preview.append(img);
+    
+			var reader = new FileReader();
+			reader.onload = (function(aImg) { 
+						return function(e) { 
+									aImg.src = e.target.result; 
+									};
+							})(img);
+			reader.readAsDataURL($(this).get(0).files[0]);
+		
+		});
+		
+		
+		$('.addrepeatmeal').on('click',function(){
+				var date=$("#datepicker").val();
+				var time=$("#time").val();
+				var repeat=$("#repeat").val();
+				var parent=$(this).parent();
+				var bigdiv='<div class="row"><div class="col-lg-2"><input type="text" class="form-control" value='+date+' disabled="disabled"></div><div class="col-lg-1"><input type="text" class="form-control" value='+time+' disabled="disabled"></div><div class="col-lg-2"><input type="text" class="form-control" value='+repeat+' disabled="disabled"></div><div class="col-lg-1"><button type="button" class="btn deletebutton"><i class="icon-remove"></i></button></div></div>';
+				parent.prepend(bigdiv);
+				
+				$('.deletebutton').on('click',function(){
+					var parent=$(this).parent().parent();
+					parent.remove();
+				});
+		
+		});
+		
         $("#slider-range").slider({
             range: true,
             min: 0,
@@ -463,7 +497,7 @@ define([
         $("#slider-range-amount").text($("#slider-range").slider("values", 0) + " - " + $("#slider-range").slider("values", 1));
         $("#max_allowed").val($("#slider-range").slider("values", 1));
         $("#min_allowed").val($("#slider-range").slider("values", 0));
-        $('#dpYears').datepicker();
+        $('#datepicker').datepicker();
 
 
     },
