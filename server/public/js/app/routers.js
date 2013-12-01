@@ -15,6 +15,7 @@ define([
 'app/views/chatView',
 'app/views/addMealView',
 'app/views/homeView',
+'app/views/congratsView',
 'jqueryui',
 'jquerytags',
 'customcheck',
@@ -35,7 +36,8 @@ define([
     ChangePasswordView,
     ChatView,
     AddMealView,
-	HomeView
+	HomeView,
+	CongratsView
     ) {
         Backbone.Layout.configure({
             manage: true
@@ -60,6 +62,7 @@ define([
                 'meals/page/:page': 'meallist',
                 'meal/add': 'addMeal',
                 'meal/:id': 'singleMeal',
+				'congrats':'congrats'
             },
         // Function that loads the views, clearing the view of past events.
         changeView: function (view) {
@@ -216,6 +219,16 @@ define([
             var meallistView = new MealList.ListView({model: mealList, page: p});
             
         },
+		
+		congrats:function(){
+			var profile = new Profile();
+            var headerView = new HeaderView.View({
+                    model: profile
+            });
+			profile.fetch();
+			var congratsView=new CongratsView();
+			
+		},
 
         singleMeal: function (id) {
             var profile = new Profile();
@@ -358,6 +371,8 @@ define([
                             $('#errordiv').append("<p>How I Host option is required!!!</p>");
                             return false;
                         } else {
+								//CODE TO UPLOAD THE IMAGES
+							
                             return true;
                         }
                     } //end of validation page 1
@@ -376,10 +391,10 @@ define([
                             return false;
                         } else if (directions === "") {
                             $('#errordiv2').html("");
-                            $('#errordiv2').append("<p>Directions is required!!!</p>");
+                            $('#errordiv2').append("<p>Directions is required!!!!!!common guys lets do it!!!!!</p>");
                             return false;
                         } else {
-                            //$("#latitude").val(lat);
+                            //$("#latitude").val(lat);dhjdhddjhdh
                             //$("#longitude").val(lon);   
                             console.log("lat is" + lat + "lon is" + lon);
                             console.log("amenities" + amenities);
@@ -475,8 +490,13 @@ define([
 				var time=$("#time").val();
 				var repeat=$("#repeat").val();
 				var parent=$(this).parent();
-				var bigdiv='<div class="row"><div class="col-lg-2"><input type="text" class="form-control" value='+date+' disabled="disabled"></div><div class="col-lg-1"><input type="text" class="form-control" value='+time+' disabled="disabled"></div><div class="col-lg-2"><input type="text" class="form-control" value='+repeat+' disabled="disabled"></div><div class="col-lg-1"><button type="button" class="btn deletebutton"><i class="icon-remove"></i></button></div></div>';
+				if(time!=="ChooseTime"){
+				var bigdiv='<div class="row"><div class="col-lg-2"><input type="text" name="availabiltiy.date" class="form-control" value='+date+' disabled="disabled"></div><div class="col-lg-1"><input type="text" name="availability.time" class="form-control" value='+time+' disabled="disabled"></div><div class="col-lg-2"><input type="text" name="availability.repeat" class="form-control" value='+repeat+' disabled="disabled"></div><div class="col-lg-1"><button type="button" class="btn deletebutton"><i class="icon-remove"></i></button></div></div>';
 				parent.prepend(bigdiv);
+				}
+				
+				$("#time").val($("#time").data("default-value"));
+				$("#repeat").val($("#repeat").data("default-value"));
 				
 				$('.deletebutton').on('click',function(){
 					var parent=$(this).parent().parent();
